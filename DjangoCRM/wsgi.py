@@ -18,13 +18,14 @@ https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 
 import os
 from django.core.wsgi import get_wsgi_application
-from django.contrib.auth.models import User
-from team.models import Team
-from userprofile.models import UserProfile
 
 os.environ.setdefault(
     'DJANGO_SETTINGS_MODULE',
     'DjangoCRM.settings')
+
+from django.contrib.auth.models import User
+from team.models import Team
+from userprofile.models import UserProfile
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
