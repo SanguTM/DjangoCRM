@@ -23,3 +23,6 @@ https://stackoverflow.com/questions/72131424/django-create-a-superuser-in-a-data
     <!--{% if team.leads.count < team.plan.max_leads %}-->
     {% else %}
     {% endif %}
+
+
+https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
