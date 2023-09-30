@@ -1,0 +1,30 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}Add lead{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <h1>Add lead</h1>
+    Your team: {{ team.name }}
+    Num leads: {{ team.leads.count }}
+    Max: {{ team.plan.max_leads }}
+
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <button class="p-3 rounded text-dark bd-orange-400">Submit</button>
+
+    </form>
+
+
+    {{ team.name }}
+
+    <p>You reached your limit!</p>
+
+</div>
+
+
+{% endblock %}

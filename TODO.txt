@@ -1,0 +1,25 @@
+CRM 
+https://www.youtube.com/playlist?list=PLpyspNLjzwBka94O3ABYcRYk8IaBR8hXZ
+Helpdesk
+https://www.youtube.com/watch?v=xriCKexNT6s
+Live chat
+https://www.youtube.com/watch?v=9e7CTR2Ya4Y
+Emailing system
+https://www.youtube.com/playlist?list=PLEoCKCuqTqMjUEt7Gz7LiRRR3GONXl6oL
+
+Sukurti default team`a
+Padaryti SEO 
+Padaryti basic dizaina
+Neleisti zmonem kurie nepriklauso teamui pamatyti client
+
+
+Sukurti superuser ant pirmos migracijios:
+https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-django
+
+https://vuyisile.com/how-to-automate-creating-a-django-super-user/
+https://stackoverflow.com/questions/72131424/django-create-a-superuser-in-a-data-migration
+
+
+    <!--{% if team.leads.count < team.plan.max_leads %}-->
+    {% else %}
+    {% endif %}

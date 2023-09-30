@@ -1,0 +1,42 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<form method="post" action=".">
+
+    <button class="p-3 rounded text-dark bd-orange-400">Dashboard</button>
+</form>
+
+
+<div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
+    <div class="leads">
+        <h2 class="">LEADS</h2>
+        {% for lead in leads %}
+        <p>
+            <h3 class="">{{ lead.name }} </h3>
+            <p>
+                Status: {{ lead.get_status_display }}
+            </p>
+            <p>
+                Priority: {{ lead.get_priority_display }}
+            </p>
+            <a href="{% url 'leads:detail' lead.id %}">Details</a>
+        </p>
+           
+        {% endfor %}
+    </div>
+    <div class="clients">
+        <h2 class="">CLIENTS</h2>
+        {% for client in clients %}
+        <p>
+            <h3 class="">{{ client.name }} </h3>
+            <a href="{% url 'clients:detail' client.id %}">Details</a>
+        </p>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

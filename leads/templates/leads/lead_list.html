@@ -1,0 +1,40 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}Leads{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <h1>Leads</h1>
+
+    <a href="{% url 'leads:add' %}" class="d-inline-block p-3 rounded text-dark bd-orange-500">Add Lead</a>
+
+
+    <div class="d-flex justify-content-between bd-orange-100">
+        <p>Name</p>
+        <p>Priority</p>
+        <p>Status</p>
+        <p>Is client</p>
+
+    </div>
+    {% for lead in object_list %}
+    <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
+        <p>
+            <a href="{% url 'leads:detail' lead.id %}">{{ lead.name }}</a>
+        </p>
+        <p>{{ lead.get_priority_display }}</p>
+        <p>{{ lead.get_status_display }}</p>
+        <p>{{ lead.is_client }}</p>
+
+    </div>
+    {% empty %}
+    <p>We have no leads</p>
+
+    {% endfor %}
+    <!--https://www.youtube.com/watch?v=LkVA3AWmkQQ
+        Duomenu filtravimas-->
+
+</div>
+
+
+{% endblock %}

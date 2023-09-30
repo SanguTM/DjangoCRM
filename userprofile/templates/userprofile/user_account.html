@@ -1,0 +1,33 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}My account{% endblock %}
+
+{% block content %}
+<h1>My account</h1>
+
+<form method="post" action=".">
+    {% csrf_token %}
+
+    <p>
+        <strong>Username: </strong>{{ request.user.username }}
+    </p>
+
+    <p class="mb-2">
+        {% if active_team %}
+            <strong>Team: </strong><a href="{% url 'teams:detail' active_team.id %}">{{ active_team.name }}</a>
+
+            {% if active_team.created_by == request.user %}
+                <a href="{% url 'teams:edit' active_team.id %}">(Edit)</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'teams:list' %}">Select team</a>
+        {% endif %}
+    </p>
+
+
+    <a href="{% url 'logout' %}" class="p-3 rounded text-dark bd-red-400">Log out</a>
+</form>
+{% endblock %}
+
+
+

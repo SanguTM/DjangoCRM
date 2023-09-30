@@ -1,0 +1,75 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}{{ client.name }}{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <p class="font-weight-bold">Name</p>
+    <h1>{{ client.name }}</h1>
+
+    {% if client.description %}
+    <p class="font-weight-bold">Description</p>
+    <p>{{ client.description }}</p>
+    {% endif %}
+    <p class="font-italic">Created at</p>
+    <p>{{ client.created_at|date:"M-d-Y H:i" }}</p>
+
+    <p class="font-italic">Modified at</p>
+    <p>{{ client.modified_at }}</p>
+
+    <a href="{% url 'clients:list' %}" class="p-3 rounded text-dark bd-orange-500">Clients</a>
+
+    <a href="{% url 'clients:delete' client.id %}" class="p-3 rounded text-dark bd-orange-500">Delete</a>
+    <a href="{% url 'clients:edit' client.id %}" class="p-3 rounded text-dark bd-orange-500">Edit</a>
+
+
+    <h2>Comments:</h2>
+    <hr class="my-4">
+
+    <div class="space-y-4">
+        {% for comment in client.comments.all %}
+
+        <div class="bd-green-200 px-6">
+            <p>{{ comment.created_by }}</p>
+            <p>{{ comment.created_at }}</p>
+            <p>{{ comment.content }}</p>
+
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+    <form method="post" action="{% url 'clients:add-comment' client.id %}">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="p-3 rounded text-dark bd-orange-400">Submit</button>
+    </form>
+
+    <h2>Files:</h2>
+
+    <div class="space-y-4">
+        {% for file in client.files.all %}
+
+        <div class="bd-green-200 px-6">
+            <p>{{ comment.created_by }}</p>
+            <p>{{ comment.created_at }}</p>
+            <a href="{{ file.file.url }}">Download</a>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    <hr class="my-4">
+    <form method="post" action="{% url 'clients:add-file' client.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ fileform.as_p }}
+
+        <button class="py-2 px-4 rounded-xl bd-orange-400 text-white">Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}Edit lead{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <h1>Edit lead</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <button class="p-3 rounded text-dark bd-orange-400">Submit</button>
+
+    </form>
+</div>
+
+
+{% endblock %}
