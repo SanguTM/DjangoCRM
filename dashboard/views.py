@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from leads.models import Lead
 from client.models import Client
-from team.models import Team
 
 
 # Create your views here.

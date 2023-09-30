@@ -3,7 +3,6 @@ Definition of urls for DjangoCRM.
 """
 
 from datetime import datetime
-import imp
 from django.urls import path, include
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
