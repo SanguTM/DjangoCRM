@@ -17,12 +17,14 @@ https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 """
 
 import os
+import django
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault(
     'DJANGO_SETTINGS_MODULE',
     'DjangoCRM.settings')
 
+django.setup()
 from django.contrib.auth.models import User
 from team.models import Team
 from userprofile.models import UserProfile
