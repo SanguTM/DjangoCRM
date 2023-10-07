@@ -14,6 +14,9 @@ def signup(request):
         form = SignupForm(request.POST)
 
         if form.is_valid():
+            user = form.save(commit=False)
+            user.is_customer = True
+            user.is_manager = False
             user = form.save()
             
             #sukuriam user, issiloginam nes kitaip gausim annonomous user su id 0 ir tik tada darom su juo veiksmus

@@ -48,7 +48,7 @@ class Lead(models.Model):
 class LeadFile(models.Model):
     team = models.ForeignKey(Team, related_name='lead_files', on_delete=models.CASCADE, null=True, blank=True)
     lead = models.ForeignKey(Lead, related_name='files', on_delete=models.CASCADE, null=True, blank=True)
-    file = models.FileField(upload_to='leadfiles', null=True, blank=True)
+    file = models.FileField(upload_to='lead_files', null=True, blank=True)
     created_by = models.ForeignKey(User, related_name='lead_files', on_delete=models.CASCADE)
     #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='lead_files', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

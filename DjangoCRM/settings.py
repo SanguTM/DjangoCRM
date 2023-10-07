@@ -81,11 +81,22 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'console',
         },
+        'applogfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'DjangoCRM.log'),
+            'maxBytes': 1024*1024*15, # 15MB
+            'backupCount': 10,
+        },
     },
     'loggers': {
         '': {
             'level': 'INFO',
             'handlers': ['console'],
+        },
+        'applogfile': {
+            'level': 'INFO',
+            'handlers': ['applogfile'],
         },
     },
 }

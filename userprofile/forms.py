@@ -5,23 +5,21 @@ from user.models import User
 
 INPUT_CLASS = 'w-full py-4, px-6 rounded-xl'
 
-class LoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'Your username',
-        'class': INPUT_CLASS
-    }))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder': 'Your password',
-        'class': INPUT_CLASS
-    }))
-
 class SignupForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
     
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
+        'class': INPUT_CLASS
+    }))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Your first name',
+        'class': INPUT_CLASS
+    }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Your last name',
         'class': INPUT_CLASS
     }))
     email = forms.CharField(widget=forms.EmailInput(attrs={
@@ -34,5 +32,16 @@ class SignupForm(UserCreationForm):
     }))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Repeat password',
+        'class': INPUT_CLASS
+    }))
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Your username',
+        'class': INPUT_CLASS
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Your password',
         'class': INPUT_CLASS
     }))

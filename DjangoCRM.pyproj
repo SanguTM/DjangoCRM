@@ -95,6 +95,9 @@
     <Compile Include="team\__init__.py" />
     <Compile Include="ticket\admin.py" />
     <Compile Include="ticket\apps.py" />
+    <Compile Include="ticket\form.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ticket\migrations\__init__.py" />
     <Compile Include="ticket\models.py" />
     <Compile Include="ticket\tests.py" />

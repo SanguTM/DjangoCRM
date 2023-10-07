@@ -12,6 +12,7 @@ def dashboard(request):
     ##rodo paskutinius 5 sukurtus leads ir clients
     leads = Lead.objects.filter(team=team).order_by('-created_at')[0:5]
     clients = Client.objects.filter(team=team).order_by('-created_at')[0:5]
+   
     
     return render(request, 'dashboard/dashboard.html', {
         'leads': leads,

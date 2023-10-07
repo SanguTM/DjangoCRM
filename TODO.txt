@@ -29,3 +29,6 @@ https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on
 
 
 https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
+
+
+https://www.youtube.com/watch?v=xriCKexNT6s - 28,46
