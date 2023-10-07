@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from user.models import User
 
 from team.models import Team
 
@@ -36,6 +38,7 @@ class Lead(models.Model):
     status = models.CharField(max_length=10, choices=CHOICES_STATUS, default=NEW)
     is_client = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, related_name='leads', on_delete=models.CASCADE)
+    #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='leads', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     
@@ -47,6 +50,7 @@ class LeadFile(models.Model):
     lead = models.ForeignKey(Lead, related_name='files', on_delete=models.CASCADE, null=True, blank=True)
     file = models.FileField(upload_to='leadfiles', null=True, blank=True)
     created_by = models.ForeignKey(User, related_name='lead_files', on_delete=models.CASCADE)
+    #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='lead_files', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -58,6 +62,7 @@ class Comment(models.Model):
     lead = models.ForeignKey(Lead, related_name='comments', on_delete=models.CASCADE, null=True, blank=True)
     content = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='lead_comments', on_delete=models.CASCADE)
+    #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='lead_comments', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

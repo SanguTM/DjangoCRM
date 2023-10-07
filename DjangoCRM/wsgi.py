@@ -25,9 +25,10 @@ os.environ.setdefault(
     'DjangoCRM.settings')
 
 django.setup()
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from user.models import User
+from userprofile.models import UserProfile 
 from team.models import Team
-from userprofile.models import UserProfile
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

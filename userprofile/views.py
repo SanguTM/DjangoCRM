@@ -11,7 +11,7 @@ from .forms import SignupForm
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignupForm(request.POST)
 
         if form.is_valid():
             user = form.save()
@@ -27,7 +27,7 @@ def signup(request):
 
             return redirect('/log-in')
     else:
-        form = UserCreationForm()
+        form = SignupForm()
 
     return render(request, 'userprofile/signup.html', {
         'form': form

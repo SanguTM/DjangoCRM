@@ -1,10 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+from user.models import User
 from team.models import Team
 # Create your models here.
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='userprofile', on_delete=models.CASCADE)
+    #user = models.OneToOneField(to=settings.AUTH_USER_MODEL, related_name='userprofile', on_delete=models.CASCADE)
     active_team = models.ForeignKey(Team, related_name='userprofile', blank=True, null=True, on_delete=models.CASCADE)
     
     def __str__(self):

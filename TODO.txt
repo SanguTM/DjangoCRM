@@ -26,3 +26,6 @@ https://stackoverflow.com/questions/72131424/django-create-a-superuser-in-a-data
 
 
 https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
+
+
+https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f

@@ -93,6 +93,16 @@
     </Compile>
     <Compile Include="team\views.py" />
     <Compile Include="team\__init__.py" />
+    <Compile Include="ticket\admin.py" />
+    <Compile Include="ticket\apps.py" />
+    <Compile Include="ticket\migrations\__init__.py" />
+    <Compile Include="ticket\models.py" />
+    <Compile Include="ticket\tests.py" />
+    <Compile Include="ticket\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ticket\views.py" />
+    <Compile Include="ticket\__init__.py" />
     <Compile Include="userprofile\admin.py" />
     <Compile Include="userprofile\apps.py" />
     <Compile Include="userprofile\forms.py">
@@ -106,6 +116,13 @@
     </Compile>
     <Compile Include="userprofile\views.py" />
     <Compile Include="userprofile\__init__.py" />
+    <Compile Include="user\admin.py" />
+    <Compile Include="user\apps.py" />
+    <Compile Include="user\migrations\__init__.py" />
+    <Compile Include="user\models.py" />
+    <Compile Include="user\tests.py" />
+    <Compile Include="user\views.py" />
+    <Compile Include="user\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
@@ -135,10 +152,18 @@
     <Folder Include="team\migrations\" />
     <Folder Include="team\templates\" />
     <Folder Include="team\templates\team\" />
+    <Folder Include="ticket\" />
+    <Folder Include="ticket\migrations\" />
+    <Folder Include="ticket\templates\" />
+    <Folder Include="ticket\templates\ticket\" />
     <Folder Include="userprofile\" />
     <Folder Include="userprofile\migrations\" />
     <Folder Include="userprofile\templates\" />
     <Folder Include="userprofile\templates\userprofile\" />
+    <Folder Include="user\" />
+    <Folder Include="user\migrations\" />
+    <Folder Include="user\templates\" />
+    <Folder Include="user\templates\user\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\base.html" />
@@ -187,10 +212,12 @@
     <Content Include="team\templates\team\edit_team.html" />
     <Content Include="team\templates\team\team_detail.html" />
     <Content Include="team\templates\team\team_list.html" />
+    <Content Include="ticket\templates\ticket\index.html" />
     <Content Include="userprofile\templates\userprofile\index.html" />
     <Content Include="userprofile\templates\userprofile\login.html" />
     <Content Include="userprofile\templates\userprofile\signup.html" />
     <Content Include="userprofile\templates\userprofile\user_account.html" />
+    <Content Include="user\templates\user\index.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">

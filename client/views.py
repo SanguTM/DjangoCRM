@@ -29,10 +29,16 @@ def clients_detail(request, pk):
         
         if form.is_valid():
             comment = form.save(False)
-            #comment.created_by = request.user
             comment.team = request.user.userprofile.active_team
-            comment.client = client
+            comment.created_by = request.user
+            comment.client_id = pk
             comment.save()
+
+            #comment = form.save(False)
+            #comment.created_by = request.user
+            #comment.team = request.user.userprofile.active_team
+            #comment.client = client
+            #comment.save()
             
             return redirect('clients:detail', pk=pk)
     else:

@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+#from django.contrib.auth.models import User
+from user.models import User
 from team.models import Team
 
 ##https://docs.djangoproject.com/en/4.2/ref/models/fields/
@@ -11,6 +13,7 @@ class Client(models.Model):
     phone = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='clients', on_delete=models.CASCADE)
+    #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='clients', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     
@@ -26,6 +29,7 @@ class Comment(models.Model):
     client = models.ForeignKey(Client, related_name='comments', on_delete=models.CASCADE, null=True, blank=True)
     content = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='client_comments', on_delete=models.CASCADE)
+    #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='client_comments', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -36,6 +40,7 @@ class ClientFile(models.Model):
     client = models.ForeignKey(Client, related_name='files', on_delete=models.CASCADE, null=True, blank=True)
     file = models.FileField(upload_to='clientfiles', null=True, blank=True)
     created_by = models.ForeignKey(User, related_name='client_files', on_delete=models.CASCADE)
+    #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='client_files', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
