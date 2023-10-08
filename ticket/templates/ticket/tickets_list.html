@@ -1,0 +1,52 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}Tickets list{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <h1>Tickets list</h1>
+
+    <a href="{% url 'tickets:add' %}" class="d-inline-block p-3 rounded text-dark bd-orange-500">Add ticket</a>
+
+
+    <div class="d-flex justify-content-between bd-orange-100">
+        <p>Name</p>
+    </div>
+    {% for ticket in tickets %}
+    <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
+
+        <tr>
+            <td>{{ ticket.ticket_number }}</td>
+            <td><a href="{% url 'tickets:detail' ticket.id %}">{{ ticket.title }}</a></td>
+            <td>{{ ticket.created_at }}</td>
+            <td>{{ ticket.assign_to }}</td>
+            {% if ticket.status == 'Active' %}
+            <td>
+                <span class="badge bg-success"></span>> {{ ticket.status }}
+            </td>
+            {% elif ticket.status == 'Pending' %}
+            <td>
+                <span class="badge bg-success"></span>> {{ ticket.status }}
+            </td>
+            {% elif ticket.status == 'Pending' %}
+            <td>
+                <span class="badge bg-success"></span>> {{ ticket.status }}
+            </td>
+            {% endif %}
+
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.priority }}</td>
+        </tr>
+    </div>
+    {% empty %}
+    <p>You have no tickets</p>
+
+    {% endfor %}
+    <!--https://www.youtube.com/watch?v=LkVA3AWmkQQ
+        Duomenu filtravimas-->
+
+</div>
+
+
+{% endblock %}

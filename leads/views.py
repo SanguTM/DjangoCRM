@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
@@ -14,16 +14,25 @@ from .models import Lead
 
 from .forms import AddLeadForm, AddCommentForm, AddFileForm
 
-class LeadListView(LoginRequiredMixin, ListView):
+
+class ManagementRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_manager
+    
+    def handle_no_permission(self):
+        messages.error(self.request, 'You have no access to the page')
+        return redirect('dashboard:index')
+
+class LeadListView(ManagementRequiredMixin, ListView):
     model = Lead
-     
+    
     def get_queryset(self):
         queryset = super(LeadListView, self).get_queryset()
         team = self.request.user.userprofile.active_team
         
         return queryset.filter(team=team) #is_client=False)
         
-class LeadDetailView(LoginRequiredMixin, DetailView):
+class LeadDetailView(ManagementRequiredMixin, DetailView):
     model = Lead
     
     def get_context_data(self, **kwargs):
@@ -41,7 +50,7 @@ class LeadDetailView(LoginRequiredMixin, DetailView):
         #return queryset.filter(created_by=self.request.user, pk=self.kwargs.get('pk'))
         return queryset.filter(team=team, pk=self.kwargs.get('pk'))
     
-class LeadDeleteView(LoginRequiredMixin, DeleteView):
+class LeadDeleteView(ManagementRequiredMixin, DeleteView):
     model = Lead
     success_url = reverse_lazy('leads:list')
 
@@ -59,7 +68,7 @@ class LeadDeleteView(LoginRequiredMixin, DeleteView):
         
         return self.post(request, *args, **kwargs)
     
-class LeadUpdateView(LoginRequiredMixin, UpdateView):
+class LeadUpdateView(ManagementRequiredMixin, UpdateView):
     model = Lead
     form_class = AddLeadForm
     #fields = ('name', 'email', 'phone', 'description', 'priority', 'status')
@@ -86,7 +95,7 @@ class LeadUpdateView(LoginRequiredMixin, UpdateView):
         
         return queryset.filter(team=team, pk=self.kwargs.get('pk'))
     
-class LeadCreateView(LoginRequiredMixin, CreateView):
+class LeadCreateView(ManagementRequiredMixin, CreateView):
     model = Lead
     form_class = AddLeadForm
     #fields = ('name', 'email', 'phone', 'description', 'priority', 'status')
@@ -111,7 +120,7 @@ class LeadCreateView(LoginRequiredMixin, CreateView):
         
         return redirect(self.success_url)
     
-class LeadConvertView(LoginRequiredMixin, View):
+class LeadConvertView(ManagementRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         
@@ -146,7 +155,7 @@ class LeadConvertView(LoginRequiredMixin, View):
     
         return redirect('leads:list')
     
-class AddCommentView(LoginRequiredMixin, View):
+class AddCommentView(ManagementRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         pk = kwargs.get('pk')         
 
@@ -164,7 +173,7 @@ class AddCommentView(LoginRequiredMixin, View):
         
         return redirect('leads:detail', pk=pk)
 
-class AddFileView(LoginRequiredMixin, View):
+class AddFileView(ManagementRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         pk = kwargs.get('pk')         
         

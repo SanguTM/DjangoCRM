@@ -1,0 +1,36 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}Tickets workspace{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <h1>Tickets workspace</h1>
+
+    <div class="d-flex justify-content-between bd-orange-100">
+        <p>Name</p>
+    </div>
+    {% for ticket in tickets %}
+    <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
+        <p>
+            {{ ticket.ticket_number }}
+            <a href="{% url 'tickets:detail' ticket.id %}">{{ ticket.title }}</a>
+            {{ ticket.created_at }}
+            {{ ticket.assign_to }}
+            {{ ticket.status }}
+            {{ ticket.priority }}
+
+        </p>
+
+    </div>
+    {% empty %}
+    <p>You have no tickets</p>
+
+    {% endfor %}
+    <!--https://www.youtube.com/watch?v=LkVA3AWmkQQ
+        Duomenu filtravimas-->
+
+</div>
+
+
+{% endblock %}

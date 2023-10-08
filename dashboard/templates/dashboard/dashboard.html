@@ -10,6 +10,7 @@
     <button class="p-3 rounded text-dark bd-orange-400">Dashboard</button>
 </form>
 
+{% if request.user.is_manager %}
 
 <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
     <div class="leads">
@@ -17,15 +18,15 @@
         {% for lead in leads %}
         <p>
             <h3 class="">{{ lead.name }} </h3>
-            <p>
-                Status: {{ lead.get_status_display }}
-            </p>
-            <p>
-                Priority: {{ lead.get_priority_display }}
-            </p>
-            <a href="{% url 'leads:detail' lead.id %}">Details</a>
+        <p>
+            Status: {{ lead.get_status_display }}
         </p>
-           
+        <p>
+            Priority: {{ lead.get_priority_display }}
+        </p>
+        <a href="{% url 'leads:detail' lead.id %}">Details</a>
+        </p>
+
         {% endfor %}
     </div>
     <div class="clients">
@@ -39,4 +40,11 @@
 
     </div>
 </div>
-{% endblock %}
+{% elif request.user.is_customer %}
+<h6>CUSTOMER</h6>
+
+{% endif %}
+
+    {% endblock %}
+
+

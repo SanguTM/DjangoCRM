@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 # Middleware framework
@@ -175,3 +177,6 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 AUTH_USER_MODEL = 'user.User'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

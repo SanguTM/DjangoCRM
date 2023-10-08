@@ -173,7 +173,6 @@
     <Content Include="client\templates\client\add_client.html" />
     <Content Include="client\templates\client\clients_list.html" />
     <Content Include="client\templates\client\edit_client.html" />
-    <Content Include="client\templates\client\index.html" />
     <Content Include="client\templates\client\clients_detail.html" />
     <Content Include="dashboard\templates\dashboard\dashboard.html" />
     <Content Include="leads\templates\leads\edit_lead.html" />
@@ -215,7 +214,15 @@
     <Content Include="team\templates\team\edit_team.html" />
     <Content Include="team\templates\team\team_detail.html" />
     <Content Include="team\templates\team\team_list.html" />
-    <Content Include="ticket\templates\ticket\index.html" />
+    <Content Include="ticket\templates\ticket\ticket_detail.html" />
+    <Content Include="ticket\templates\ticket\tickets_resolved.html" />
+    <Content Include="ticket\templates\ticket\tickets_workspace.html" />
+    <Content Include="ticket\templates\ticket\tickets_queue.html" />
+    <Content Include="ticket\templates\ticket\tickets_list.html" />
+    <Content Include="ticket\templates\ticket\edit_ticket.html" />
+    <Content Include="ticket\templates\ticket\add_ticket.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="userprofile\templates\userprofile\index.html" />
     <Content Include="userprofile\templates\userprofile\login.html" />
     <Content Include="userprofile\templates\userprofile\signup.html" />

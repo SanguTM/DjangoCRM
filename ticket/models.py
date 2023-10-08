@@ -52,7 +52,7 @@ class Comment(models.Model):
     
 class TicketFile(models.Model):
     ticket = models.ForeignKey(Ticket, related_name='files', on_delete=models.CASCADE, null=True, blank=True)
-    file = models.FileField(upload_to='ticket_files', null=True, blank=True)
+    file = models.FileField(upload_to='ticketfiles', null=True, blank=True)
     created_by = models.ForeignKey(User, related_name='ticket_files', on_delete=models.CASCADE)
     #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='client_files', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,0 +1,106 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}{{ ticket.title }}{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <h1>{{ ticket.ticket_number }}</h1>>
+    <p class="font-weight-bold">Name</p>
+
+    <h1>{{ ticket.title }}</h1>>
+
+    {% if ticket.description %}
+    <p class="font-weight-bold">Description</p>
+    <p>{{ ticket.description }}</p>
+    {% endif %}
+    <p class="font-italic">Created at</p>
+    <p>{{ ticket.created_at|date:"M-d-Y H:i" }}</p>
+
+    <p class="font-italic">Modified at</p>
+    <p>{{ ticket.modified_at }}</p>
+
+    <a href="{% url 'tickets:list' %}" class="p-3 rounded text-dark bd-orange-500">Tickets</a>
+
+    <a href="{% url 'tickets:delete' ticket.id %}" class="p-3 rounded text-dark bd-orange-500">Delete</a>
+
+
+    <a href="{% url 'tickets:edit' ticket.id %}" class="p-3 rounded text-dark bd-orange-500">Edit</a>
+    <h2>All tickets created by {{ ticket.created_by }}</h2>
+    {% for user_ticket in user_tickets %}
+    <p>{{ ticket.ticket_number }}</p>
+    <p>{{ ticket.assign_to }}</p>
+    {% endfor %}
+
+    {% if request.user.is_manager %}
+    {% if ticket.assign_to == None %}
+    <a href="{% url 'tickets:accept' ticket.id %}" class=" btn btn-danger">Accept</a>
+    {% else %}
+    <a href="{% url 'tickets:close' ticket.id %}" class=" btn btn-danger">Confirm resolution</a>
+    {% endif %}
+
+    {% endif %}
+
+    {% if request.user.is_customer %}
+    <a href="{% url 'tickets:edit' ticket.id %}" class=" btn btn-primary">Update ticket</a>
+    {% endif %}
+
+    <h2>Comments:</h2>
+    <hr class="my-4">
+
+    <div class="space-y-4">
+        {% for comment in ticket.comments.all %}
+
+        <div class="bd-green-200 px-6">
+            {% if user.is_customer %}
+            <p>Klientas</p>
+            {% else %}
+            <p>Vadyba</p>
+            {% endif %}
+
+            <p>{{ comment.created_by }}</p>
+            <p>{{ comment.created_at }}</p>
+            <p>{{ comment.content }}</p>
+
+        </div>
+
+        {% endfor %}
+
+
+
+    </div>
+
+    <form method="post" action="{% url 'tickets:add-comment' ticket.id %}">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="p-3 rounded text-dark bd-orange-400">Submit</button>
+    </form>
+
+    <h2>Files:</h2>
+
+    <div class="space-y-4">
+        {% for file in ticket.files.all %}
+
+        <div class="bd-green-200 px-6">
+
+            <p>{{ file.created_by }}</p>
+            <p>{{ file.created_at }}</p>
+            <a href="{{ file.file.url }}">Download</a>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    <hr class="my-4">
+    <form method="post" action="{% url 'tickets:add-file' ticket.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ fileform.as_p }}
+
+        <button class="py-2 px-4 rounded-xl bd-orange-400 text-white">Submit</button>
+    </form>
+
+</div>
+{% endblock %}
