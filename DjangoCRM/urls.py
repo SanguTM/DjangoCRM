@@ -14,6 +14,7 @@ from userprofile.forms import LoginForm
 
 urlpatterns = [
     path('', index, name='index'),
+    path('', include('chat.urls')),
     path('dashboard/leads/', include('leads.urls')),
     path('dashboard/clients/', include('client.urls')),
     path('dashboard/teams/', include('team.urls')),

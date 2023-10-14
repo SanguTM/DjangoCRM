@@ -12,9 +12,9 @@ class Lead(models.Model):
     HIGH = 'high'
     
     CHOICES_PRIORITY = (
-        (LOW, 'low'),
-        (MEDIUM, 'medium'),
-        (HIGH, 'high'),
+        (LOW, 'Low'),
+        (MEDIUM, 'Medium'),
+        (HIGH, 'High'),
     )
     
     NEW = 'new'
@@ -23,10 +23,10 @@ class Lead(models.Model):
     LOST = 'lost'
     
     CHOICES_STATUS = (
-        (NEW, 'new'),
-        (CONTACTED, 'contacted'),
-        (WON, 'won'),
-        (LOST, 'lost'),
+        (NEW, 'New'),
+        (CONTACTED, 'Contacted'),
+        (WON, 'Won'),
+        (LOST, 'Lost'),
     )
     
     team = models.ForeignKey(Team, related_name='leads', on_delete=models.CASCADE, null=True, blank=True)

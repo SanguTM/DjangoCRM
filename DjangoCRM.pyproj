@@ -38,6 +38,28 @@
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
+    <Compile Include="chat\admin.py" />
+    <Compile Include="chat\apps.py" />
+    <Compile Include="chat\consumers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="chat\migrations\__init__.py" />
+    <Compile Include="chat\models.py" />
+    <Compile Include="chat\routing.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="chat\templatetags\chatextras.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="chat\templatetags\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="chat\tests.py" />
+    <Compile Include="chat\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="chat\views.py" />
+    <Compile Include="chat\__init__.py" />
     <Compile Include="client\admin.py" />
     <Compile Include="client\apps.py" />
     <Compile Include="client\forms.py" />
@@ -59,6 +81,9 @@
     </Compile>
     <Compile Include="dashboard\views.py" />
     <Compile Include="dashboard\__init__.py" />
+    <Compile Include="DjangoCRM\asgi.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="leads\admin.py" />
     <Compile Include="leads\apps.py" />
     <Compile Include="leads\forms.py">
@@ -137,6 +162,11 @@
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
+    <Folder Include="chat\" />
+    <Folder Include="chat\migrations\" />
+    <Folder Include="chat\templatetags\" />
+    <Folder Include="chat\templates\" />
+    <Folder Include="chat\templates\chat\" />
     <Folder Include="client\" />
     <Folder Include="client\migrations\" />
     <Folder Include="client\templates\" />
@@ -151,6 +181,7 @@
     <Folder Include="leads\templates\" />
     <Folder Include="leads\templates\leads\" />
     <Folder Include="static\" />
+    <Folder Include="static\js\" />
     <Folder Include="team\" />
     <Folder Include="team\migrations\" />
     <Folder Include="team\templates\" />
@@ -170,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\base.html" />
+    <Content Include="chat\templates\chat\chat_bubble.html" />
     <Content Include="client\templates\client\add_client.html" />
     <Content Include="client\templates\client\clients_list.html" />
     <Content Include="client\templates\client\edit_client.html" />
@@ -210,6 +242,8 @@
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
+    <Content Include="static\js\main.js" />
+    <Content Include="static\js\main_admin.js" />
     <Content Include="team\templates\team\add_team.html" />
     <Content Include="team\templates\team\edit_team.html" />
     <Content Include="team\templates\team\team_detail.html" />

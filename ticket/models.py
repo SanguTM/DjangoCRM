@@ -9,9 +9,9 @@ class Ticket(models.Model):
     PENDING = 'pending'
     
     CHOICES_STATUS = (
-        (ACTIVE, 'active'),
-        (COMPLETED, 'completed'),
-        (PENDING, 'pending'),
+        (ACTIVE, 'Active'),
+        (COMPLETED, 'Completed'),
+        (PENDING, 'Pending'),
     )
     
     LOW = 'low'
@@ -19,9 +19,9 @@ class Ticket(models.Model):
     HIGH = 'high'
     
     CHOICES_PRIORITY = (
-        (LOW, 'low'),
-        (MEDIUM, 'medium'),
-        (HIGH, 'high'),
+        (LOW, 'Low'),
+        (MEDIUM, 'Medium'),
+        (HIGH, 'High'),
     )
 
     ticket_number = models.UUIDField(default=uuid.uuid4)

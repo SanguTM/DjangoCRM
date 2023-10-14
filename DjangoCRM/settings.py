@@ -31,6 +31,12 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'index'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',    
+    }
+}
+
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
 INSTALLED_APPS = [
@@ -42,8 +48,10 @@ INSTALLED_APPS = [
     'team',
     'ticket',
     'user',
+    'chat',
 
     # Add your apps here to enable them
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,6 +130,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'DjangoCRM.asgi.application'
 WSGI_APPLICATION = 'DjangoCRM.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
