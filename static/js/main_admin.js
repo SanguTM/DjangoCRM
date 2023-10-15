@@ -32,7 +32,6 @@ function sendMessage() {
         'name': document.querySelector('#user_name').textContent.replaceAll('"', ''),
         'agent': document.querySelector('#user_id').textContent.replaceAll('"', ''),
     }))
-
     chatInputElement.value = ''
 }
 

@@ -7,10 +7,7 @@ https://www.youtube.com/watch?v=9e7CTR2Ya4Y
 Emailing system
 https://www.youtube.com/playlist?list=PLEoCKCuqTqMjUEt7Gz7LiRRR3GONXl6oL
 
-Sukurti default team`a
-Padaryti SEO 
 Padaryti basic dizaina
-Neleisti zmonem kurie nepriklauso teamui pamatyti client
 
 User:
 	Priskirti klienta
@@ -37,4 +34,4 @@ https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on
 https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
 
 
-https://www.youtube.com/watch?v=9e7CTR2Ya4Y - 1:43:35
+https://www.youtube.com/watch?v=9e7CTR2Ya4Y - 3:33:00

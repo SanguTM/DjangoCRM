@@ -7,10 +7,55 @@
 
 <form method="post" action=".">
 
-    <button class="p-3 rounded text-dark bd-orange-400">Dashboard</button>
+    <!--<button class="p-3 rounded text-dark bd-orange-400">Dashboard</button>-->
 </form>
 
 {% if request.user.is_manager %}
+
+<h1>Pending chats:</h1>
+<div class="grid grid-cols-4 gap-4">
+    {% for room in rooms %}
+    <div class="p-4 rounded-xl {% if room.status == 'waiting' %}bg-emerald-100{% elif room.status == 'active' %}bg-yellow-100{% else %}bg-gray-100{% endif %}">
+        <h3 class="mb-4 text-lg">Chat</h3>
+
+        <p>
+            <b>Started: </b>{{ room.created_at|timesince }} ago<br>
+            <b>ID: </b>{{ room.uuid }}<br>
+            <b>Name: </b>{{ room.client }}<br>
+            <b>Status: </b>{{ room.get_status_display }}<br>
+            <b>Agent: </b>{% firstof room.agent.username 'None yet...' %}<br>
+            <b>User: </b>{{ room.chat_user }}<br>
+        </p>
+
+        <a href="{% url 'chat:room' room.uuid %}" class="mt-4 inline-block py-2 px-6 bg-emerald-800 text-black rounded-xl">Join</a>
+
+        <a href="{% url 'chat:delete' room.uuid %}" class="mt-4 inline-block py-2 px-6 bg-rose-800 text-black rounded-xl">Delete</a>
+    </div>
+    {% empty %}
+    <p>No chat rooms pending</p>
+
+    {% endfor %}
+</div>
+</div>
+
+    {% for ticket in tickets %}
+<h1>Your tickets:</h1>
+<div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
+    <p>
+        {{ ticket.ticket_number }}
+        <a href="{% url 'tickets:detail' ticket.id %}">{{ ticket.title }}</a>
+        {{ ticket.created_at }}
+        {{ ticket.assign_to }}
+        {{ ticket.status }}
+        {{ ticket.priority }}
+
+    </p>
+
+</div>
+    {% empty %}
+<p>You have no tickets</p>
+
+    {% endfor %}
 
 <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
     <div class="leads">
@@ -40,11 +85,11 @@
 
     </div>
 </div>
-{% elif request.user.is_customer %}
+    {% elif request.user.is_customer %}
 <h6>CUSTOMER</h6>
 
-{% endif %}
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}
 
 

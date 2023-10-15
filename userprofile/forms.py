@@ -55,12 +55,8 @@ class UpdateProfileForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('email', 'first_name', 'last_name', 'password1', 'password2')
     
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'Your username',
-        'class': INPUT_CLASS
-    }))
     first_name = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your first name',
         'class': INPUT_CLASS

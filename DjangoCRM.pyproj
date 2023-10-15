@@ -201,7 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\base.html" />
+    <Content Include="chat\templates\chat\admin.html" />
     <Content Include="chat\templates\chat\chat_bubble.html" />
+    <Content Include="chat\templates\chat\room.html" />
     <Content Include="client\templates\client\add_client.html" />
     <Content Include="client\templates\client\clients_list.html" />
     <Content Include="client\templates\client\edit_client.html" />
