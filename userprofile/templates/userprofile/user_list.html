@@ -1,0 +1,42 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}Clients{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <h1>Users</h1>
+
+
+    <div class="d-flex justify-content-between bd-orange-100">
+        <p>Name</p>
+    </div>
+    {% for user_profile in user_profiles %}
+    <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
+        <p>
+            {{ user_profile.client }}
+            {{ user_profile.user.first_name }}
+            {{ user_profile.user.last_name }}
+            {{ user_profile.user.email }}
+
+            <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
+                <p>
+                    <a href="{% url 'userprofile:detail' user_profile.user.id %}">{{ user_profile.user.username }}</a>
+
+                </p>
+
+            </div>
+        </p>
+
+    </div>
+    {% empty %}
+    <p>We have no clients</p>
+
+    {% endfor %}
+    <!--https://www.youtube.com/watch?v=LkVA3AWmkQQ
+        Duomenu filtravimas-->
+
+</div>
+
+
+{% endblock %}

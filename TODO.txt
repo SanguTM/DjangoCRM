@@ -12,6 +12,12 @@ Padaryti SEO
 Padaryti basic dizaina
 Neleisti zmonem kurie nepriklauso teamui pamatyti client
 
+User:
+	Priskirti klienta
+	Vartotoju sarasas
+	Redaguoti vartotoja
+	Prie ticketo informacija apie klienta ir user
+
 
 Sukurti superuser ant pirmos migracijios:
 https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-django

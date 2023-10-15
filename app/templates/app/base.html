@@ -37,6 +37,7 @@
             <a href="{% url 'tickets:resolved' %}" class="p-3 rounded text-dark bd-orange-500">List resolved</a>
             <a href="{% url 'leads:list' %}" class="p-3 rounded text-dark bd-orange-500">Leads</a>
             <a href="{% url 'clients:list' %}" class="p-3 rounded text-dark bd-orange-500">Clients</a>
+            <a href="{% url 'userprofile:list' %}" class="p-3 rounded text-dark bd-orange-500">Users</a>
             {% else %}
             {% endif %}
             {% if request.user.is_authenticated %}

@@ -10,22 +10,27 @@
 
     <p>
         <strong>Username: </strong>{{ request.user.username }}
+        <strong>Client: </strong>{{ client.name }}
     </p>
+
+    {{ form.as_p }}
+
 
     <p class="mb-2">
         {% if active_team %}
-            <strong>Team: </strong><a href="{% url 'teams:detail' active_team.id %}">{{ active_team.name }}</a>
+        <strong>Team: </strong><a href="{% url 'teams:detail' active_team.id %}">{{ active_team.name }}</a>
 
-            {% if active_team.created_by == request.user %}
-                <a href="{% url 'teams:edit' active_team.id %}">(Edit)</a>
-            {% endif %}
+        {% if active_team.created_by == request.user %}
+        <a href="{% url 'teams:edit' active_team.id %}">(Edit)</a>
+        {% endif %}
         {% else %}
-            <a href="{% url 'teams:list' %}">Select team</a>
+        <a href="{% url 'teams:list' %}">Select team</a>
         {% endif %}
     </p>
 
 
     <a href="{% url 'logout' %}" class="p-3 rounded text-dark bd-red-400">Log out</a>
+    <button class="p-3 rounded text-dark bd-orange-400">Submit</button>
 </form>
 {% endblock %}
 

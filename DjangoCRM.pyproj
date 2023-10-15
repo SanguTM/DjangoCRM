@@ -257,9 +257,12 @@
     <Content Include="ticket\templates\ticket\add_ticket.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="userprofile\templates\userprofile\user_detail.html" />
+    <Content Include="userprofile\templates\userprofile\user_list.html" />
     <Content Include="userprofile\templates\userprofile\index.html" />
     <Content Include="userprofile\templates\userprofile\login.html" />
     <Content Include="userprofile\templates\userprofile\signup.html" />
+    <Content Include="userprofile\templates\userprofile\edit_profile.html" />
     <Content Include="userprofile\templates\userprofile\user_account.html" />
     <Content Include="user\templates\user\index.html" />
   </ItemGroup>

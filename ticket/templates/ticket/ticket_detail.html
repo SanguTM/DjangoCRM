@@ -24,6 +24,14 @@
 
     <a href="{% url 'tickets:delete' ticket.id %}" class="p-3 rounded text-dark bd-orange-500">Delete</a>
 
+    <h2>{{ ticket.created_by }} information:</h2>
+    <p>{{ user.username }}</p>
+    <p>{{ user.first_name }}</p>
+    <p>{{ user.last_name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user_profile.client }}</p>
+    <p>{{ user_profile.client.description }}</p>
+
 
     <a href="{% url 'tickets:edit' ticket.id %}" class="p-3 rounded text-dark bd-orange-500">Edit</a>
     <h2>All tickets created by {{ ticket.created_by }}</h2>

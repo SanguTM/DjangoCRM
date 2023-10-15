@@ -5,6 +5,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404, render, redirec
 from .models import Ticket
 from .form import *
 from user.models import User
+from userprofile.models import UserProfile
 # Create your views here.
 
 @login_required
@@ -12,6 +13,7 @@ def ticket_detail(request, pk):
     ticket = get_object_or_404(Ticket, pk=pk)
     user = User.objects.get(username = ticket.created_by)
     user_tickets = Ticket.objects.filter(created_by=user)
+    user_profile = UserProfile.objects.get(user=user)
     #user_tickets = ticket.created_by.all().user
     
     if request.method == 'POST':
@@ -30,6 +32,7 @@ def ticket_detail(request, pk):
     return render(request, 'ticket/ticket_detail.html', {
         'ticket': ticket,
         'user_tickets': user_tickets,
+        'user_profile': user_profile,
         'form': form,
         'fileform':AddFileForm(),
     })

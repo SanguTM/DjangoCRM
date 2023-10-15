@@ -1,0 +1,23 @@
+{% extends 'app/base.html'  %}
+
+{% block title %}{{ client.name }}{% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+    <p class="font-weight-bold">Name</p>
+
+    <h1>{{ user.id }}</h1>
+    <h1>{{ user.username }}</h1>
+    <h1>{{ user.is_manager }}</h1>
+
+    <h1>{{ user.get_first_name }}</h1>
+    <h1>{{ user.last_name }}</h1>
+    <h1>{{ user.email }}</h1>
+    <h1>{{ user_profile.client.name }}</h1>
+    <h1>{{ user_profile.id }}</h1>
+
+    <a href="{% url 'userprofile:edit-profile' user_profile.id %}">Assign client</a>
+
+</div>
+{% endblock %}
