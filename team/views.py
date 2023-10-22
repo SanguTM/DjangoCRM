@@ -18,7 +18,7 @@ def edit_team(request, pk):
             
                 messages.success(request, 'Team was edited')
 
-                return redirect('userprofile:user_account')
+                return redirect('teams:list')
         else:
             form = TeamForm(instance=team)
     
@@ -55,7 +55,7 @@ def team_activate(request, pk):
     userprofile.active_team = team
     userprofile.save()
     if request.user.is_manager:
-        return redirect('teams:detail', pk=pk)
+        return redirect('teams:list')
     else: 
         messages.error(request, 'You have no access to the page')
         return redirect('dashboard:index')

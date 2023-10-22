@@ -5,36 +5,74 @@
 {% block content %}
 
 <div class="py-6 px-6">
-    <h1>Leads</h1>
+    <h1 class="mb-4 text-xl">Leads</h1>
 
-    <a href="{% url 'leads:add' %}" class="d-inline-block p-3 rounded text-dark bd-orange-500">Add Lead</a>
+    <a href="{% url 'leads:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Add lead</a>
 
-
-    <div class="d-flex justify-content-between bd-orange-100">
-        <p>Name</p>
-        <p>Priority</p>
-        <p>Status</p>
-        <p>Is client</p>
-
+    {% if object_list %}
+    <div class="mt-6 flex justify-between">
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Name</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Email</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Phone</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created by</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Is client</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
     </div>
+
     {% for lead in object_list %}
-    <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
-        <p>
-            <a href="{% url 'leads:detail' lead.id %}">{{ lead.name }}</a>
+    <div class="flex justify-between">
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ lead.name }}
         </p>
-        <p>{{ lead.get_priority_display }}</p>
-        <p>{{ lead.get_status_display }}</p>
-        <p>{{ lead.is_client }}</p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ lead.email }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ lead.phone }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ lead.created_by }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {% if lead.priority == 'low' %}
+            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+            {% elif lead.priority == 'medium' %}
+            <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+            {% elif lead.priority == 'high' %}
+            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+            {% endif %}
+        </p>
 
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {% if lead.status == 'new' %}
+            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+            {% elif lead.status == 'contacted' %}
+            <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+            {% elif lead.status == 'won' %}
+            <span class="inline-block py-1 px-6 bg-blue-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+            {% elif lead.status == 'lost' %}
+            <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+            {% endif %}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {% if lead.is_client %}
+            <span class="inline-block py-1 px-6 bg-indigo-800 rounded-xl text-white">True</span>
+            {% endif %}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            <a href="{% url 'leads:detail' lead.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            <a href="{% url 'leads:edit' lead.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
+        </p>
     </div>
-    {% empty %}
-    <p>We have no leads</p>
-
     {% endfor %}
-    <!--https://www.youtube.com/watch?v=LkVA3AWmkQQ
-        Duomenu filtravimas-->
-
+    {% else %}
+    <p class="mt-6 px-2">There are no leads in the database yet...</p>
+    {% endif %}
 </div>
-
 
 {% endblock %}

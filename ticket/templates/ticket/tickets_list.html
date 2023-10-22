@@ -5,47 +5,72 @@
 {% block content %}
 
 <div class="py-6 px-6">
-    <h1>Tickets list</h1>
+    <h1 class="mb-4 text-xl">Tickets</h1>
 
-    <a href="{% url 'tickets:add' %}" class="d-inline-block p-3 rounded text-dark bd-orange-500">Add ticket</a>
+    <a href="{% url 'tickets:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Create ticket</a>
 
-
-    <div class="d-flex justify-content-between bd-orange-100">
-        <p>Name</p>
+    {% if tickets %}
+    <div class="mt-6 flex justify-between">
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Number</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Title</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created at</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Asigned to</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Closed at</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
     </div>
+
     {% for ticket in tickets %}
-    <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
-
-        <tr>
-            <td>{{ ticket.ticket_number }}</td>
-            <td><a href="{% url 'tickets:detail' ticket.id %}">{{ ticket.title }}</a></td>
-            <td>{{ ticket.created_at }}</td>
-            <td>{{ ticket.assign_to }}</td>
-            {% if ticket.status == 'Active' %}
-            <td>
-                <span class="badge bg-success"></span>> {{ ticket.status }}
-            </td>
-            {% elif ticket.status == 'Pending' %}
-            <td>
-                <span class="badge bg-success"></span>> {{ ticket.status }}
-            </td>
-            {% elif ticket.status == 'Pending' %}
-            <td>
-                <span class="badge bg-success"></span>> {{ ticket.status }}
-            </td>
+    <div class="flex justify-between">
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.ticket_number }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.title }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.created_at }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.assign_to }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {% if ticket.priority == 'low' %}
+            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+            {% elif ticket.priority == 'medium' %}
+            <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+            {% elif ticket.priority == 'high' %}
+            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
             {% endif %}
+        </p>
 
-            <td>{{ ticket.status }}</td>
-            <td>{{ ticket.priority }}</td>
-        </tr>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {% if ticket.status == 'active' %}
+            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+            {% elif ticket.status == 'completed' %}
+            <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+            {% elif ticket.status == 'pending' %}
+            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+            {% endif %}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.closed_at }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            <a href="{% url 'tickets:detail' ticket.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {% if not ticket.is_resolved %}
+            <a href="{% url 'tickets:edit' ticket.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
+            {% endif %}
+        </p>
     </div>
-    {% empty %}
-    <p>You have no tickets</p>
-
     {% endfor %}
-    <!--https://www.youtube.com/watch?v=LkVA3AWmkQQ
-        Duomenu filtravimas-->
-
+    {% else %}
+    <p class="mt-6 px-2">There are no tickets in the database yet...</p>
+    {% endif %}
 </div>
 
 

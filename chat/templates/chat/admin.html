@@ -5,25 +5,23 @@
 {% block content %}
 
 <div class="py-6 px-6">
-    <h1>Chat admin</h1>
+    <h1 class="mb-4 text-xl">Rooms</h1>
 
     <div class="grid grid-cols-4 gap-4">
         {% for room in rooms %}
-        <div class="p-4 rounded-xl {% if room.status == 'waiting' %}bg-emerald-100{% elif room.status == 'active' %}bg-yellow-100{% else %}bg-gray-100{% endif %}">
+        <div class="p-4 rounded-xl {% if room.status == 'waiting' %}bg-red-100{% elif room.status == 'active' %}bg-yellow-100{% else %}bg-gray-100{% endif %}">
             <h3 class="mb-4 text-lg">Chat</h3>
 
             <p>
                 <b>Started: </b>{{ room.created_at|timesince }} ago<br>
                 <b>ID: </b>{{ room.uuid }}<br>
-                <b>Name: </b>{{ room.client }}<br>
                 <b>Status: </b>{{ room.get_status_display }}<br>
                 <b>Agent: </b>{% firstof room.agent.username 'None yet...' %}<br>
                 <b>User: </b>{{ room.chat_user }}<br>
             </p>
 
-            <a href="{% url 'chat:room' room.uuid %}" class="mt-4 inline-block py-2 px-6 bg-emerald-800 text-black rounded-xl">Join</a>
-
-            <a href="{% url 'chat:delete' room.uuid %}" class="mt-4 inline-block py-2 px-6 bg-rose-800 text-black rounded-xl">Delete</a>
+            <a href="{% url 'chat:room' room.uuid %}" class="mt-4 inline-block py-2 px-4 rounded-xl bg-green-500 text-white">Join</a>
+            <a href="{% url 'chat:delete' room.uuid %}" class="mt-4 inline-block py-2 px-4 rounded-xl bg-red-500 text-white">Delete</a>
         </div>
         {% endfor %}
     </div>

@@ -3,93 +3,248 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h1>Dashboard</h1>
-
-<form method="post" action=".">
-
-    <!--<button class="p-3 rounded text-dark bd-orange-400">Dashboard</button>-->
-</form>
-
+<!--Chat info-->
 {% if request.user.is_manager %}
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <h1 class="mb-4 text-xl">Dashboard</h1>
+    <h1 class="text-xl font-semibold">Pending chats:</h1>
+    <div class="grid grid-cols-4 gap-4">
+        {% for room in rooms %}
+        <div class="p-4 rounded-xl {% if room.status == 'waiting' %}bg-emerald-100{% elif room.status == 'active' %}bg-yellow-100{% else %}bg-gray-100{% endif %}">
+            <h3 class="mb-4 text-lg">Chat</h3>
 
-<h1>Pending chats:</h1>
-<div class="grid grid-cols-4 gap-4">
-    {% for room in rooms %}
-    <div class="p-4 rounded-xl {% if room.status == 'waiting' %}bg-emerald-100{% elif room.status == 'active' %}bg-yellow-100{% else %}bg-gray-100{% endif %}">
-        <h3 class="mb-4 text-lg">Chat</h3>
+            <p>
+                <b>Started: </b>{{ room.created_at|timesince }} ago<br>
+                <b>ID: </b>{{ room.uuid }}<br>
+                <b>Name: </b>{{ room.client }}<br>
+                <b>Status: </b>{{ room.get_status_display }}<br>
+                <b>Agent: </b>{% firstof room.agent.username 'None yet...' %}<br>
+                <b>User: </b>{{ room.chat_user }}<br>
+            </p>
 
-        <p>
-            <b>Started: </b>{{ room.created_at|timesince }} ago<br>
-            <b>ID: </b>{{ room.uuid }}<br>
-            <b>Name: </b>{{ room.client }}<br>
-            <b>Status: </b>{{ room.get_status_display }}<br>
-            <b>Agent: </b>{% firstof room.agent.username 'None yet...' %}<br>
-            <b>User: </b>{{ room.chat_user }}<br>
-        </p>
+            <a href="{% url 'chat:room' room.uuid %}" class="mt-4 inline-block py-2 px-6 bg-emerald-800 text-black rounded-xl">Join</a>
 
-        <a href="{% url 'chat:room' room.uuid %}" class="mt-4 inline-block py-2 px-6 bg-emerald-800 text-black rounded-xl">Join</a>
-
-        <a href="{% url 'chat:delete' room.uuid %}" class="mt-4 inline-block py-2 px-6 bg-rose-800 text-black rounded-xl">Delete</a>
+            <a href="{% url 'chat:delete' room.uuid %}" class="mt-4 inline-block py-2 px-6 bg-rose-800 text-black rounded-xl">Delete</a>
+        </div>
+        {% empty %}
+        <p>No chat rooms pending</p>
+        {% endfor %}
     </div>
-    {% empty %}
-    <p>No chat rooms pending</p>
+    <hr class="my-4">
+    <!--Tickets info-->
+    <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+        <h1 class="text-xl font-semibold">Your tickets:</h1>
+        <div class="mt-6 flex justify-between">
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Number</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Title</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created at</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+        </div>
+        {% for ticket in tickets %}
+        <div class="flex justify-between">
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ ticket.ticket_number }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ ticket.title }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ ticket.created_at }}
+            </p>
 
-    {% endfor %}
-</div>
-</div>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {% if ticket.status == 'active' %}
+                <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+                {% elif ticket.status == 'completed' %}
+                <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+                {% elif ticket.status == 'pending' %}
+                <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+                {% endif %}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {% if ticket.priority == 'low' %}
+                <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+                {% elif ticket.priority == 'medium' %}
+                <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+                {% elif ticket.priority == 'high' %}
+                <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+                {% endif %}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                <a href="{% url 'tickets:detail' ticket.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+            </p>
+        </div>
+        {% empty %}
+        <p>You have no tickets</p>
+        {% endfor %}
+    </div>
 
-    {% for ticket in tickets %}
-<h1>Your tickets:</h1>
-<div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
-    <p>
-        {{ ticket.ticket_number }}
-        <a href="{% url 'tickets:detail' ticket.id %}">{{ ticket.title }}</a>
-        {{ ticket.created_at }}
-        {{ ticket.assign_to }}
-        {{ ticket.status }}
-        {{ ticket.priority }}
+    <!--Leads info-->
+    <hr class="my-4">
+    <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+        <h1 class="text-xl font-semibold">Latest leads:</h1>
+        {% if leads %}
+        <div class="mt-6 flex justify-between">
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Name</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Email</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Phone</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created by</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Is client</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
+        </div>
 
-    </p>
-
-</div>
-    {% empty %}
-<p>You have no tickets</p>
-
-    {% endfor %}
-
-<div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
-    <div class="leads">
-        <h2 class="">LEADS</h2>
         {% for lead in leads %}
-        <p>
-            <h3 class="">{{ lead.name }} </h3>
-        <p>
-            Status: {{ lead.get_status_display }}
-        </p>
-        <p>
-            Priority: {{ lead.get_priority_display }}
-        </p>
-        <a href="{% url 'leads:detail' lead.id %}">Details</a>
-        </p>
+        <div class="flex justify-between">
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ lead.name }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ lead.email }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ lead.phone }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ lead.created_by }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {% if lead.priority == 'low' %}
+                <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                {% elif lead.priority == 'medium' %}
+                <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                {% elif lead.priority == 'high' %}
+                <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                {% endif %}
+            </p>
 
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {% if lead.status == 'new' %}
+                <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                {% elif lead.status == 'contacted' %}
+                <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                {% elif lead.status == 'won' %}
+                <span class="inline-block py-1 px-6 bg-blue-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                {% elif lead.status == 'lost' %}
+                <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                {% endif %}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {% if lead.is_client %}
+                <span class="inline-block py-1 px-6 bg-indigo-800 rounded-xl text-white">True</span>
+                {% endif %}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                <a href="{% url 'leads:detail' lead.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                <a href="{% url 'leads:edit' lead.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
+            </p>
+        </div>
         {% endfor %}
+        {% else %}
+        <p class="mt-6 px-2">There are no leads in the database yet...</p>
+        {% endif %}
     </div>
-    <div class="clients">
-        <h2 class="">CLIENTS</h2>
-        {% for client in clients %}
-        <p>
-            <h3 class="">{{ client.name }} </h3>
-            <a href="{% url 'clients:detail' client.id %}">Details</a>
-        </p>
-        {% endfor %}
+    <!--Client info-->
+    <hr class="my-4">
+    <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+        <h1 class="text-xl font-semibold">Latest clients:</h1>
+        {% if clients %}
+        <div class="mt-6 flex justify-between">
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Name</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Email</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Phone</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created by</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
+        </div>
 
+        {% for client in clients %}
+        <div class="flex justify-between">
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ client.name }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ client.email }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ client.phone }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ client.created_by }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                <a href="{% url 'clients:detail' client.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                <a href="{% url 'clients:edit' client.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
+            </p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="mt-6 px-2">There are no clients in the database yet...</p>
+        {% endif %}
     </div>
 </div>
-    {% elif request.user.is_customer %}
-<h6>CUSTOMER</h6>
+{% elif request.user.is_customer %}
+<!--Tickets info-->
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <h1 class="mb-4 text-xl">Dashboard</h1>
+    <h1 class="text-xl font-semibold">Your tickets:</h1>
+    <div class="mt-6 flex justify-between">
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Number</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Title</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created at</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+    </div>
+    {% for ticket in tickets %}
+    <div class="flex justify-between">
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.ticket_number }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.title }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.created_at }}
+        </p>
 
-    {% endif %}
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {% if ticket.status == 'active' %}
+            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+            {% elif ticket.status == 'completed' %}
+            <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+            {% elif ticket.status == 'pending' %}
+            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+            {% endif %}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {% if ticket.priority == 'low' %}
+            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+            {% elif ticket.priority == 'medium' %}
+            <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+            {% elif ticket.priority == 'high' %}
+            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+            {% endif %}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            <a href="{% url 'tickets:detail' ticket.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+        </p>
+    </div>
+    {% empty %}
+    <p>You have no tickets</p>
+    {% endfor %}
+</div>
 
-    {% endblock %}
+{% endif %}
+
+{% endblock %}
 
 

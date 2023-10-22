@@ -87,7 +87,10 @@ def edit_ticket(request, pk):
 @login_required
 def ticket_list(request):
     #tickets = get_list_or_404(Ticket, created_by=request.user)
-    tickets = Ticket.objects.filter(created_by=request.user)
+    if request.user.is_manager:
+        tickets = Ticket.objects.all()
+    else:
+        tickets = Ticket.objects.filter(created_by=request.user)
     
     return render(request, 'ticket/tickets_list.html', {
         'tickets': tickets      

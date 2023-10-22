@@ -31,8 +31,8 @@ class Lead(models.Model):
     
     team = models.ForeignKey(Team, related_name='leads', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=255)
-    email = models.EmailField()
-    phone = models.CharField(max_length=100)
+    email = models.EmailField(null=True, blank=True)
+    phone = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     priority = models.CharField(max_length=10, choices=CHOICES_PRIORITY, default=MEDIUM)
     status = models.CharField(max_length=10, choices=CHOICES_STATUS, default=NEW)

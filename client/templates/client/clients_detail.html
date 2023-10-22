@@ -1,75 +1,75 @@
 {% extends 'app/base.html'  %}
-
+{% load crispy_forms_tags %}
 {% block title %}{{ client.name }}{% endblock %}
 
 {% block content %}
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <h1 class="text-xl font-semibold">Name:</h1>
+    <h2 class="mb-6 text-l">{{ client.name }}</h2>
 
-<div class="py-6 px-6">
-    <p class="font-weight-bold">Name</p>
-    <h1>{{ client.name }}</h1>
+    <p class="font-semibold">Description:</p>
+    <p class="mb-2">{{ client.description }}</p>
 
-    {% if client.description %}
-    <p class="font-weight-bold">Description</p>
-    <p>{{ client.description }}</p>
-    {% endif %}
-    <p class="font-italic">Created at</p>
-    <p>{{ client.created_at|date:"M-d-Y H:i" }}</p>
+    <p class="font-semibold">Phone:</p>
+    <p class="mb-2">{{ client.phone }}</p>
 
-    <p class="font-italic">Modified at</p>
-    <p>{{ client.modified_at }}</p>
+    <p class="font-semibold">E-mail:</p>
+    <p class="mb-2">{{ client.email }}</p>
 
-    <a href="{% url 'clients:list' %}" class="p-3 rounded text-dark bd-orange-500">Clients</a>
+    <p class="font-semibold">Created at:</p>
+    <p class="mb-2">{{ client.created_at }}</p>
 
-    <a href="{% url 'clients:delete' client.id %}" class="p-3 rounded text-dark bd-orange-500">Delete</a>
-    <a href="{% url 'clients:edit' client.id %}" class="p-3 rounded text-dark bd-orange-500">Edit</a>
+    <p class="font-semibold">Modifed at:</p>
+    <p class="mb-6">{{ client.modified_at }}</p>
 
-
-    <h2>Comments:</h2>
     <hr class="my-4">
+
+    <a href="{% url 'clients:edit' client.id %}" class="py-2 px-4 rounded-xl bg-yellow-500 text-white">Edit</a>
+    <a href="{% url 'clients:delete' client.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete</a>
+
+    <hr class="my-4">
+
+    <h2 class="mb-6 text-xl">Comments</h2>
 
     <div class="space-y-4">
         {% for comment in client.comments.all %}
-
-        <div class="bd-green-200 px-6">
-            <p>{{ comment.created_by }}</p>
-            <p>{{ comment.created_at }}</p>
-            <p>{{ comment.content }}</p>
-
+        <div class="bg-gray-100 p-6 rounded-xl">
+            <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at }}</p>
+            {{ comment.content }}
         </div>
-
         {% endfor %}
-
-
     </div>
-    <form method="post" action="{% url 'clients:add-comment' client.id %}">
+
+    <form method="post" action="{% url 'clients:add-comment' client.id %}" class="my-4">
         {% csrf_token %}
 
-        {{ form.as_p }}
-
-        <button class="p-3 rounded text-dark bd-orange-400">Submit</button>
+        {{ form }}
+        <button class="py-2 px-4 rounded-xl bg-blue-500 text-white">Submit</button>
+        <br class="my-6">
     </form>
 
-    <h2>Files:</h2>
+    <h2 class="mb-6 text-xl">Files</h2>
 
-    <div class="space-y-4">
+    
         {% for file in client.files.all %}
-
-        <div class="bd-green-200 px-6">
-            <p>{{ file.created_by }}</p>
-            <p>{{ file.created_at }}</p>
-            <a href="{{ file.file.url }}">Download</a>
-        </div>
-
+        <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at }}</p>
+        
+        <a href="{{ file.file.url }}">{{ file.file.file }}</a>
         {% endfor %}
-    </div>
-
+ 
     <hr class="my-4">
     <form method="post" action="{% url 'clients:add-file' client.id %}" enctype="multipart/form-data">
         {% csrf_token %}
 
         {{ fileform.as_p }}
-
-        <button class="py-2 px-4 rounded-xl bd-orange-400 text-white">Submit</button>
+        <button class="py-2 px-4 rounded-xl bg-blue-500 text-white">Submit</button>
+        <br class="my-4">
     </form>
+
+    <hr class="my-4">
+
+    <a href="{% url 'clients:list' %}">Back to clients</a>
 </div>
+
+
 {% endblock %}

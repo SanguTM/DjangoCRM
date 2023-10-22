@@ -241,9 +241,6 @@
     <Content Include="app\templates\app\about.html" />
     <Content Include="app\templates\app\contact.html" />
     <Content Include="app\templates\app\index.html" />
-    <Content Include="app\templates\app\layout.html" />
-    <Content Include="app\templates\app\login.html" />
-    <Content Include="app\templates\app\loginpartial.html" />
     <Content Include="static\js\main.js" />
     <Content Include="static\js\main_admin.js" />
     <Content Include="team\templates\team\add_team.html" />
@@ -261,7 +258,6 @@
     </Content>
     <Content Include="userprofile\templates\userprofile\user_detail.html" />
     <Content Include="userprofile\templates\userprofile\user_list.html" />
-    <Content Include="userprofile\templates\userprofile\index.html" />
     <Content Include="userprofile\templates\userprofile\login.html" />
     <Content Include="userprofile\templates\userprofile\signup.html" />
     <Content Include="userprofile\templates\userprofile\edit_profile.html" />

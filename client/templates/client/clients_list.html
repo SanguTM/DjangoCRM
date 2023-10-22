@@ -5,31 +5,46 @@
 {% block content %}
 
 <div class="py-6 px-6">
-    <h1>Clients</h1>
+    <h1 class="mb-4 text-xl">Clients</h1>
 
-    <a href="{% url 'clients:add' %}" class="d-inline-block p-3 rounded text-dark bd-orange-500">Add client</a>
-    <a href="{% url 'clients:export' %}" class="p-3 rounded text-dark bd-orange-500">Export</a>
+    <a href="{% url 'clients:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Add client</a>
+    <a href="{% url 'clients:export' %}" class="inline-block py-4 px-6 rounded-xl bg-indigo-800 text-white">Export clients</a>
 
-
-    <div class="d-flex justify-content-between bd-orange-100">
-        <p>Name</p>
+    {% if clients %}
+    <div class="mt-6 flex justify-between">
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Name</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Email</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Phone</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created by</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
     </div>
+
     {% for client in clients %}
-    <div class="d-flex justify-content-between {% cycle 'bd-orange-500' 'bd-red-500' %}">
-        <p>
-            <a href="{% url 'clients:detail' client.id %}">{{ client.name }}</a>
-
+    <div class="flex justify-between">
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ client.name }}
         </p>
-
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ client.email }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ client.phone }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ client.created_by }}
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            <a href="{% url 'clients:detail' client.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+        </p>
+        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            <a href="{% url 'clients:edit' client.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
+        </p>
     </div>
-    {% empty %}
-    <p>We have no clients</p>
-
     {% endfor %}
-    <!--https://www.youtube.com/watch?v=LkVA3AWmkQQ
-        Duomenu filtravimas-->
-
+    {% else %}
+    <p class="mt-6 px-2">There are no clients in the database yet...</p>
+    {% endif %}
 </div>
-
 
 {% endblock %}

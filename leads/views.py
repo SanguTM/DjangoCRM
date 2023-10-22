@@ -50,24 +50,32 @@ class LeadDetailView(ManagementRequiredMixin, DetailView):
         #return queryset.filter(created_by=self.request.user, pk=self.kwargs.get('pk'))
         return queryset.filter(team=team, pk=self.kwargs.get('pk'))
     
-class LeadDeleteView(ManagementRequiredMixin, DeleteView):
-    model = Lead
-    success_url = reverse_lazy('leads:list')
+@login_required
+def clients_delete(request, pk):
+    if request.user.is_manager:
+        client = get_object_or_404(Client, created_by=request.user, pk=pk)
+        client.delete()
+    
+        messages.success(request, 'The client was deleted')
+    
+        return redirect('leads:list')
+    else: 
+        messages.error(request, 'You have no access to the page')
+        return redirect('dashboard:index')
+    
+def leads_delete(request, pk):
+    if request.user.is_manager:
+        lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
+        lead.delete()
+    
+        messages.success(request, 'The lead was deleted')
+    
+        return redirect('leads:list')
+    else: 
+        messages.error(request, 'You have no access to the page')
+        return redirect('dashboard:index')
 
-    def get_queryset(self):
-        queryset = super(LeadDeleteView, self).get_queryset()
 
-        return queryset.filter(created_by=self.request.user, pk=self.kwargs.get('pk'))
-    
-    def form_valid(self, form):
-        messages.success(self.request, 'The lead was deleted')
-        
-        return redirect(self.success_url)
-    
-    def get(self, request, *args, **kwargs):
-        
-        return self.post(request, *args, **kwargs)
-    
 class LeadUpdateView(ManagementRequiredMixin, UpdateView):
     model = Lead
     form_class = AddLeadForm
@@ -86,6 +94,7 @@ class LeadUpdateView(ManagementRequiredMixin, UpdateView):
         return context
     """
     def form_valid(self, form):
+        form.save()
         messages.success(self.request, 'The lead was edited')
         return redirect(self.success_url)
 

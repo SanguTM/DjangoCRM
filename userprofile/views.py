@@ -85,9 +85,9 @@ def update_profile(request, pk):
         
 @login_required
 def user_list(request):
-    #team = request.user.userprofile.active_team
-    #users = User.objects.filter(is_customer = True)
-    user_profiles = UserProfile.objects.filter()
+    user_profiles = UserProfile.objects.filter(user__is_customer=True)
+    
+    #user_profiles = UserProfile.objects.filter()
 
     if request.user.is_manager:
         return render(request, 'userprofile/user_list.html', {

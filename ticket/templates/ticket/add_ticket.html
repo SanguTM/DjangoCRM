@@ -5,18 +5,19 @@
 
 {% block content %}
 
-<div class="py-6 px-6">
-    <h1>Add ticket</h1>
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <h1 text-xl font-semibold><strong>Edit ticket:</strong></h1>
+    <div class="py-6 px-6">
 
-    <form method="post" action=".">
-        {% csrf_token %}
+        <form method="post" action=".">
+            {% csrf_token %}
 
-        {{ form|crispy }}
+            {{ form.as_p }}
+            <br class="my-4">
+            <button type="submit" class="py-2 px-4 rounded-xl bg-green-600 text-white">Submit</button>
+        </form>
 
-        <button class="p-3 rounded text-dark bd-orange-400">Submit</button>
-
-    </form>
-
+    </div>
 </div>
 
 

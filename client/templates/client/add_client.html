@@ -1,25 +1,23 @@
 {% extends 'app/base.html'  %}
-
+{% load crispy_forms_tags %}
 {% block title %}Add client{% endblock %}
 
 {% block content %}
 
-<div class="py-6 px-6">
-    <h1>Add client</h1>
-    Num leads: {{ team.clients.count }}
-    Max: {{ team.plan.max_clients }}
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <h1 text-xl font-semibold><strong>Add client:</strong></h1>
+    <div class="py-6 px-6">
 
-    <form method="post" action=".">
-        {% csrf_token %}
 
-        {{ form.as_p }}
-        <button class="p-3 rounded text-dark bd-orange-400">Submit</button>
+        <form method="post" action=".">
+            {% csrf_token %}
 
-    </form>
+            {{ form.as_p }}
+            <br class="my-4">
+            <button type="submit" class="py-2 px-4 rounded-xl bg-green-600 text-white">Submit</button>
+        </form>
 
-    <p>You reached your limit!</p>
-
+    </div>
 </div>
-
 
 {% endblock %}

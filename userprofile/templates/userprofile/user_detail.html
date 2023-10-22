@@ -1,23 +1,29 @@
 {% extends 'app/base.html'  %}
 
-{% block title %}{{ client.name }}{% endblock %}
+{% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
 
-<div class="py-6 px-6">
-    <p class="font-weight-bold">Name</p>
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <p class="text-xl font-semibold">Username:</p>
+    <p class="mb-2">{{ user.username }}</p>
 
-    <h1>{{ user.id }}</h1>
-    <h1>{{ user.username }}</h1>
-    <h1>{{ user.is_manager }}</h1>
+    <p class="font-semibold">First name:</p>
+    <p class="mb-2">{{ user.first_name }}</p>
 
-    <h1>{{ user.get_first_name }}</h1>
-    <h1>{{ user.last_name }}</h1>
-    <h1>{{ user.email }}</h1>
-    <h1>{{ user_profile.client.name }}</h1>
-    <h1>{{ user_profile.id }}</h1>
+    <p class="font-semibold">Last name:</p>
+    <p class="mb-2">{{ user.last_name }}</p>
 
-    <a href="{% url 'userprofile:edit-profile' user_profile.id %}">Assign client</a>
+    <p class="font-semibold">E-mail:</p>
+    <p class="mb-2">{{ user.email }}</p>
 
+    <p class="font-semibold">Client:</p>
+    <p class="mb-2">{{ user_profile.client.name }}</p>
+
+    <hr class="my-4">
+
+    <a href="{% url 'userprofile:edit-profile' user_profile.id %}" class="py-2 px-4 rounded-xl bg-yellow-500 text-white">Assign client</a>
+    <hr class="my-4">
+    <a href="{% url 'userprofile:list' %}">Back to users</a>
 </div>
 {% endblock %}
