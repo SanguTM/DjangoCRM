@@ -130,11 +130,11 @@ ASGI_APPLICATION = 'DjangoCRM.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        #'BACKEND': 'channels.layers.InMemoryChannelLayer',
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        },
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        #'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        #"CONFIG": {
+        #    "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        #},
     }
 }
 
@@ -189,7 +189,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 """
-#STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
