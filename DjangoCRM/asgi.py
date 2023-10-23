@@ -18,7 +18,7 @@ os.environ.setdefault(
     'DjangoCRM.settings')
 django_asgi_app = get_asgi_application()
 
-django.setup()
+#django.setup()
 
 from chat import routing
 
