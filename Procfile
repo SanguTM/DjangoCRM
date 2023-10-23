@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: daphne -b 0.0.0.0 -p 8001 DjangoCRM.asgi:application
+web: daphne DjangoCRM.asgi:application --port 8001 --bind 0.0.0.0 -v2
