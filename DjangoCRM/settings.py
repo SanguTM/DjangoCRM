@@ -26,6 +26,8 @@ SECRET_KEY = '6bb94e42-4d31-4f93-a180-3267891c0f10'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://pacific-coast-78888.herokuapp.com', '*']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = 'login'
@@ -138,7 +140,7 @@ CHANNEL_LAYERS = {
 
 WSGI_APPLICATION = 'DjangoCRM.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = ['*','https://*.127.0.0.1']
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
