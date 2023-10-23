@@ -1,2 +1,3 @@
 release: python manage.py migrate
-web: gunicorn DjangoCRM.asgi:application -k uvicorn.workers.UvicornWorker
+web: daphne config.asgi:application --port $PORT --bind 0.0.0.0 -v2
+worker: python manage.py runworker channels --settings=core.settings -v2
