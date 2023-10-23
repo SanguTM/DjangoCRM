@@ -29,7 +29,7 @@ from team.models import Team
 
 #application = get_asgi_application()
 django_asgi_application = get_asgi_application()
-
+from chat.routing import *
 application = ProtocolTypeRouter(
     {
         'http': django_asgi_application,

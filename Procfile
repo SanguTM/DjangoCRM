@@ -1,3 +1,3 @@
-web: gunicorn -k uvicorn.workers.UvicornWorker --bind "0.0.0.0:8080" --log-file - --log-level debug
-python manage.py collectstatic --noinput
-manage.py migrate
+release: python manage.py migrate
+web: daphne DjangoCRM.asgi:application --port $PORT --bind 0.0.0.0 -v2
+worker: python manage.py runworker channel_layer -v2
