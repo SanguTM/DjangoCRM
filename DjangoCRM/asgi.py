@@ -9,28 +9,27 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/asgi/
 
 import os
 import django
-
+from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.security.websocket import AllowedHostsOriginValidator
 from django.core.asgi import get_asgi_application
-from channels.routing import get_default_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','DjangoCRM.settings')
+os.environ.setdefault(
+    'DJANGO_SETTINGS_MODULE',
+    'DjangoCRM.settings')
+
 django.setup()
-#django_asgi_app = get_asgi_application()
-django_asgi_app = get_default_application()
-
 
 from chat import routing
-
 #from django.contrib.auth.models import User
 from user.models import User
 from userprofile.models import UserProfile 
 from team.models import Team
-from channels.auth import AuthMiddlewareStack
-from channels.security.websocket import AllowedHostsOriginValidator
+
 
 #application = get_asgi_application()
 django_asgi_application = get_asgi_application()
+
 application = ProtocolTypeRouter(
     {
         'http': django_asgi_application,
