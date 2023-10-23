@@ -128,6 +128,7 @@ TEMPLATES = [
 
 ASGI_APPLICATION = 'DjangoCRM.asgi.application'
 
+
 CHANNEL_LAYERS = {
     'default': {
         #'BACKEND': 'channels.layers.InMemoryChannelLayer',
@@ -199,3 +200,5 @@ AUTH_USER_MODEL = 'user.User'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+PYTHONPATH = PYTHONPATH="${PYTHONPATH}:/DjangoCRM/DjangoCRM"
