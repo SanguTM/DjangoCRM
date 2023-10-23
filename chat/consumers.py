@@ -31,7 +31,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # leave room
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
         
-        if not self.user.is_manager or self.user.is_customer:
+        #if not self.user.is_manager or self.user.is_customer:
+        if not self.user.is_staff:
             await self.set_room_closed()
         
     async def receive(self, text_data):
