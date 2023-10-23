@@ -158,8 +158,21 @@ async function joinChatRoom() {
             console.log('data', data)
         })
 
+    var loc = window.location;
 
-    chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoomUuid}/`)
+    var wsStart = 'ws://';
+    if (loc.protocol == 'https:') {
+        wsStart = 'wss://';
+    }
+
+    var endpoint = wsStart + loc.host + '/ws/' + chatRoomUuid;
+    chatSocket = new WebSocket(endpoint + '/');
+
+    console.log(chatSocket);
+/**
+ *     chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoomUuid}/`)
+ */
+
 
 
     chatSocket.onmessage = function (e) {

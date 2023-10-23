@@ -105,7 +105,21 @@ function onChatMessage(data) {
  * Web socket
  */
 
-chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoom}/`)
+var loc = window.location;
+
+var wsStart = 'ws://';
+if (loc.protocol == 'https:') {
+    wsStart = 'wss://';
+}
+
+var endpoint = wsStart + loc.host + '/ws/' + chatRoom;
+chatSocket = new WebSocket(endpoint + '/');
+
+console.log(chatSocket);
+
+/**
+ *     chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoom}/`)
+ */
 
 chatSocket.onmessage = function (e) {
     console.log('on message')
