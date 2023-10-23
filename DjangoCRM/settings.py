@@ -31,12 +31,6 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'index'
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',    
-    }
-}
-
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
 INSTALLED_APPS = [
@@ -131,6 +125,17 @@ TEMPLATES = [
 ]
 
 ASGI_APPLICATION = 'DjangoCRM.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        #'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
+    }
+}
+
 WSGI_APPLICATION = 'DjangoCRM.wsgi.application'
 
 # Database
