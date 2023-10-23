@@ -128,7 +128,6 @@ TEMPLATES = [
 
 ASGI_APPLICATION = 'DjangoCRM.asgi.application'
 
-
 CHANNEL_LAYERS = {
     'default': {
         #'BACKEND': 'channels.layers.InMemoryChannelLayer',
