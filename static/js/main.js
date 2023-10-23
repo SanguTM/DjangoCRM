@@ -159,7 +159,7 @@ async function joinChatRoom() {
         })
 
 
-    chatSocket = new WebSocket(`wss://${window.location.host}/ws/${chatRoomUuid}/`)
+    chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoomUuid}/`)
 
 
     chatSocket.onmessage = function (e) {
