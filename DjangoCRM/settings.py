@@ -138,6 +138,8 @@ CHANNEL_LAYERS = {
 
 WSGI_APPLICATION = 'DjangoCRM.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = ['*','https://*.127.0.0.1']
+
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
