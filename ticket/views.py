@@ -47,8 +47,7 @@ def add_ticket(request):
             
             ticket = form.save(commit=False)
             ticket.created_by = request.user
-            ticket.status = 'pending'
-            ticket.priority = 'medium'
+            ticket.status = 'pending' 
             ticket.save()
             
             messages.success(request, 'The ticket was created')
