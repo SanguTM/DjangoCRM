@@ -139,17 +139,6 @@ CHANNEL_LAYERS = {
     }
 }
 
-
-CACHES = {
-    'default': {
-        'BACKEND': 'channels_redis.cache.RedisCache',
-        'LOCATION': [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        },
-    }
-}
-
 WSGI_APPLICATION = 'DjangoCRM.wsgi.application'
 
 
