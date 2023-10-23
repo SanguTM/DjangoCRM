@@ -26,7 +26,7 @@ SECRET_KEY = '6bb94e42-4d31-4f93-a180-3267891c0f10'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://pacific-coast-78888.herokuapp.com', '*']
+CSRF_TRUSTED_ORIGINS = ['https://pacific-coast-78888.herokuapp.com', 'https://*']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 LOGIN_REDIRECT_URL = '/dashboard/'
