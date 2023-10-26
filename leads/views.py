@@ -7,7 +7,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 from django.views import View
 
-from client.models import Client, Comment as ClientComment
+from client.models import Client, Comment as ClientComment, ClientFile
 from team.models import Team
 
 from .models import Lead
@@ -49,20 +49,7 @@ class LeadDetailView(ManagementRequiredMixin, DetailView):
         
         #return queryset.filter(created_by=self.request.user, pk=self.kwargs.get('pk'))
         return queryset.filter(team=team, pk=self.kwargs.get('pk'))
-    
-@login_required
-def clients_delete(request, pk):
-    if request.user.is_manager:
-        client = get_object_or_404(Client, created_by=request.user, pk=pk)
-        client.delete()
-    
-        messages.success(request, 'The client was deleted')
-    
-        return redirect('leads:list')
-    else: 
-        messages.error(request, 'You have no access to the page')
-        return redirect('dashboard:index')
-    
+        
 def leads_delete(request, pk):
     if request.user.is_manager:
         lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
@@ -135,9 +122,8 @@ class LeadConvertView(ManagementRequiredMixin, View):
         
         team = self.request.user.userprofile.active_team
 
-        lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
-        team = self.request.user.userprofile.active_team
-        
+        lead = get_object_or_404(Lead, pk=pk)
+           
         client = Client.objects.create(
             name=lead.name,
             email=lead.email,
@@ -151,12 +137,21 @@ class LeadConvertView(ManagementRequiredMixin, View):
         lead.save()
         
         comments = lead.comments.all()
+        files = lead.files.all()
         
         for comment in comments:
             ClientComment.objects.create(
                 client = client,
                 content = comment.content,
                 created_by = comment.created_by,
+                team = team
+            )
+            
+        for file in files:
+            ClientFile.objects.create(
+                client = client,
+                file = file.file,
+                created_by = file.created_by,
                 team = team
             )
         

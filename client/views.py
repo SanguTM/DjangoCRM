@@ -25,7 +25,7 @@ def clients_list(request):
 @login_required
 def clients_detail(request, pk):
     #client = get_object_or_404(Client, created_by=request.user, pk=pk)
-    client = get_object_or_404(Client,pk=pk)
+    client = get_object_or_404(Client, pk=pk)
     #team = Team.objects.filter(created_by=request.user)[0]  
     if request.user.is_manager:
         if request.method == 'POST':
@@ -96,7 +96,8 @@ def clients_delete(request, pk):
 @login_required
 def clients_edit(request, pk):
     if request.user.is_manager:
-        client = get_object_or_404(Client, created_by=request.user, pk=pk)
+        #client = get_object_or_404(Client, created_by=request.user, pk=pk)
+        client = get_object_or_404(Client, pk=pk)
         
         if request.method == 'POST':
             form = AddClientForm(request.POST, instance=client)
@@ -120,7 +121,7 @@ def clients_edit(request, pk):
 @login_required
 def client_add_file(request, pk):
     if request.user.is_manager:
-        client = get_object_or_404(Client, created_by=request.user, pk=pk)
+        client = get_object_or_404(Client, pk=pk)
         #team = Team.objects.filter(created_by=request.user)[0]
     
         if request.method == 'POST':
@@ -142,7 +143,7 @@ def client_add_file(request, pk):
 @login_required
 def client_export_to_CSV(request):
     if request.user.is_manager:
-        clients = Client.objects.filter(created_by=request.user)
+        clients = Client.objects.all()
     
         response = HttpResponse(
             content_type = 'text/csv',

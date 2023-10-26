@@ -4,23 +4,20 @@ Helpdesk
 https://www.youtube.com/watch?v=xriCKexNT6s
 Live chat
 https://www.youtube.com/watch?v=9e7CTR2Ya4Y
+
+Hostinimas su Daphne.
+https://www.youtube.com/watch?v=zizzeE4Obc0 
+
+
+Cliento lentoje risys su lead, kad trinant klienta turinti rysi i lead, prie lead nustatyti is_client = false
 Emailing system
 https://www.youtube.com/playlist?list=PLEoCKCuqTqMjUEt7Gz7LiRRR3GONXl6oL
-
-Padaryti basic dizaina
-
-User:
-	Priskirti klienta
-	Vartotoju sarasas
-	Redaguoti vartotoja
-	Prie ticketo informacija apie klienta ir user
-
+Google calendar integracija
+Redagavimo informacija
+Siusti laiskus gavus ticket/parasius komentara
 
 Sukurti superuser ant pirmos migracijios:
 https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-django
-
-https://vuyisile.com/how-to-automate-creating-a-django-super-user/
-https://stackoverflow.com/questions/72131424/django-create-a-superuser-in-a-data-migration
 
 
     <!--{% if team.leads.count < team.plan.max_leads %}-->
@@ -32,6 +29,3 @@ https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on
 
 
 https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
-
-
-https://www.youtube.com/watch?v=9e7CTR2Ya4Y - 3:33:00
