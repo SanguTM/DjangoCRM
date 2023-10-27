@@ -63,8 +63,18 @@
             <p class="font-semibold">Company:</p>
             <p class="mb-2">{{ user_profile.client }}</p>
 
+            {% if request.user.is_manager %}
             <p class="font-semibold">Company description:</p>
             <p class="mb-2">{{ user_profile.client.description }}</p>
+            {% endif %}
+
+            {% if request.user.is_manager %}
+            {% if user_profile.client.id %}
+            <a href="{% url 'clients:detail' user_profile.client.id %}" class="py-2 px-4 rounded-xl bg-green-500 text-white">Client page</a>
+            {% endif %}
+            {% elif request.user.is_customer %}
+            <a href="{% url 'userprofile:user_account' %}" class="py-2 px-4 rounded-xl bg-green-500 text-white">Edit account</a>
+            {% endif %}
         </div>
     </div>
     <hr class="my-4">
@@ -111,9 +121,7 @@
     {% endif %}
     {% endif %}
 
-    {% if request.user.is_customer %}
     <a href="{% url 'tickets:edit' ticket.id %}" class="py-2 px-4 rounded-xl bg-green-500 text-white">Update ticket</a>
-    {% endif %}
 
     <a href="{% url 'tickets:delete' ticket.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete</a>
 

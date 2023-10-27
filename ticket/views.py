@@ -78,6 +78,11 @@ def edit_ticket(request, pk):
             
     else:
         form = UpdateTicketForm(instance=ticket)
+        if request.user.is_manager:
+            form.fields['title'].disabled = True
+            form.fields['description'].disabled = True
+        if request.user.is_customer:
+            form.fields['status'].disabled = True
             
     return render(request, 'ticket/edit_ticket.html', {
         'form': form

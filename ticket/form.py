@@ -13,6 +13,16 @@ CHOICES_PRIORITY = (
     (HIGH, 'High'),
 )
 
+ACTIVE = 'active'
+COMPLETED = 'completed'
+PENDING = 'pending'
+    
+CHOICES_STATUS = (
+    (ACTIVE, 'Active'),
+    (COMPLETED, 'Completed'),
+    (PENDING, 'Pending'),
+)
+
 class CreateTicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
@@ -31,7 +41,7 @@ class CreateTicketForm(forms.ModelForm):
 class UpdateTicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ('title', 'description', 'priority',)
+        fields = ('title', 'description', 'priority', 'status')
         
     title = forms.CharField(widget=forms.TextInput(attrs={
         'class': INPUT_CLASS
@@ -40,6 +50,9 @@ class UpdateTicketForm(forms.ModelForm):
         'class': INPUT_CLASS
     }))
     priority = forms.ChoiceField(choices=CHOICES_PRIORITY, widget=forms.Select(attrs={
+        'class': INPUT_CLASS
+    }))
+    status = forms.ChoiceField(choices=CHOICES_STATUS, widget=forms.Select(attrs={
         'class': INPUT_CLASS
     }))
 
