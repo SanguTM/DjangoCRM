@@ -9,14 +9,17 @@
     </div>
 
     <div id="chat_welcome" class="hidden">
-        <input type="text" name="name" id="chat_name" class="w-full mb-4 py-2 px-6 rounded-xl bg-gray-100" placeholder="Your name">
-
-        <button id="chat_join"class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">Join chat</button>
+        {% if not request.user.is_authenticated %}
+        <input type="text" name="name" id="chat_name" class="w-full mb-4 py-2 px-6 rounded-xl bg-gray-100" placeholder="Please type your name">
+        {% else %}
+        {{ request.user.username|json_script:"chat_name" }}
+        {% endif %}
+        <button id="chat_join" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">Join chat</button>
     </div>
 
     <div id="chat_room" class="hidden">
         <div id="chat_log" class="mb-4 p-4 bg-gray-100 rounded-xl h-[300px] overflow-scroll">
-            <p>Welcome to our chat! Please type your message and wait for an agent to join...</p>
+            <p>Welcome to our chat! Please type your message and wait for an manager to join.</p>
         </div>
 
         <input type="text" name="body" id="chat_message_input" class="w-full mb-4 p-4 bg-gray-100 rounded-xl" placeholder="Type your message...">

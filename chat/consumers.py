@@ -1,4 +1,5 @@
 import json
+from urllib import request
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.utils.timesince import timesince
@@ -40,7 +41,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         type = text_data_json['type']
         message = text_data_json['message']
-        name = text_data_json['name']
+        if self.user.is_authenticated:
+            name = self.user.username
+        else:
+            name = text_data_json['name']
         agent = text_data_json.get('agent', '')
         
         print('Receive:', type)

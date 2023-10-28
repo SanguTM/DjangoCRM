@@ -12,7 +12,10 @@ from .models import Room
 
 @require_POST
 def create_room(request, uuid):
-    name = request.POST.get('name', '')
+    if not request.user.is_authenticated:
+        name = request.POST.get('name', '')
+    else:
+        name = request.user.username
     url = request.POST.get('url', '')
     
     Room.objects.create(uuid=uuid, chat_user=name, url=url)
