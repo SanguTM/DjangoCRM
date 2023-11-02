@@ -13,11 +13,16 @@
     <div class="mt-6 flex justify-between">
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Number</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Title</p>
+        {% if request.user.is_manager %}
+        <p class="py-4 px-1 bg-gray-800 font-semibold w-full text-white">Created by</p>
+        {% endif %}
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created at</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Asigned to</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
+        {% if request.user.is_customer %}
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Closed at</p>
+        {% endif %}
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
     </div>
@@ -30,6 +35,11 @@
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             {{ ticket.title }}
         </p>
+        {% if request.user.is_manager %}
+        <p class="py-2 px-1 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.created_by }}
+        </p>
+        {% endif %}
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             {{ ticket.created_at }}
         </p>
@@ -55,9 +65,11 @@
             <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
             {% endif %}
         </p>
+        {% if request.user.is_customer %}
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             {{ ticket.closed_at }}
         </p>
+        {% endif %}
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             <a href="{% url 'tickets:detail' ticket.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
         </p>

@@ -43,6 +43,7 @@
     <Compile Include="chat\consumers.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="chat\context_processors.py" />
     <Compile Include="chat\migrations\__init__.py" />
     <Compile Include="chat\models.py" />
     <Compile Include="chat\routing.py">
@@ -120,6 +121,7 @@
     <Compile Include="team\__init__.py" />
     <Compile Include="ticket\admin.py" />
     <Compile Include="ticket\apps.py" />
+    <Compile Include="ticket\context_processors.py" />
     <Compile Include="ticket\form.py">
       <SubType>Code</SubType>
     </Compile>

@@ -1,9 +1,9 @@
 {% load static %}
 
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
@@ -44,9 +44,10 @@
                     </li>
                     {% endif %}
                     {% if request.user.is_authenticated %}
+                    {% if request.user.is_manager %}
                     <li>
                         <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 pl-3 pr-4  text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-                            Tickets <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            Tickets&nbsp; {% if pending_tickets.count > 0 %} <span class="text-red-500 font-bold"> ({{ pending_tickets.count }}) {% endif %}</span><svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
@@ -56,26 +57,28 @@
                                 <li>
                                     <a href="{% url 'tickets:list' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">All tickets</a>
                                 </li>
-                                {% if request.user.is_manager %}
                                 <li>
-                                    <a href="{% url 'tickets:queue' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tickets queue</a>
+                                    <a href="{% url 'tickets:queue' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tickets queue ({{ pending_tickets.count }})</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'tickets:workspace' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ticket workspace</a>
+                                    <a href="{% url 'tickets:workspace' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ticket workspace ({{ workspace_tickets.count }})</a>
                                 </li>
                                 <li>
                                     <a href="{% url 'tickets:resolved' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Resolved tickets</a>
                                 </li>
-                                {% else %}
-                                {% endif %}
                             </ul>
                         </div>
                     </li>
+                    {% elif request.user.is_customer %}
+                    <li>
+                        <a href="{% url 'tickets:list' %}" class="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Your tickets</a>
+                    </li>
+                    {% endif %}
                     {% else %}
                     {% endif %}
                     {% if request.user.is_manager %}
                     <li>
-                        <a href="{% url 'chat:admin' %}" class="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Chat admin</a>
+                        <a href="{% url 'chat:admin' %}" class="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Chat admin {% if waiting_chat.count > 0 %} <span class="text-red-500 font-bold">({{ waiting_chat.count }}) {% endif %}</span></a>
                     </li>
                     <li>
                         <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar_lists" class="flex items-center justify-between w-full py-2 pl-3 pr-4  text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">

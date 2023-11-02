@@ -8,6 +8,7 @@ https://www.youtube.com/watch?v=9e7CTR2Ya4Y
 Hostinimas su Daphne.
 https://www.youtube.com/watch?v=zizzeE4Obc0 
 
+Susitvarkyti TailWindCSS
 Sutvarkyti production enviroment
 Sutvarkyti lenteles, kad butu rodoma tvarkingai visur
 Pranesimu sistema apie naujas uzklausas (Siusti laiskus gavus ticket/parasius komentara)
@@ -15,11 +16,14 @@ https://www.youtube.com/watch?v=OlO8IfpuKzs
 Paieska ticketuose
 Cliento lentoje risys su lead, kad trinant klienta turinti rysi i lead, prie lead nustatyti is_client = false
 Perkelti sistema ant postgreSQL
+Prie ticketo ant uzbaigimo, laukas kur privaloma ivesti koks sprendimas buvo atliktas
 Emailing system
 https://www.youtube.com/playlist?list=PLEoCKCuqTqMjUEt7Gz7LiRRR3GONXl6oL
 Google calendar integracija
 Redagavimo informacija
-
+Webservisai atiduoti duomenis i isore
+https://www.youtube.com/watch?v=Sjv-HTLmnB4
+https://www.youtube.com/watch?v=c708Nf0cHrs
 
 
 Sukurti superuser ant pirmos migracijios:

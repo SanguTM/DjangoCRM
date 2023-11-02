@@ -23,13 +23,13 @@ def create_room(request, uuid):
     return JsonResponse({'message': 'room created'})
 
 @login_required
-def admin(request):
+def chat_admin(request):
     rooms = Room.objects.all()
     users = User.objects.all()
     
     return render(request, 'chat/admin.html', {
         'rooms': rooms,
-        'users': users
+        'users': users,
     })
 
 @login_required
