@@ -24,7 +24,8 @@ class Ticket(models.Model):
         (HIGH, 'High'),
     )
 
-    ticket_number = models.UUIDField(default=uuid.uuid4)
+    #ticket_number = models.UUIDField(default=uuid.uuid4)
+    ticket_number = models.CharField(max_length=15, unique=True)
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='tickets', on_delete=models.CASCADE)

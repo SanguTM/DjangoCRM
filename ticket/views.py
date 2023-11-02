@@ -1,4 +1,7 @@
 import datetime
+import random
+from sqlite3 import IntegrityError
+import string
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
@@ -48,7 +51,15 @@ def add_ticket(request):
             ticket = form.save(commit=False)
             ticket.created_by = request.user
             ticket.status = 'pending' 
-            ticket.save()
+            while not ticket.ticket_number:
+                id = ''.join(random.choices(string.digits, k=6))
+                try:
+                    ticket.ticket_number = id
+                    ticket.save()
+                    break
+                except IntegrityError:
+                    continue
+            #ticket.save()
             
             messages.success(request, 'The ticket was created')
             
