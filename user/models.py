@@ -7,5 +7,3 @@ class User(AbstractUser):
     phone = models.TextField(blank=True, null=True)
     is_customer = models.BooleanField(default=True)
     is_manager = models.BooleanField(default=False)
-
-    
