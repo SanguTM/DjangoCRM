@@ -5,6 +5,11 @@ import string
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+
+import ticket
 from .models import Ticket
 from .form import *
 from user.models import User
@@ -204,3 +209,15 @@ def ticket_add_file(request, pk):
         
             return redirect('tickets:detail', pk=pk)
     return redirect('tickets:detail', pk=pk)
+
+class SearchResultsList(LoginRequiredMixin, ListView):
+    model = Ticket
+    context_object_name = "tickets"
+    template_name = "ticket/ticket_search.html"
+
+    def get_queryset(self):
+        tickets = self.request.GET.get("q", None)
+        if ticket:
+            return Ticket.objects.filter(
+                Q(title__icontains=tickets) | Q(description__icontains=tickets)
+            )

@@ -1,11 +1,12 @@
 {% extends 'app/base.html'  %}
+{% load crispy_forms_tags %}
 
-{% block title %}Tickets workspace{% endblock %}
+{% block title %}Add ticket{% endblock %}
 
 {% block content %}
 
 <div class="py-6 px-6">
-    <h1 class="mb-4 text-xl">Ticket workshop</h1>
+    <h1 class="mb-4 text-xl">Tickets search results:</h1>
 
     <form action="{% url 'tickets:search-results' %}" method="get">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -15,25 +16,30 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
             </div>
-            <input type="search" name="q" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required>
-            <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-indigo-500 font-medium rounded-lg text-sm px-4 py-2">Search for tickets</button>
+            <input type="search" name="q" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for tickets" required>
+            <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-indigo-500 font-medium rounded-lg text-sm px-4 py-2">Search</button>
         </div>
     </form>
 
-    {% if tickets %}
+    {% if object_list %}
     <div class="mt-6 flex justify-between">
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Number</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Title</p>
+        {% if request.user.is_manager %}
+        <p class="py-4 px-1 bg-gray-800 font-semibold w-full text-white">Created by</p>
+        {% endif %}
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created at</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Asigned to</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
+        {% if request.user.is_customer %}
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Closed at</p>
+        {% endif %}
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
     </div>
 
-    {% for ticket in tickets %}
+    {% for ticket in object_list %}
     <div class="flex justify-between">
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             {{ ticket.ticket_number }}
@@ -41,6 +47,11 @@
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             {{ ticket.title }}
         </p>
+        {% if request.user.is_manager %}
+        <p class="py-2 px-1 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+            {{ ticket.created_by }}
+        </p>
+        {% endif %}
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             {{ ticket.created_at }}
         </p>
@@ -66,9 +77,11 @@
             <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
             {% endif %}
         </p>
+        {% if request.user.is_customer %}
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             {{ ticket.closed_at }}
         </p>
+        {% endif %}
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             <a href="{% url 'tickets:detail' ticket.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
         </p>

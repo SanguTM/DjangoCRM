@@ -10,6 +10,7 @@ urlpatterns = [
     path('queue/', views.ticket_queue, name='queue'),
     path('workspace/', views.ticket_workspace, name='workspace'),
     path('resolved/', views.tickets_resolved, name='resolved'),
+    path('search-results/', views.SearchResultsList.as_view(), name='search-results'),
     path('<int:pk>/edit/', views.edit_ticket, name='edit'),
     path('<int:pk>/delete/', views.tickets_delete, name='delete'),
     path('<int:pk>/accept/', views.ticket_accept, name='accept'),

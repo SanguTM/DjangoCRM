@@ -258,6 +258,7 @@
     <Content Include="ticket\templates\ticket\add_ticket.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="ticket\templates\ticket\ticket_search.html" />
     <Content Include="userprofile\templates\userprofile\user_detail.html" />
     <Content Include="userprofile\templates\userprofile\user_list.html" />
     <Content Include="userprofile\templates\userprofile\login.html" />
