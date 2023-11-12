@@ -14,11 +14,9 @@ if (loc.protocol == 'https:') {
     wsStart = 'wss://';
 }
 
-const notification_websocket = new WebSocket(
-    wsStart +
-    window.location.host +
-    '/ws/notifications/'
-);
+var endpoint = wsStart + loc.host + '/ws/notifications';
+notification_websocket = new WebSocket(endpoint + '/');
+
 
 notification_websocket.onmessage = function (e) {
     let data = JSON.parse(e.data);

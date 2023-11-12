@@ -105,11 +105,15 @@ function onChatMessage(data) {
  * Web socket
  */
 
-const notification_websocket = new WebSocket(
-    'ws://' +
-    window.location.host +
-    '/ws/notifications/'
-);
+var loc = window.location;
+
+var wsStart = 'ws://';
+if (loc.protocol == 'https:') {
+    wsStart = 'wss://';
+}
+
+var endpoint = wsStart + loc.host + '/ws/notifications';
+notification_websocket = new WebSocket(endpoint + '/');
 
 notification_websocket.onmessage = function (e) {
     let data = JSON.parse(e.data);
