@@ -4,7 +4,6 @@ Sutvarkyti production enviroment
 Sutvarkyti lenteles, kad butu rodoma tvarkingai visur
 Inbox - https://stackoverflow.com/questions/62579742/marking-message-as-read-in-django
 	dropdown search	https://www.youtube.com/watch?v=Zzd4sL7drKQ
-
 	Pranesimu sistema apie naujas uzklausas (Siusti laiskus gavus ticket/parasius komentara)
 https://www.youtube.com/watch?v=OlO8IfpuKzs
 
@@ -48,3 +47,5 @@ Paieska ticketuose - https://www.youtube.com/watch?v=AGtae4L5BbI
 https://learndjango.com/tutorials/django-search-tutorial
 https://testdriven.io/blog/django-search/
 https://docs.djangoproject.com/en/3.2/topics/db/queries/#complex-lookups-with-q-objects
+
+Notifications -	https://www.youtube.com/watch?v=FcVwDEcu6K0
