@@ -49,6 +49,9 @@
     <Compile Include="chat\routing.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="chat\signals.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="chat\templatetags\chatextras.py">
       <SubType>Code</SubType>
     </Compile>
@@ -103,6 +106,15 @@
     <Compile Include="DjangoCRM\settings.py" />
     <Compile Include="DjangoCRM\urls.py" />
     <Compile Include="DjangoCRM\wsgi.py" />
+    <Compile Include="notification\admin.py" />
+    <Compile Include="notification\apps.py" />
+    <Compile Include="notification\consumers.py" />
+    <Compile Include="notification\migrations\__init__.py" />
+    <Compile Include="notification\models.py" />
+    <Compile Include="notification\routing.py" />
+    <Compile Include="notification\tests.py" />
+    <Compile Include="notification\views.py" />
+    <Compile Include="notification\__init__.py" />
     <Compile Include="team\admin.py" />
     <Compile Include="team\apps.py" />
     <Compile Include="team\context_processors.py">
@@ -182,6 +194,10 @@
     <Folder Include="leads\migrations\" />
     <Folder Include="leads\templates\" />
     <Folder Include="leads\templates\leads\" />
+    <Folder Include="notification\" />
+    <Folder Include="notification\migrations\" />
+    <Folder Include="notification\templates\" />
+    <Folder Include="notification\templates\notification\" />
     <Folder Include="static\" />
     <Folder Include="static\js\" />
     <Folder Include="team\" />
@@ -216,6 +232,10 @@
     <Content Include="leads\templates\leads\lead_detail.html" />
     <Content Include="leads\templates\leads\lead_list.html" />
     <Content Include="libman.json" />
+    <Content Include="notification\templates\notification\index.html" />
+    <Content Include="notification\templates\notification\notification.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

@@ -105,6 +105,27 @@ function onChatMessage(data) {
  * Web socket
  */
 
+const notification_websocket = new WebSocket(
+    'ws://' +
+    window.location.host +
+    '/ws/notifications/'
+);
+
+notification_websocket.onmessage = function (e) {
+    let data = JSON.parse(e.data);
+    console.log("Just received this from the back end.. 0", data);
+
+    if (data.type == 'room_created') {
+        document.querySelector('#notification').innerHTML = `<div class="bg-indigo-900 rounded-xl text-center py-4 lg:px-4"> 
+            <div class="p-2 bg-blue-600 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role = "alert">
+                <span class="font-semibold mr-2 text-left flex-auto">${data.text}</span>
+         </div >
+        </div>`
+    }
+
+}
+
+
 var loc = window.location;
 
 var wsStart = 'ws://';

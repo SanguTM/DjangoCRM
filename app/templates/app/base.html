@@ -130,6 +130,8 @@
         </div>
     </nav>
     <!--Alertai-->
+    <div id="notification"></div>
+
     {% if messages %}
     <div class="py-6 px-6">
         {% for message in messages %}
@@ -159,6 +161,7 @@
     </footer>
 
     {% block scripts %}
+
     <script src="{% static 'js/main.js' %}"></script>
 
     {% endblock %}

@@ -13,6 +13,9 @@ from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.security.websocket import AllowedHostsOriginValidator
 from django.core.asgi import get_asgi_application
+from django.urls import path, re_path
+from channels.routing import get_default_application
+
 
 os.environ.setdefault(
     'DJANGO_SETTINGS_MODULE',
@@ -20,12 +23,12 @@ os.environ.setdefault(
 
 django.setup()
 
-from chat import routing
+from chat.consumers import ChatConsumer
+from notification.consumers import NotificationConsumer
 #from django.contrib.auth.models import User
 from user.models import User
 from userprofile.models import UserProfile 
 from team.models import Team
-
 
 #application = get_asgi_application()
 django_asgi_application = get_asgi_application()
@@ -33,7 +36,11 @@ django_asgi_application = get_asgi_application()
 application = ProtocolTypeRouter(
     {
         'http': django_asgi_application,
-        'websocket': AllowedHostsOriginValidator(AuthMiddlewareStack(URLRouter(routing.websocket_urlpatterns)))
+        #'websocket': AllowedHostsOriginValidator(AuthMiddlewareStack(URLRouter(routing.websocket_urlpatterns)))
+        'websocket': AllowedHostsOriginValidator(AuthMiddlewareStack(URLRouter([
+            re_path(r'ws/notifications/', NotificationConsumer.as_asgi()),
+            path(r'ws/<str:room_name>/', ChatConsumer.as_asgi()),
+        ])))
     }    
 )
 

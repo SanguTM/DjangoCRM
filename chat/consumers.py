@@ -1,11 +1,12 @@
 import json
 from urllib import request
-from asgiref.sync import sync_to_async
-from channels.generic.websocket import AsyncWebsocketConsumer
+from asgiref.sync import AsyncToSync, async_to_sync, sync_to_async
+from channels.generic.websocket import AsyncWebsocketConsumer, WebsocketConsumer
 from django.utils.timesince import timesince
 from .templatetags.chatextras import initials
 from .models import Message, Room
 from user.models import User
+from django.template.loader import get_template
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -124,3 +125,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room.messages.add(message)
         
         return message
+       
+    
+    
+    #https://stackoverflow.com/questions/55534182/new-chat-message-notification-django-channels
+
+     
+        #https://stackoverflow.com/questions/52446540/how-to-use-multiple-websocket-connections-using-django-channels
