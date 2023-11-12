@@ -134,7 +134,7 @@ ASGI_APPLICATION = 'DjangoCRM.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        #'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         "CONFIG": {
           "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],

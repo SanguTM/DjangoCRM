@@ -7,8 +7,15 @@ let chatSocket = null
 let chatWindowUrl = window.location.href
 let chatRoomUuid = Math.random().toString(36).slice(2, 12)
 
+var loc = window.location;
+
+var wsStart = 'ws://';
+if (loc.protocol == 'https:') {
+    wsStart = 'wss://';
+}
+
 const notification_websocket = new WebSocket(
-    'ws://' +
+    wsStart +
     window.location.host +
     '/ws/notifications/'
 );
