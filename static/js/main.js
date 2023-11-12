@@ -28,6 +28,8 @@ notification_websocket.onmessage = function (e) {
                 <span class="font-semibold mr-2 text-left flex-auto">${ data.text }</span>
          </div >
         </div>`
+
+        myPlay()
     }
     
 }
@@ -118,6 +120,7 @@ function onChatMessage(data) {
                     </div>
                 </div>
             `
+            myPlay()
         } else {
             chatLogElement.innerHTML += `
                 <div class="flex w-full mt-2 space-x-3 max-w-md ml-auto justify-end">
@@ -160,6 +163,13 @@ function onChatMessage(data) {
     scrollToBottom()
 }
 
+function myPlay() {
+    console.log(loc.protocol + "/" + loc.host)
+
+    var audio = new Audio(loc.protocol + "/static/Ding.mp3");
+
+    audio.play();
+}
 
 async function joinChatRoom() {
     console.log('joinChatRoom')
