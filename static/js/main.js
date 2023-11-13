@@ -23,15 +23,23 @@ notification_websocket.onmessage = function (e) {
     console.log("Just received this from the back end.. 0", data);
 
     if (data.type == 'room_created') {
-        document.querySelector('#notification').innerHTML = `<div class="bg-indigo-900 rounded-xl text-center py-4 lg:px-4"> 
+        document.querySelector('#notification').innerHTML = `<div class="bg-indigo-900 text-center py-4 lg:px-4"> 
             <div class="p-2 bg-blue-600 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role = "alert">
                 <span class="font-semibold mr-2 text-left flex-auto">${ data.text }</span>
          </div >
         </div>`
 
-        myPlay()
+        myPlay("Chat")
     }
-    
+    if (data.type == 'ticket_created') {
+        document.querySelector('#notification').innerHTML = `<div class="bg-green-900 text-center py-4 lg:px-4"> 
+            <div class="p-2 bg-green-600 items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex" role = "alert">
+                <span class="font-semibold mr-2 text-left flex-auto">${data.text}</span>
+         </div >
+        </div>`
+
+        myPlay("Ticket")
+    }
 }
 
 notification_websocket.onclose = function (e) {
@@ -163,12 +171,24 @@ function onChatMessage(data) {
     scrollToBottom()
 }
 
-function myPlay() {
+function myPlay(Type) {
     console.log(loc.protocol + "/" + loc.host)
 
+
+    if (Type === "Chat") {
+        var t_audio = new Audio(loc.protocol + "/static/Chat_room.mp3");
+        t_audio.play();
+    }
+    if (Type === "Ticket") {
+        var t_audio = new Audio(loc.protocol + "/static/Ticket.mp3");
+        t_audio.play();
+    }
     var audio = new Audio(loc.protocol + "/static/Ding.mp3");
 
-    audio.play();
+    if (document.visibilityState !== 'visible') {
+        audio.play();
+    }
+
 }
 
 async function joinChatRoom() {

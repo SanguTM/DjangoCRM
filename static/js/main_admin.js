@@ -127,18 +127,27 @@ notification_websocket.onmessage = function (e) {
          </div >
         </div>`
 
-        myPlay()
+        myPlay("Chat")
     }
 
 }
 
-function myPlay() {
+function myPlay(Type) {
     console.log(loc.protocol + "/" + loc.host)
 
+
+    if (Type === "Chat") {
+        var t_audio = new Audio(loc.protocol + "/static/Chat_room.mp3");
+        t_audio.play();
+    }
     var audio = new Audio(loc.protocol + "/static/Ding.mp3");
 
-    audio.play();
+    if (document.visibilityState !== 'visible') {
+        audio.play();
+    }
+
 }
+
 
 var loc = window.location;
 

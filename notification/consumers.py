@@ -43,6 +43,15 @@ class NotificationConsumer(AsyncWebsocketConsumer):
                 'text': event['text'],
             }))
             print(event)
+            
+    async def ticket_created(self, event):
+        if self.user.is_staff:
+            # Send information to the web socket (front end)
+            await self.send(text_data=json.dumps({
+                'type': event['type'],
+                'text': event['text'],
+            }))
+            print(event)
 
     
     

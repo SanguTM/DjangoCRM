@@ -1,3 +1,5 @@
+Signals:
+https://stackoverflow.com/questions/64960704/restricting-signal-notifications-in-a-django-project-to-specific-attribute-in-mo
 
 Export to pdf, xml
 Sutvarkyti production enviroment
@@ -18,9 +20,12 @@ Redagavimo informacija
 Webservisai atiduoti duomenis i isore
 https://www.youtube.com/watch?v=Sjv-HTLmnB4
 https://www.youtube.com/watch?v=c708Nf0cHrs
+Lokalizavimas
+https://www.youtube.com/watch?v=z_p8WxFGV5A
+
 
 URL gavimas: https://vegibit.com/how-to-get-current-url-in-django/
-
+Garsu generatorius: https://soundoftext.com/
 
 Sukurti superuser ant pirmos migracijios:
 https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-django
@@ -29,6 +34,34 @@ https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-d
     <!--{% if team.leads.count < team.plan.max_leads %}-->
     {% else %}
     {% endif %}
+
+
+https://bobbyhadz.com/blog/javascript-check-if-window-focused
+
+function checkDocumentVisible() {
+  if (document.visibilityState === 'visible') {
+    console.log('✅ page is in the foreground tab of a non-minimized window');
+
+    document.body.style.backgroundColor = 'lime';
+
+    document.getElementById('box').textContent =
+      '✅ page is in the foreground tab of a non-minimized window';
+  } else {
+    console.log(
+      '⛔️ document is in background tab or part of a minimized window',
+    );
+
+    document.body.style.backgroundColor = 'salmon';
+
+    document.getElementById('box').textContent =
+      '⛔️ document is in background tab or part of a minimized window';
+  }
+}
+setInterval(checkDocumentVisible, 1500);
+
+
+
+
 
 
 https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
