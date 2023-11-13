@@ -176,14 +176,14 @@ function myPlay(Type) {
 
 
     if (Type === "Chat") {
-        var t_audio = new Audio(loc.protocol + "/static/Chat_room.mp3");
+        var t_audio = new Audio(loc.protocol + "/static/Chat_room.wav");
         t_audio.play();
     }
     if (Type === "Ticket") {
-        var t_audio = new Audio(loc.protocol + "/static/Ticket.mp3");
+        var t_audio = new Audio(loc.protocol + "/static/Ticket.wav");
         t_audio.play();
     }
-    var audio = new Audio(loc.protocol + "/static/Ding.mp3");
+    var audio = new Audio(loc.protocol + "/static/Ding.wav");
 
     if (document.visibilityState !== 'visible') {
         audio.play();

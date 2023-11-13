@@ -38,31 +38,6 @@ https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-d
 
 https://bobbyhadz.com/blog/javascript-check-if-window-focused
 
-function checkDocumentVisible() {
-  if (document.visibilityState === 'visible') {
-    console.log('✅ page is in the foreground tab of a non-minimized window');
-
-    document.body.style.backgroundColor = 'lime';
-
-    document.getElementById('box').textContent =
-      '✅ page is in the foreground tab of a non-minimized window';
-  } else {
-    console.log(
-      '⛔️ document is in background tab or part of a minimized window',
-    );
-
-    document.body.style.backgroundColor = 'salmon';
-
-    document.getElementById('box').textContent =
-      '⛔️ document is in background tab or part of a minimized window';
-  }
-}
-setInterval(checkDocumentVisible, 1500);
-
-
-
-
-
 
 https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
 
