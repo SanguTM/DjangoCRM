@@ -38,8 +38,11 @@ class Ticket(models.Model):
     status = models.CharField(max_length=15, choices=CHOICES_STATUS, default=PENDING)
     priority = models.CharField(max_length=15, choices=CHOICES_PRIORITY, default=MEDIUM)
     
+    class Meta:
+        ordering = ['-created_at', 'priority', 'ticket_number']
+    
     def __str__(self):
-        return self.title 
+        return f'{self.title} - {self.created_by} - {self.created_at}'
     
 class Comment(models.Model):
     ticket = models.ForeignKey(Ticket, related_name='comments', on_delete=models.CASCADE, null=True, blank=True)

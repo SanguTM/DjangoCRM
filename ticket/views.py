@@ -195,7 +195,7 @@ def tickets_resolved(request):
 
 @login_required
 def ticket_add_file(request, pk):
-    ticket = get_object_or_404(Ticket, created_by=request.user, pk=pk)
+    ticket = get_object_or_404(Ticket, pk=pk)
     #team = Team.objects.filter(created_by=request.user)[0]
     
     if request.method == 'POST':
