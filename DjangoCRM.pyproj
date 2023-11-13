@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="ticket\migrations\__init__.py" />
     <Compile Include="ticket\models.py" />
+    <Compile Include="ticket\signals.py" />
     <Compile Include="ticket\tests.py" />
     <Compile Include="ticket\urls.py">
       <SubType>Code</SubType>
