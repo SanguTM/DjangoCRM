@@ -234,6 +234,8 @@
     <Content Include="leads\templates\leads\lead_list.html" />
     <Content Include="libman.json" />
     <Content Include="notification\templates\notification\index.html" />
+    <Content Include="notification\templates\notification\ticked_resolved_mail.html" />
+    <Content Include="notification\templates\notification\new_comment_mail.html" />
     <Content Include="notification\templates\notification\notification.html">
       <SubType>Code</SubType>
     </Content>

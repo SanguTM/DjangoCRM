@@ -8,13 +8,31 @@ from django.shortcuts import get_list_or_404, get_object_or_404, render, redirec
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.core.mail import get_connection, send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail.backends.smtp import EmailBackend
 
 import ticket
 from .models import Ticket
 from .form import *
 from user.models import User
 from userprofile.models import UserProfile
+from notification.models import Email, EmailSetting
 # Create your views here.
+
+#https://stackoverflow.com/questions/37219601/how-can-i-get-the-email-configuration-from-the-db
+# Custom email backend
+settings = EmailSetting.objects.first()
+
+if settings:
+    connection = get_connection(
+            host=settings.email_host,
+            port=settings.email_port,
+            use_tls=settings.email_use_tls,
+            from_email = settings.email_from_email,
+            username=settings.email_host_user,
+            password=settings.email_host_password)
 
 @login_required
 def ticket_detail(request, pk):
@@ -22,8 +40,9 @@ def ticket_detail(request, pk):
     user = User.objects.get(username = ticket.created_by)
     user_tickets = Ticket.objects.filter(created_by=user)
     user_profile = UserProfile.objects.get(user=user)
+    url = request.build_absolute_uri()
     #user_tickets = ticket.created_by.all().user
-    
+
     if request.method == 'POST':
         form = AddCommentForm(request.POST)
         
@@ -32,7 +51,63 @@ def ticket_detail(request, pk):
             comment.created_by = request.user
             comment.ticket_id = pk
             comment.save()
+
+            subject = "Ticket "+ ticket.ticket_number + " received new comment"  
+            comment_user = User.objects.get(username = comment.created_by).email
             
+            if settings:
+                if comment.ticket.assign_to:
+                    assign_user = User.objects.get(username = ticket.assign_to).email
+                else:
+                    assign_user = ''
+                
+                if comment_user == user and comment.ticket.assign_to:
+                    recipent_list = [
+                        assign_user,
+                    ]
+            
+                elif assign_user == comment_user and comment.ticket.assign_to:
+                    recipent_list = [
+                        user.email,
+                    ]
+                else:
+                    recipent_list = [
+                        user.email,
+                        comment_user,
+                        assign_user,
+                        ]
+                    
+                context = {
+                    "ticket": ticket, 
+                    "url": url
+                }   
+
+                html = render_to_string('notification/new_comment_mail.html', context=context)
+                plain_message = strip_tags(html)
+
+                message = EmailMultiAlternatives(
+                    subject = subject,
+                    body = plain_message,
+                    #message = message,
+                    to = recipent_list,
+                    from_email = 'Django CRM support',
+                    connection=connection
+                )
+                
+                message.attach_alternative(html, 'text/html')
+                message.send()
+                
+                #send_mail(
+                #    subject = subject,
+                #    message = message,
+                #    recipient_list = recipent_list,
+                #    from_email = 'Django CRM support',
+                #    connection=connection
+                #)
+
+                message = "Ticket received new comment. Check it here: " + url
+                Email.objects.create(subject=subject, message=message, email = recipent_list)
+               
             return redirect('tickets:detail', pk=pk)
     else:
         form = AddCommentForm()
@@ -161,6 +236,40 @@ def ticket_close(request, pk):
         ticket.is_resolved = True
         ticket.closed_at = datetime.datetime.now()
         ticket.save()
+        
+        if settings:
+            url = request.build_absolute_uri()
+            url = url[:-6]
+            subject = "Ticket: " + ticket.ticket_number + " was closed"
+            message = "Ticket received new comment. Check it here: " + url
+            user = User.objects.get(username = ticket.created_by)
+            recipent_list = [
+                user.email
+            ]
+
+            context = {
+                "ticket": ticket, 
+                "url": url
+            }
+            
+            html = render_to_string('notification/ticked_resolved_mail.html', context=context)
+            plain_message = strip_tags(html)            
+
+            message = EmailMultiAlternatives(
+                    subject = subject,
+                    body = plain_message,
+                    #message = message,
+                    to = recipent_list,
+                    from_email = 'Django CRM support',
+                    connection=connection
+                )
+                
+            message.attach_alternative(html, 'text/html')
+            message.send()
+                
+            message = "Ticket received new comment. Check it here: " + url
+
+            Email.objects.create(subject=subject, message=message, email = recipent_list)
     
         return redirect('tickets:queue')
     else: 

@@ -23,7 +23,6 @@ https://www.youtube.com/watch?v=c708Nf0cHrs
 Lokalizavimas
 https://www.youtube.com/watch?v=z_p8WxFGV5A
 
-
 URL gavimas: https://vegibit.com/how-to-get-current-url-in-django/
 Garsu generatorius: https://soundoftext.com/
 
@@ -31,18 +30,13 @@ Sukurti superuser ant pirmos migracijios:
 https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-django
 
 
-    <!--{% if team.leads.count < team.plan.max_leads %}-->
-    {% else %}
-    {% endif %}
-
 
 https://bobbyhadz.com/blog/javascript-check-if-window-focused
 
-
 https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
 
-
 https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
+
 
 Done:
 Susitvarkyti TailWindCSS
@@ -57,3 +51,4 @@ https://testdriven.io/blog/django-search/
 https://docs.djangoproject.com/en/3.2/topics/db/queries/#complex-lookups-with-q-objects
 
 Notifications -	https://www.youtube.com/watch?v=FcVwDEcu6K0
+Email siuntimas: https://www.youtube.com/playlist?list=PLmEKHA8iFrmCMwRZn7BgeH_3yDv0bFBoY

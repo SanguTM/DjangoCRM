@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'ticket',
     'user',
     'chat',
+    'notification',
 
     # Add your apps here to enable them
     'daphne',
@@ -134,11 +135,11 @@ ASGI_APPLICATION = 'DjangoCRM.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-        #'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        #"CONFIG": {
-        #  "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        #},
+        #'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        "CONFIG": {
+          "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
     }
 }
 
@@ -179,6 +180,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+#Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
