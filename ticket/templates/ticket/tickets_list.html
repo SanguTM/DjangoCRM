@@ -18,87 +18,93 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
             </div>
-            <input type="search" name="q" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required>
+            <input type="search" name="q" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for tickets" required>
             <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-indigo-500 font-medium rounded-lg text-sm px-4 py-2">Search for tickets</button>
         </div>
     </form>
     {% endif %}
 
     {% if tickets %}
-    <div class="mt-6 flex justify-between">
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Number</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Title</p>
-        {% if request.user.is_manager %}
-        <p class="py-4 px-1 bg-gray-800 font-semibold w-full text-white">Created by</p>
-        {% endif %}
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created at</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Asigned to</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
-        {% if request.user.is_customer %}
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Closed at</p>
-        {% endif %}
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
-    </div>
+    <div class="flex flex-col overflow-x-auto">
+        <div class="sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="mt-6 flex justify-between">
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Number</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Title</p>
+                    {% if request.user.is_manager %}
+                    <p class="py-4 px-1 bg-gray-800 font-semibold w-full text-white">Created by</p>
+                    {% endif %}
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created at</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Asigned to</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Priority</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Status</p>
+                    {% if request.user.is_customer %}
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Closed at</p>
+                    {% endif %}
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
+                </div>
 
-    {% for ticket in tickets %}
-    <div class="flex justify-between">
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ ticket.ticket_number }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ ticket.title }}
-        </p>
-        {% if request.user.is_manager %}
-        <p class="py-2 px-1 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ ticket.created_by }}
-        </p>
-        {% endif %}
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ ticket.created_at }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ ticket.assign_to }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {% if ticket.priority == 'low' %}
-            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
-            {% elif ticket.priority == 'medium' %}
-            <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
-            {% elif ticket.priority == 'high' %}
-            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
-            {% endif %}
-        </p>
+                {% for ticket in tickets %}
+                <div class="flex justify-between">
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ ticket.ticket_number }}
+                    </p>
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ ticket.title }}
+                    </p>
+                    {% if request.user.is_manager %}
+                    <p class="py-2 px-1 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ ticket.created_by }}
+                    </p>
+                    {% endif %}
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ ticket.created_at }}
+                    </p>
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ ticket.assign_to }}
+                    </p>
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {% if ticket.priority == 'low' %}
+                        <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+                        {% elif ticket.priority == 'medium' %}
+                        <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+                        {% elif ticket.priority == 'high' %}
+                        <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+                        {% endif %}
+                    </p>
 
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {% if ticket.status == 'active' %}
-            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-            {% elif ticket.status == 'completed' %}
-            <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-            {% elif ticket.status == 'pending' %}
-            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-            {% endif %}
-        </p>
-        {% if request.user.is_customer %}
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ ticket.closed_at }}
-        </p>
-        {% endif %}
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            <a href="{% url 'tickets:detail' ticket.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {% if not ticket.is_resolved %}
-            <a href="{% url 'tickets:edit' ticket.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
-            {% endif %}
-        </p>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p class="mt-6 px-2">There are no tickets in the database yet...</p>
-    {% endif %}
-</div>
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {% if ticket.status == 'active' %}
+                        <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+                        {% elif ticket.status == 'completed' %}
+                        <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+                        {% elif ticket.status == 'pending' %}
+                        <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+                        {% endif %}
+                    </p>
+                    {% if request.user.is_customer %}
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ ticket.closed_at }}
+                    </p>
+                    {% endif %}
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        <a href="{% url 'tickets:detail' ticket.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+                    </p>
+                    <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {% if not ticket.is_resolved %}
+                        <a href="{% url 'tickets:edit' ticket.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
+                        {% endif %}
+                    </p>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="mt-6 px-2">There are no tickets in the database yet...</p>
+                {% endif %}
+            </div>
+            </div>
+            </div>
+            </div>
 
 
-{% endblock %}
+            {% endblock %}

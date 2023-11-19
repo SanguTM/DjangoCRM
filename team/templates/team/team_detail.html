@@ -15,13 +15,13 @@
     {% for member in team.members.all %}
     <p class="mb-2"> {{ member.username }}</p>
     {% endfor %}
-
-    <div class="py-6 px-6">
-        <a href="{% url 'teams:list' %}" class="py-2 px-4 rounded-xl bg-indigo-500 text-white">Switch team</a>
-        {% if team.created_by == request.user %}
-        <a href="{% url 'teams:edit' team.id %}" class="py-2 px-4 rounded-xl bg-yellow-500 text-white">Edit</a>
-        {% endif %}
+    <div class="flex space-x-2">
+        <div class="py-6 px-6">
+            <a href="{% url 'teams:list' %}" class="py-2 px-4 rounded-xl bg-indigo-500 text-white">Switch team</a>
+            {% if team.created_by == request.user %}
+            <a href="{% url 'teams:edit' team.id %}" class="py-2 px-4 rounded-xl bg-yellow-500 text-white">Edit</a>
+            {% endif %}
+        </div>
     </div>
-</div>
-
-{% endblock %}
+    </div>
+    {% endblock %}

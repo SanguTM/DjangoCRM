@@ -10,7 +10,7 @@
     <a href="{% url 'leads:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Add lead</a>
 
     {% if object_list %}
-    <div class="mt-6 flex justify-between">
+    <div class="mt-6 flex justify-between md:grid-cols-9">
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Name</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Email</p>
         <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Phone</p>
@@ -23,7 +23,7 @@
     </div>
 
     {% for lead in object_list %}
-    <div class="flex justify-between">
+    <div class="flex justify-between md:grid-cols-9">
         <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
             {{ lead.name }}
         </p>

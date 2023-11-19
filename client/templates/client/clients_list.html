@@ -6,45 +6,51 @@
 
 <div class="py-6 px-6">
     <h1 class="mb-4 text-xl">Clients</h1>
-
-    <a href="{% url 'clients:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Add client</a>
-    <a href="{% url 'clients:export' %}" class="inline-block py-4 px-6 rounded-xl bg-indigo-800 text-white">Export clients</a>
-
+    <div class="flex space-x-2">
+        <a href="{% url 'clients:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Add client</a>
+        <a href="{% url 'clients:export' %}" class="inline-block py-4 px-6 rounded-xl bg-indigo-800 text-white">Export clients</a>
+    </div>
     {% if clients %}
-    <div class="mt-6 flex justify-between">
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Name</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Email</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Phone</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Created by</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
+    <div class="flex flex-col overflow-x-auto">
+        <div class="sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="mt-6 flex justify-between md:grid-cols-6">
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-1/12 text-white">Name</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-3/12 text-white">Email</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-2/12 text-white">Phone</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-2/12 text-white">Created by</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-2/12 text-white">View</p>
+                    <p class="py-4 px-2 bg-gray-800 font-semibold w-2/12 text-white">Edit</p>
+                </div>
+
+                {% for client in clients %}
+                <div class="flex justify-between md:grid-cols-6">
+                    <p class="py-2 px-2 w-1/12 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ client.name }}
+                    </p>
+                    <p class="py-2 px-2 w-3/12 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ client.email }}
+                    </p>
+                    <p class="py-2 px-2 w-2/12 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ client.phone }}
+                    </p>
+                    <p class="py-2 px-2 w-2/12 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        {{ client.created_by }}
+                    </p>
+                    <p class="py-2 px-2 w-2/12 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        <a href="{% url 'clients:detail' client.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+                    </p>
+                    <p class="py-2 px-2 w-2/12 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                        <a href="{% url 'clients:edit' client.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
+                    </p>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="mt-6 px-2">There are no clients in the database yet...</p>
+                {% endif %}
+            </div>
+            </div>
+        </div>
     </div>
 
-    {% for client in clients %}
-    <div class="flex justify-between">
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ client.name }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ client.email }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ client.phone }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ client.created_by }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            <a href="{% url 'clients:detail' client.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            <a href="{% url 'clients:edit' client.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
-        </p>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p class="mt-6 px-2">There are no clients in the database yet...</p>
-    {% endif %}
-</div>
-
-{% endblock %}
+            {% endblock %}
