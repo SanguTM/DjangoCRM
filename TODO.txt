@@ -1,54 +1,46 @@
-Signals:
-https://stackoverflow.com/questions/64960704/restricting-signal-notifications-in-a-django-project-to-specific-attribute-in-mo
+Todo:
+	Sutvarkyti production enviroment - https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
+			https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
+	Cliento lentoje risys su lead, kad trinant klienta turinti rysi i lead, prie lead nustatyti is_client = false
+	Sutvarkyti lenteles, kad butu rodoma tvarkingai visur
+	Export to pdf, xml - https://www.youtube.com/watch?v=1x_ACMFzGYM
 
-Export to pdf, xml
-Sutvarkyti production enviroment
-Sutvarkyti lenteles, kad butu rodoma tvarkingai visur
-Inbox - https://stackoverflow.com/questions/62579742/marking-message-as-read-in-django
-	dropdown search	https://www.youtube.com/watch?v=Zzd4sL7drKQ
-	Pranesimu sistema apie naujas uzklausas (Siusti laiskus gavus ticket/parasius komentara)
-https://www.youtube.com/watch?v=OlO8IfpuKzs
+----------------------------------------------
+Todo sometime:
+	Lokalizavimas - https://www.youtube.com/watch?v=z_p8WxFGV5A
+	Webservisai atiduoti duomenis i isore - https://www.youtube.com/watch?v=Sjv-HTLmnB4
+			https://www.youtube.com/watch?v=c708Nf0cHrs
+	Redagavimo informacija - https://www.youtube.com/watch?v=5aEvnsfBaNU
+	Google calendar integracija
+	Emailing system - https://www.youtube.com/playlist?list=PLEoCKCuqTqMjUEt7Gz7LiRRR3GONXl6oL
+			https://blog.finxter.com/send-receive-and-test-emails-in-django/
+			https://mailtrap.io/blog/django-send-email/
+			https://www.cloudmailin.com/blog/receive-email-with-python-and-django
+	Perkelti sistema ant postgreSQL
 
-
-Cliento lentoje risys su lead, kad trinant klienta turinti rysi i lead, prie lead nustatyti is_client = false
-Perkelti sistema ant postgreSQL
-Prie ticketo ant uzbaigimo, laukas kur privaloma ivesti koks sprendimas buvo atliktas
-Emailing system
-https://www.youtube.com/playlist?list=PLEoCKCuqTqMjUEt7Gz7LiRRR3GONXl6oL
-Google calendar integracija
-Redagavimo informacija
-Webservisai atiduoti duomenis i isore
-https://www.youtube.com/watch?v=Sjv-HTLmnB4
-https://www.youtube.com/watch?v=c708Nf0cHrs
-Lokalizavimas
-https://www.youtube.com/watch?v=z_p8WxFGV5A
-
-URL gavimas: https://vegibit.com/how-to-get-current-url-in-django/
-Garsu generatorius: https://soundoftext.com/
-
-Sukurti superuser ant pirmos migracijios:
-https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-django
-
-
-
-https://bobbyhadz.com/blog/javascript-check-if-window-focused
-
-https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
-
-https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
-
-
+----------------------------------------------
+Helpful:
+	Required attribute in forms - https://stackoverflow.com/questions/72944620/how-can-i-add-required-attribute
+	Window focus - https://bobbyhadz.com/blog/javascript-check-if-window-focused
+	URL gavimas - https://vegibit.com/how-to-get-current-url-in-django/
+	Garsu generatorius - https://soundoftext.com/
+	Dropdown search -	https://www.youtube.com/watch?v=Zzd4sL7drKQ
+	Marking message as read - https://stackoverflow.com/questions/62579742/marking-message-as-read-in-django
+	Restricting signal notifications - https://stackoverflow.com/questions/64960704/restricting-signal-notifications-in-a-django-project-to-specific-attribute-in-mo
+----------------------------------------------
 Done:
-Susitvarkyti TailWindCSS
-CRM - https://www.youtube.com/playlist?list=PLpyspNLjzwBka94O3ABYcRYk8IaBR8hXZ
-Helpdesk - https://www.youtube.com/watch?v=xriCKexNT6s
-Live chat - https://www.youtube.com/watch?v=9e7CTR2Ya4Y
-Hostinimas su Daphne - https://www.youtube.com/watch?v=zizzeE4Obc0 
-
-Paieska ticketuose - https://www.youtube.com/watch?v=AGtae4L5BbI
-https://learndjango.com/tutorials/django-search-tutorial
-https://testdriven.io/blog/django-search/
-https://docs.djangoproject.com/en/3.2/topics/db/queries/#complex-lookups-with-q-objects
-
-Notifications -	https://www.youtube.com/watch?v=FcVwDEcu6K0
-Email siuntimas: https://www.youtube.com/playlist?list=PLmEKHA8iFrmCMwRZn7BgeH_3yDv0bFBoY
+	Susitvarkyti TailWindCSS
+	CRM - https://www.youtube.com/playlist?list=PLpyspNLjzwBka94O3ABYcRYk8IaBR8hXZ
+	Helpdesk - https://www.youtube.com/watch?v=xriCKexNT6s
+	Live chat - https://www.youtube.com/watch?v=9e7CTR2Ya4Y
+	Hostinimas su Daphne - https://www.youtube.com/watch?v=zizzeE4Obc0 
+	Paieska ticketuose - https://www.youtube.com/watch?v=AGtae4L5BbI
+			https://learndjango.com/tutorials/django-search-tutorial
+			https://testdriven.io/blog/django-search/
+			https://docs.djangoproject.com/en/3.2/topics/db/queries/#complex-lookups-with-q-objects
+	Notifications -	https://www.youtube.com/watch?v=FcVwDEcu6K0
+	Email siuntimas: https://www.youtube.com/playlist?list=PLmEKHA8iFrmCMwRZn7BgeH_3yDv0bFBoY
+	Sukurti superuser ant pirmos migracijios - https://stackoverflow.com/questions/6244382/how-to-automate-createsuperuser-on-django
+	Prie ticketo ant uzbaigimo, laukas kur privaloma ivesti koks sprendimas buvo atliktas
+	Pranesimu sistema apie naujas uzklausas (Siusti laiskus gavus ticket/parasius komentara) - https://www.youtube.com/watch?v=OlO8IfpuKzs
+	Email siuntimas - https://www.youtube.com/playlist?list=PLmEKHA8iFrmCMwRZn7BgeH_3yDv0bFBoY
