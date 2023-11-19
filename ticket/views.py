@@ -117,7 +117,8 @@ def ticket_detail(request, pk):
         'user_tickets': user_tickets,
         'user_profile': user_profile,
         'form': form,
-        'fileform':AddFileForm(),
+        'fileform': AddFileForm(),
+        'closeticket': CloseTicketForm(),
     })
 
 # Kliento dalis
@@ -169,6 +170,7 @@ def edit_ticket(request, pk):
             
     else:
         form = UpdateTicketForm(instance=ticket)
+        
         if request.user.is_manager:
             form.fields['title'].disabled = True
             form.fields['description'].disabled = True
@@ -236,7 +238,7 @@ def ticket_close(request, pk):
         ticket.is_resolved = True
         ticket.closed_at = datetime.datetime.now()
         ticket.save()
-        
+                
         if settings:
             url = request.build_absolute_uri()
             url = url[:-6]
@@ -270,6 +272,15 @@ def ticket_close(request, pk):
             message = "Ticket received new comment. Check it here: " + url
 
             Email.objects.create(subject=subject, message=message, email = recipent_list)
+            
+        if request.method == 'POST':      
+            form = CloseTicketForm(request.POST, instance=ticket)
+        
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'The ticket was closed')      
+        else:
+            form = CloseTicketForm(instance=ticket)
     
         return redirect('tickets:queue')
     else: 

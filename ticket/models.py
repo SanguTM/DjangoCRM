@@ -37,6 +37,7 @@ class Ticket(models.Model):
     closed_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=15, choices=CHOICES_STATUS, default=PENDING)
     priority = models.CharField(max_length=15, choices=CHOICES_PRIORITY, default=MEDIUM)
+    solution = models.TextField(blank=True, null=True)
     
     class Meta:
         ordering = ['-created_at', 'priority', 'ticket_number']

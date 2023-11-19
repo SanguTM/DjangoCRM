@@ -55,6 +55,16 @@ class UpdateTicketForm(forms.ModelForm):
     status = forms.ChoiceField(choices=CHOICES_STATUS, widget=forms.Select(attrs={
         'class': INPUT_CLASS
     }))
+    
+class CloseTicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ('solution',)
+        
+    solution = forms.CharField(label='', widget=forms.Textarea(attrs={
+        'class': INPUT_CLASS,
+        'required': True
+    }))
 
 class AddCommentForm(forms.ModelForm):
     class Meta:
