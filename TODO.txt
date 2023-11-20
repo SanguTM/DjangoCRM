@@ -2,7 +2,7 @@ Todo:
 	Sutvarkyti production enviroment - https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
 			https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
 	Cliento lentoje risys su lead, kad trinant klienta turinti rysi i lead, prie lead nustatyti is_client = false
-	Sutvarkyti lenteles, kad butu rodoma tvarkingai visur
+
 	Export to pdf, xml - https://www.youtube.com/watch?v=1x_ACMFzGYM
 
 ----------------------------------------------
@@ -27,6 +27,27 @@ Helpful:
 	Dropdown search -	https://www.youtube.com/watch?v=Zzd4sL7drKQ
 	Marking message as read - https://stackoverflow.com/questions/62579742/marking-message-as-read-in-django
 	Restricting signal notifications - https://stackoverflow.com/questions/64960704/restricting-signal-notifications-in-a-django-project-to-specific-attribute-in-mo
+	
+	<table class="table">
+  <thead>
+      <tr>
+          <th>Year with most launches</th>
+          <th>Launch site with most launches</th>
+          <th>Number of launches between 2019 and 2021</th>
+      </tr>
+  </thead>
+  <tbody>
+
+      <tr>
+        {% for element in data.values %}
+          <td>{{ element }}</td>
+        {% endfor %}
+      </tr>
+
+  </tbody>
+</table>
+
+	
 ----------------------------------------------
 Done:
 	Susitvarkyti TailWindCSS
@@ -44,3 +65,5 @@ Done:
 	Prie ticketo ant uzbaigimo, laukas kur privaloma ivesti koks sprendimas buvo atliktas
 	Pranesimu sistema apie naujas uzklausas (Siusti laiskus gavus ticket/parasius komentara) - https://www.youtube.com/watch?v=OlO8IfpuKzs
 	Email siuntimas - https://www.youtube.com/playlist?list=PLmEKHA8iFrmCMwRZn7BgeH_3yDv0bFBoY
+	Sutvarkyti lenteles, kad butu rodoma tvarkingai visur - https://tw-elements.com/docs/standard/data/tables/
+			https://stackoverflow.com/questions/71969134/for-loop-to-populate-a-django-template-table
