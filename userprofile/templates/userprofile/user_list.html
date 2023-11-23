@@ -4,44 +4,46 @@
 
 {% block content %}
 
-<div class="py-6 px-6">
-    <h1 class="mb-4 text-xl">Users:</h1>
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <div class="py-6 px-6">
+        <h1 class="mb-4 text-xl">Users:</h1>
 
-    <div class="mt-6 flex justify-between">
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Username</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Client</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">First name</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Last name</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">E-mail</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
-        <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
+        <div class="mt-6 flex justify-between">
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Username</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Client</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">First name</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Last name</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">E-mail</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">View</p>
+            <p class="py-4 px-2 bg-gray-800 font-semibold w-full text-white">Edit</p>
+        </div>
+
+        {% for user_profile in user_profiles %}
+        <div class="flex justify-between">
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ user_profile.user.username }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ user_profile.client }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ user_profile.user.first_name }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ user_profile.user.last_name }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                {{ user_profile.user.email }}
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                <a href="{% url 'userprofile:detail' user_profile.user.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
+            </p>
+            <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                <a href="{% url 'userprofile:edit-profile' user_profile.user.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Assign client</a>
+            </p>
+        </div>
+        {% endfor %}
+    </div>
     </div>
 
-    {% for user_profile in user_profiles %}
-    <div class="flex justify-between">
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ user_profile.user.username }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ user_profile.client }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ user_profile.user.first_name }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ user_profile.user.last_name }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            {{ user_profile.user.email }}
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            <a href="{% url 'userprofile:detail' user_profile.user.id %}" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a>
-        </p>
-        <p class="py-2 px-2 w-full {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-            <a href="{% url 'userprofile:edit-profile' user_profile.user.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Assign client</a>
-        </p>
-    </div>
-    {% endfor %}
-</div>
-
-{% endblock %}
+    {% endblock %}

@@ -3,75 +3,76 @@
 {% block title %}Leads{% endblock %}
 
 {% block content %}
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <div class="py-6 px-6">
+        <h1 class="mb-4 text-xl">Leads</h1>
 
-<div class="py-6 px-6">
-    <h1 class="mb-4 text-xl">Leads</h1>
+        <a href="{% url 'leads:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Add lead</a>
 
-    <a href="{% url 'leads:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Add lead</a>
-
-    {% if object_list %}
-    <div class="flex flex-col">
-        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                <div class="overflow-hidden">
-                    <table class="table-auto text-left w-full">
-                        <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
-                            <tr>
-                                <th scope="col" class="px-6 py-4">Name</th>
-                                <th scope="col" class="px-6 py-4">Email</th>
-                                <th scope="col" class="px-6 py-4">Phone</th>
-                                <th scope="col" class="px-6 py-4">Created by</th>
-                                <th scope="col" class="px-6 py-4">Priority</th>
-                                <th scope="col" class="px-6 py-4">Status</th>
-                                <th scope="col" class="px-6 py-4">Is client</th>
-                                <th scope="col" class="px-6 py-4">View</th>
-                                <th scope="col" class="px-6 py-4">Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for lead in object_list %}
-                            <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-                                <td class="py-2 px-2">{{ lead.name }}</td>
-                                <td class="py-2 px-2">{{ lead.email }}</td>
-                                <td class="px-2"> {{ lead.phone }}</td>
-                                <td class="px-2"> {{ lead.created_by }}</td>
-                                <td class="py-2 px-2">
-                                    {% if lead.priority == 'low' %}
-                                    <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
-                                    {% elif lead.priority == 'medium' %}
-                                    <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
-                                    {% elif lead.priority == 'high' %}
-                                    <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
-                                    {% endif %}
-                                </td>
-                                <td class="py-2 px-2">
-                                    {% if lead.status == 'new' %}
-                                    <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
-                                    {% elif lead.status == 'contacted' %}
-                                    <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
-                                    {% elif lead.status == 'won' %}
-                                    <span class="inline-block py-1 px-6 bg-blue-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
-                                    {% elif lead.status == 'lost' %}
-                                    <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
-                                    {% endif %}
-                                </td>
-                                <td class="py-2 px-2">
-                                    {% if lead.is_client %}
-                                    <span class="inline-block py-1 px-6 bg-indigo-800 rounded-xl text-white">True</span>
-                                    {% endif %}
-                                </td>
-                                <td class="py-2 px-2"><a href="{% url 'leads:detail' lead.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
-                                <td class="py-2 px-2"><a href="{% url 'leads:edit' lead.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a> </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+        {% if object_list %}
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
+                        <table class="table-auto text-left w-full">
+                            <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4">Name</th>
+                                    <th scope="col" class="px-6 py-4">Email</th>
+                                    <th scope="col" class="px-6 py-4">Phone</th>
+                                    <th scope="col" class="px-6 py-4">Created by</th>
+                                    <th scope="col" class="px-6 py-4">Priority</th>
+                                    <th scope="col" class="px-6 py-4">Status</th>
+                                    <th scope="col" class="px-6 py-4">Is client</th>
+                                    <th scope="col" class="px-6 py-4">View</th>
+                                    <th scope="col" class="px-6 py-4">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for lead in object_list %}
+                                <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                                    <td class="py-2 px-2">{{ lead.name }}</td>
+                                    <td class="py-2 px-2">{{ lead.email }}</td>
+                                    <td class="px-2"> {{ lead.phone }}</td>
+                                    <td class="px-2"> {{ lead.created_by }}</td>
+                                    <td class="py-2 px-2">
+                                        {% if lead.priority == 'low' %}
+                                        <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                                        {% elif lead.priority == 'medium' %}
+                                        <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                                        {% elif lead.priority == 'high' %}
+                                        <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2 px-2">
+                                        {% if lead.status == 'new' %}
+                                        <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                                        {% elif lead.status == 'contacted' %}
+                                        <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                                        {% elif lead.status == 'won' %}
+                                        <span class="inline-block py-1 px-6 bg-blue-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                                        {% elif lead.status == 'lost' %}
+                                        <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2 px-2">
+                                        {% if lead.is_client %}
+                                        <span class="inline-block py-1 px-6 bg-indigo-800 rounded-xl text-white">True</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2 px-2"><a href="{% url 'leads:detail' lead.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
+                                    <td class="py-2 px-2"><a href="{% url 'leads:edit' lead.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a> </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
     {% else %}
     <p class="mt-6 px-2">There are no leads in the database yet...</p>
     {% endif %}
-{% endblock %}
+    </div>
+    {% endblock %}

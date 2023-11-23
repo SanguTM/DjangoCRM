@@ -33,6 +33,9 @@ if settings:
             from_email = settings.email_from_email,
             username=settings.email_host_user,
             password=settings.email_host_password)
+    
+if settings:
+    from_email = settings.email_from_email
 
 @login_required
 def ticket_detail(request, pk):
@@ -90,7 +93,7 @@ def ticket_detail(request, pk):
                     body = plain_message,
                     #message = message,
                     to = recipent_list,
-                    from_email = 'Django CRM support',
+                    #from_email = 'Django CRM support',
                     connection=connection
                 )
                 
@@ -262,7 +265,7 @@ def ticket_close(request, pk):
                     body = plain_message,
                     #message = message,
                     to = recipent_list,
-                    from_email = 'Django CRM support',
+                    #from_email = 'Django CRM support',
                     connection=connection
                 )
                 
