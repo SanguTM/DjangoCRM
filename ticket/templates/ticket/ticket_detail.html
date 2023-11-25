@@ -179,49 +179,55 @@
         <a href="{% url 'tickets:edit' ticket.id %}" class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Update</a>
 
         <a href="{% url 'tickets:delete' ticket.id %}" class="inline-block text-center w-24 py-2 px-4 bg-red-500 rounded-xl font-semibold text-white">Delete</a>
+
     </div>
 
+    {% if request.user.is_customer %}
+    <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+        {% endif %}
+        <hr class="my-4">
 
-    <hr class="my-4">
+        <h1 class="text-xl font-semibold">Comments:</h1>
 
-    <h1 class="text-xl font-semibold">Comments:</h1>
-
-    <div class="space-y-4">
-        {% for comment in ticket.comments.all %}
-        <div class="bg-gray-100 p-6 rounded-xl">
-            <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at }}</p>
-            {{ comment.content }}
+        <div class="space-y-4">
+            {% for comment in ticket.comments.all %}
+            <div class="bg-gray-100 p-6 rounded-xl">
+                <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at }}</p>
+                {{ comment.content }}
+            </div>
+            {% endfor %}
         </div>
+
+        <form method="post" action="{% url 'tickets:add-comment' ticket.id %}" class="my-4">
+            {% csrf_token %}
+
+            {{ form }}
+            <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
+            <br class="my-6">
+        </form>
+
+        <h1 class="text-xl font-semibold">Files:</h1>
+
+        {% for file in ticket.files.all %}
+        <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at }}</p>
+
+        <a href="{{ file.file.url }}">{{ file.file.file }}</a>
         {% endfor %}
-    </div>
 
-    <form method="post" action="{% url 'tickets:add-comment' ticket.id %}" class="my-4">
-        {% csrf_token %}
+        <hr class="my-4">
+        <form method="post" action="{% url 'tickets:add-file' ticket.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
 
-        {{ form }}
-        <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
-        <br class="my-6">
-    </form>
+            {{ fileform.as_p }}
+            <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
+            <br class="my-4">
+        </form>
 
-    <h1 class="text-xl font-semibold">Files:</h1>
+        <hr class="my-4">
 
-    {% for file in ticket.files.all %}
-    <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at }}</p>
-
-    <a href="{{ file.file.url }}">{{ file.file.file }}</a>
-    {% endfor %}
-
-    <hr class="my-4">
-    <form method="post" action="{% url 'tickets:add-file' ticket.id %}" enctype="multipart/form-data">
-        {% csrf_token %}
-
-        {{ fileform.as_p }}
-        <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
-        <br class="my-4">
-    </form>
-
-    <hr class="my-4">
-
-    <a href="{% url 'tickets:list' %}">Back to tickets</a>
-</div>
-    {% endblock %}
+        <a href="{% url 'tickets:list' %}">Back to tickets</a>
+        {% if request.user.is_customer %}
+        </div>
+            {% endif %}
+        </div>
+        {% endblock %}
