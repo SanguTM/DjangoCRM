@@ -4,96 +4,98 @@
 
 {% block content %}
 
-<div class="py-6 px-6">
-    <h1 class="mb-4 text-xl">Tickets</h1>
-    <a href="{% url 'tickets:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Create ticket</a>
-    <br>
-    <br>
-    {% if request.user.is_manager %}
-    <form action="{% url 'tickets:search-results' %}" method="get">
-        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-        <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+    <div class="py-6 px-6">
+        <h1 class="mb-4 font-semibold text-3xl">Tickets list</h1>
+        <a href="{% url 'tickets:add' %}" class="inline-block py-4 px-6 text-center bg-black rounded-xl font-semibold text-blue-400">Create ticket</a>
+        <br>
+        <br>
+        {% if request.user.is_manager %}
+        <form action="{% url 'tickets:search-results' %}" method="get">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </div>
+                <input type="search" name="q" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for tickets" required>
+                <button type="submit" class="text-blue-400 absolute end-2.5 bottom-2.5 bg-black font-medium rounded-lg text-sm px-4 py-2">Search for tickets</button>
             </div>
-            <input type="search" name="q" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for tickets" required>
-            <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-indigo-500 font-medium rounded-lg text-sm px-4 py-2">Search for tickets</button>
-        </div>
-    </form>
-    {% endif %}
+        </form>
+        {% endif %}
 
-    {% if tickets %}
-    <div class="flex flex-col">
-        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                <div class="overflow-hidden">
+        {% if tickets %}
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
 
-                    <table class="table-auto text-left w-full">
-                        <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
-                            <tr>
-                                <th scope="col" class="px-6 py-4">Number</th>
-                                <th scope="col" class="px-6 py-4">Title</th>
-                                {% if request.user.is_manager %}
-                                <th scope="col" class="px-6 py-4">Created by</th>
-                                {% endif %}
-                                <th scope="col" class="px-6 py-4">Created at</th>
-                                <th scope="col" class="px-6 py-4">Asigned to</th>
-                                <th scope="col" class="px-6 py-4">Priority</th>
-                                <th scope="col" class="px-6 py-4">Status</th>
-                                {% if request.user.is_customer %}
-                                <th scope="col" class="px-6 py-4">Closed at</th>
-                                {% endif %}
-                                <th scope="col" class="px-6 py-4">View</th>
-                                <th scope="col" class="px-6 py-4">Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for ticket in tickets %}
-                            <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-                                <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
-                                <td class="py-2 px-2">{{ ticket.title }}</td>
-                                {% if request.user.is_manager %}
-                                <td class="py-2 px-2">{{ ticket.created_by }}</td>
-                                {% endif %}
-                                <td class="py-2 px-2">{{ ticket.created_at }}</td>
-                                <td class="py-2 px-2">{{ ticket.assign_to }}</td>
-                                <td class="px-2">
-                                    {% if ticket.priority == 'low' %}
-                                    <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
-                                    {% elif ticket.priority == 'medium' %}
-                                    <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
-                                    {% elif ticket.priority == 'high' %}
-                                    <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
+                        <table class="table-auto text-left w-full">
+                            <thead class="border-b bg-black font-semibold text-white dark:border-neutral-500">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4">Number</th>
+                                    <th scope="col" class="px-6 py-4">Title</th>
+                                    {% if request.user.is_manager %}
+                                    <th scope="col" class="px-6 py-4">Created by</th>
                                     {% endif %}
-                                </td>
-                                <td class="py-2 px-2">
-                                    {% if ticket.status == 'active' %}
-                                    <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-                                    {% elif ticket.status == 'completed' %}
-                                    <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-                                    {% elif ticket.status == 'pending' %}
-                                    <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+                                    <th scope="col" class="px-6 py-4">Created at</th>
+                                    <th scope="col" class="px-6 py-4">Asigned to</th>
+                                    <th scope="col" class="px-6 py-4">Priority</th>
+                                    <th scope="col" class="px-6 py-4">Status</th>
+                                    {% if request.user.is_customer %}
+                                    <th scope="col" class="px-6 py-4">Closed at</th>
                                     {% endif %}
-                                </td>
-                                {% if request.user.is_customer %}
-                                <td class="py-2 px-2">{{ ticket.assign_to }}</td>
-                                {% endif %}
-                                <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
-                                <td class="py-2 px-2">
-                                    {% if not ticket.is_resolved %}
-                                    <a href="{% url 'tickets:edit' ticket.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a>
+                                    <th scope="col" class="px-6 py-4">View</th>
+                                    <th scope="col" class="px-6 py-4">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in tickets %}
+                                <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
+                                    <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
+                                    <td class="py-2 px-2">{{ ticket.title }}</td>
+                                    {% if request.user.is_manager %}
+                                    <td class="py-2 px-2">{{ ticket.created_by }}</td>
                                     {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                                    <td class="py-2 px-2">{{ ticket.created_at|date:"Y-m-d H:i" }}</td>
+                                    <td class="py-2 px-2">{{ ticket.assign_to }}</td>
+                                    <td class="px-2">
+                                        {% if ticket.priority == 'low' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_priority_display }}</span>
+                                        {% elif ticket.priority == 'medium' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ ticket.get_priority_display }}</span>
+                                        {% elif ticket.priority == 'high' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ ticket.get_priority_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2 px-2">
+                                        {% if ticket.status == 'active' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'completed' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'pending' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    {% if request.user.is_customer %}
+                                    <td class="py-2 px-2">{{ ticket.assign_to }}</td>
+                                    {% endif %}
+                                    <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block text-center py-1 px-6 bg-black rounded-xl font-semibold text-blue-400">View</a></td>
+                                    <td class="py-2 px-2">
+                                        {% if not ticket.is_resolved %}
+                                        <a href="{% url 'tickets:edit' ticket.id %}" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Edit</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
-{% endif %}
-{% endblock %}
+    {% endblock %}

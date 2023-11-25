@@ -5,25 +5,25 @@
 {% block content %}
 
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-    <p class="text-xl font-semibold">Username:</p>
-    <p class="mb-2">{{ user.username }}</p>
+    <div class="grid md:grid-cols-2 gap-4">
+        <div class="p-4 bg-white">
+            <h3 class="mb-4 text-2xl"><b>Username: </b>{{ user.username }}</h3>
+            <hr class="my-4 h-0.5 bg-black">
+            <div class="grid md:grid-cols-2 gap-2">
+                <p class="font-semibold">First name: </p>{{ user.first_name }}<br>
+                <p class="font-semibold">Last name: </p>{{ user.last_name }}<br>
+                <p class="font-semibold">E-mail: </p>{{ user.email }}<br>
+                <p class="font-semibold">Client: </p>{{ user_profile.client.name }}<br>
+            </div>
+        </div>
+    </div>
 
-    <p class="font-semibold">First name:</p>
-    <p class="mb-2">{{ user.first_name }}</p>
+    <br>
+    <div class="flex space-x-2">
+        <a href="{% url 'userprofile:edit-profile' user_profile.id %}" class="inline-block text-center py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Assign client</a>
+        <hr class="my-4">
+    </div>
+        <a href="{% url 'userprofile:list' %}">Back to users</a>
+    </div>
 
-    <p class="font-semibold">Last name:</p>
-    <p class="mb-2">{{ user.last_name }}</p>
-
-    <p class="font-semibold">E-mail:</p>
-    <p class="mb-2">{{ user.email }}</p>
-
-    <p class="font-semibold">Client:</p>
-    <p class="mb-2">{{ user_profile.client.name }}</p>
-
-    <hr class="my-4">
-
-    <a href="{% url 'userprofile:edit-profile' user_profile.id %}" class="py-2 px-4 rounded-xl bg-yellow-500 text-white">Assign client</a>
-    <hr class="my-4">
-    <a href="{% url 'userprofile:list' %}">Back to users</a>
-</div>
-{% endblock %}
+    {% endblock %}

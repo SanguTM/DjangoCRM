@@ -5,83 +5,82 @@
 {% block content %}
 
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-    <!--Main info-->
     <div class="grid md:grid-cols-2 gap-4">
         <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-            <h1 class="text-xl font-semibold">Ticket number:</h1>
-            <h2 class="mb-6 text-l">{{ ticket.ticket_number }}</h2>
-
-            <p class="font-semibold">Title:</p>
-            <p class="mb-2">{{ ticket.title }}</p>
-
-            <p class="font-semibold">Description:</p>
-            <p class="mb-2">{{ ticket.description }}</p>
-
-            <p class="font-semibold">Created at:</p>
-            <p class="mb-2">{{ ticket.created_at|date:"M-d-Y H:i" }}</p>
-
-            <p class="font-semibold">Modifed at:</p>
-            <p class="mb-6">{{ ticket.modified_at }}</p>
-
-            <p class="font-semibold">Closed at:</p>
-            <p class="mb-2">{{ lead.closed_at }}</p>
-
-            <p class="font-semibold">Status:</p>
-            {% if ticket.status == 'active' %}
-            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-            {% elif ticket.status == 'completed' %}
-            <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-            {% elif ticket.status == 'pending' %}
-            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-            {% endif %}
-
-            <p class="font-semibold">Priority:</p>
-            {% if ticket.priority == 'low' %}
-            <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
-            {% elif ticket.priority == 'medium' %}
-            <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
-            {% elif ticket.priority == 'high' %}
-            <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_priority_display }}</span>
-            {% endif %}
+            <!--Main info-->
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 bg-white">
+                    <h3 class="mb-4 text-2xl"><b>Ticket: </b>{{ ticket.ticket_number }}</h3>
+                    <hr class="my-4 h-0.5 bg-black">
+                    <div class="grid md:grid-cols-2 gap-2">
+                        <p class="font-semibold">Title: </p>{{ ticket.title }}<br>
+                        <p class="font-semibold">Phone: </p>{{ ticket.description }}<br>
+                        <p class="font-semibold">Created at: </p>{{ ticket.created_at|date:"Y-m-d H:i" }}<br>
+                        <p class="font-semibold">Modifed at: </p>{{ ticket.modified_at|date:"Y-m-d H:i" }}<br>
+                        <p class="font-semibold">Closed at: </p>{{ ticket.closed_at|date:"Y-m-d H:i" }}<br>
+                        <p class="font-semibold">Priority: </p>
+                        {% if ticket.priority == 'low' %}
+                        <span class="font-semibold text-blue-500">
+                            {{ ticket.get_priority_display }}
+                        </span>
+                        {% elif ticket.status == 'completed' %}
+                        <span class="font-semibold text-green-500">
+                            {{ ticket.get_priority_display }}
+                        </span>
+                        {% elif ticket.status == 'pending' %}
+                        <span class="font-semibold text-red-500">
+                            {{ ticket.get_priority_display }}
+                        </span>
+                        {% endif %}
+                        <p class="font-semibold">Status: </p>
+                        {% if ticket.status == 'active' %}
+                        <span class="font-semibold text-green-500">
+                            {{ ticket.get_status_display }}
+                        </span>
+                        {% elif ticket.status == 'completed' %}
+                        <span class="font-semibold text-blue-500">
+                            {{ ticket.get_status_display }}
+                        </span>
+                        {% elif ticket.status == 'pending' %}
+                        <span class="font-semibold text-red-500">
+                            {{ ticket.get_status_display }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
         <!--User info-->
         <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-            <h1 class="text-xl font-semibold">User name:</h1>
-            <h2 class="mb-6 text-l">{{ user.username }}</h2>
-
-            <p class="font-semibold">First name:</p>
-            <p class="mb-2">{{ user.first_name }}</p>
-
-            <p class="font-semibold">Last name:</p>
-            <p class="mb-2">{{ user.last_name }}</p>
-
-            <p class="font-semibold">E-mail:</p>
-            <p class="mb-2">{{ user.email }}</p>
-
-            <p class="font-semibold">Phone:</p>
-            <p class="mb-2">{{ user.phone }}</p>
-
-            <p class="font-semibold">Company:</p>
-            <p class="mb-2">{{ user_profile.client }}</p>
-
-            {% if request.user.is_manager %}
-            <p class="font-semibold">Company description:</p>
-            <p class="mb-2">{{ user_profile.client.description }}</p>
-            {% endif %}
-
-            {% if request.user.is_manager %}
-            {% if user_profile.client.id %}
-            <a href="{% url 'clients:detail' user_profile.client.id %}" class="py-2 px-4 rounded-xl bg-green-500 text-white">Client page</a>
-            {% endif %}
-            {% elif request.user.is_customer %}
-            <a href="{% url 'userprofile:user_account' %}" class="py-2 px-4 rounded-xl bg-green-500 text-white">Edit account</a>
-            {% endif %}
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 bg-white">
+                    <h3 class="mb-4 text-2xl"><b>Client: </b>{{ user.first_name }} {{ user.last_name }}</h3>
+                    <hr class="my-4 h-0.5 bg-black">
+                    <div class="grid md:grid-cols-2 gap-2">
+                        <p class="font-semibold">User name: </p>{{ user.username }}<br>
+                        <p class="font-semibold">E-mail: </p>{{ user.email }}<br>
+                        <p class="font-semibold">Phone: </p>{{ user.phone }}<br>
+                    </div>
+                    <hr class="my-4" />
+                    <div class="grid md:grid-cols-2 gap-2">
+                        <p class="font-semibold">Company: </p>{{ user_profile.client }}<br>
+                        <p class="font-semibold">Description: </p>{{ user_profile.client.description }}<br>
+                        {% if request.user.is_manager %}
+                        {% if user_profile.client.id %}
+                        <a href="{% url 'clients:detail' user_profile.client.id %}" class="inline-block py-1 px-6 text-center bg-black rounded-xl font-semibold text-blue-400">Client page</a>
+                        {% endif %}
+                        {% elif request.user.is_customer %}
+                        <a href="{% url 'userprofile:user_account' %}" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Edit account</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!--Ticket solution-->
     {% if ticket.is_resolved %}
     <hr class="my-4">
-    <h2 class="mb-6 text-xl">Ticket solution:</h2>
+    <h1 class="text-xl font-semibold">Ticket solution:</h1>
 
     <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
         <p>{{ ticket.solution }}</></p>
@@ -96,7 +95,7 @@
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
                     <table class="table-auto text-left w-full">
-                        <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
+                        <thead class="border-b bg-black font-semibold text-white dark:border-neutral-500">
                             <tr>
                                 <th scope="col" class="px-6 py-4">Number</th>
                                 <th scope="col" class="px-6 py-4">Assigned to</th>
@@ -106,21 +105,21 @@
                         </thead>
                         <tbody>
                             {% for user_ticket in user_tickets %}
-                            <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                            <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
                                 <td class="py-2 px-2">{{ user_ticket.ticket_number }}</td>
                                 <td class="py-2 px-2">{{ user_ticket.assign_to }}</td>
                                 <td class="px-2">
                                     {% if user_ticket.status == 'active' %}
-                                    <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ user_ticket.get_status_display }}</span>
+                                    <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ user_ticket.get_status_display }}</span>
                                     {% elif user_ticket.status == 'completed' %}
-                                    <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ user_ticket.get_status_display }}</span>
+                                    <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ user_ticket.get_status_display }}</span>
                                     {% elif user_ticket.status == 'pending' %}
-                                    <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ user_ticket.get_status_display }}</span>
+                                    <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ user_ticket.get_status_display }}</span>
                                     {% endif %}
                                 </td>
-                                <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
+                                <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block text-center py-1 px-6 bg-black rounded-xl font-semibold text-blue-400">View</a></td>
                             </tr>
-                            {% endfor %}                          
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -132,10 +131,10 @@
     {% if request.user.is_manager %}
     <div class="flex space-x-2">
         {% if ticket.assign_to == None %}
-        <<a href="{% url 'tickets:accept' ticket.id %}" class="py-2 px-4 rounded-xl bg-green-500 text-white">Accept</a>
+        <a href="{% url 'tickets:accept' ticket.id %}" class="inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Accept</a>
         {% else %}
         <!-- Modal toggle -->
-        <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="py-1.5 px-4 rounded-xl bg-green-500 text-white" type="button">
+        <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="py-1.5 px-4 rounded-xl font-semibold bg-black text-blue-400" type="button">
             Close ticket
         </button>
 
@@ -166,8 +165,8 @@
 
                             <br class="my-2">
                             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button data-modal-hide="default-modal" type="button" class="py-2 px-4 rounded-xl bg-blue-500 text-white">Submit</button>
-                                <button data-modal-hide="default-modal" type="button" class="ms-3 py-2 px-4 rounded-xl bg-red-500 text-white">Decline</button>
+                                <button data-modal-hide="default-modal" type="button" class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
+                                <button data-modal-hide="default-modal" type="button" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Decline</button>
                             </div>
                         </form>
                     </div>
@@ -177,15 +176,15 @@
         {% endif %}
         {% endif %}
 
-        <a href="{% url 'tickets:edit' ticket.id %}" class="py-2 px-4 rounded-xl bg-green-500 text-white">Update ticket</a>
+        <a href="{% url 'tickets:edit' ticket.id %}" class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Update</a>
 
-        <a href="{% url 'tickets:delete' ticket.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete</a>
+        <a href="{% url 'tickets:delete' ticket.id %}" class="inline-block text-center w-24 py-2 px-4 bg-red-500 rounded-xl font-semibold text-white">Delete</a>
     </div>
 
 
     <hr class="my-4">
 
-    <h2 class="mb-6 text-xl">Comments</h2>
+    <h1 class="text-xl font-semibold">Comments:</h1>
 
     <div class="space-y-4">
         {% for comment in ticket.comments.all %}
@@ -200,11 +199,11 @@
         {% csrf_token %}
 
         {{ form }}
-        <button class="py-2 px-4 rounded-xl bg-blue-500 text-white">Submit</button>
+        <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
         <br class="my-6">
     </form>
 
-    <h2 class="mb-6 text-xl">Files</h2>
+    <h1 class="text-xl font-semibold">Files:</h1>
 
     {% for file in ticket.files.all %}
     <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at }}</p>
@@ -217,7 +216,7 @@
         {% csrf_token %}
 
         {{ fileform.as_p }}
-        <button class="py-2 px-4 rounded-xl bg-blue-500 text-white">Submit</button>
+        <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
         <br class="my-4">
     </form>
 
