@@ -6,28 +6,41 @@
 <!--Chat info-->
 {% if request.user.is_manager %}
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-    <h1 class="mb-4 text-xl">Dashboard</h1>
-    <h1 class="text-xl font-semibold">Pending chats:</h1>
-    <div class="grid md:grid-cols-4 gap-4">
-        {% for room in rooms %}
-        <div class="p-4 rounded-xl {% if room.status == 'waiting' %}bg-red-100{% elif room.status == 'active' %}bg-yellow-100{% else %}bg-gray-100{% endif %}">
-            <h3 class="mb-4 text-lg">Chat</h3>
+    <h1 class="mb-4 font-semibold text-3xl">Dashboard</h1>
+    <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+        <h1 class="text-xl font-semibold">Pending chat rooms:</h1>
+        <div class="grid md:grid-cols-4 gap-4">
+            {% for room in rooms %}
+            <div class="p-4 rounded-xl bg-white shadow-lg rounded-lg">
+                <h3 class="mb-4 text-lg"><b>Client: </b>{{ room.chat_user }}</h3>
+                <hr class="my-4 h-0.5 bg-black">
+                <div class="grid md:grid-cols-2 gap-2">
+                    <p class="font-semibold">Started: </p>{{ room.created_at|timesince }} ago<br>
+                    <p class="font-semibold">ID: </p>{{ room.uuid }}<br>
+                    <p class="font-semibold">Manager: </p>{% firstof room.agent.username 'None' %}<br>
+                    <p class="font-semibold">Status: </p>
+                    {% if room.status == 'waiting' %}
+                    <span class="font-semibold text-red-500">
+                        {{ room.get_status_display }}
+                    </span><br>
+                    {% elif room.status == 'active' %}
+                    <span class="font-semibold text-green-500">
+                        {{ room.get_status_display }}
+                    </span><br>
+                    {% elif room.status == 'closed' %}
+                    <span class="font-semibold text-blue-500">
+                        {{ room.get_status_display }}
+                    </span><br>
+                    {% endif %}
+                </div>
 
-            <p>
-                <b>Started: </b>{{ room.created_at|timesince }} ago<br>
-                <b>ID: </b>{{ room.uuid }}<br>
-                <b>Name: </b>{{ room.client }}<br>
-                <b>Status: </b>{{ room.get_status_display }}<br>
-                <b>Agent: </b>{% firstof room.agent.username 'None' %}<br>
-                <b>User: </b>{{ room.chat_user }}<br>
-            </p>
-
-            <a href="{% url 'chat:room' room.uuid %}" class="mt-4 inline-block py-2 px-4 rounded-xl bg-green-500 text-white">Join</a>
-            <!--<a href="{% url 'chat:delete' room.uuid %}" class="mt-4 inline-block py-2 px-4 rounded-xl bg-red-500 text-white">Delete</a>-->
+                <a href="{% url 'chat:room' room.uuid %}" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Join</a>
+                <!--<a href="{% url 'chat:delete' room.uuid %}" class="mt-4 inline-block py-2 px-4 rounded-xl bg-red-500 text-white">Delete</a>-->
+            </div>
+            {% empty %}
+            <p>No chat rooms pending</p>
+            {% endfor %}
         </div>
-        {% empty %}
-        <p>No chat rooms pending</p>
-        {% endfor %}
     </div>
     <hr class="my-4">
     <!--Tickets info-->
@@ -39,33 +52,43 @@
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div class="overflow-hidden">
                         <table class="table-auto text-left w-full">
-                            <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
+                            <thead class="border-b bg-black font-semibold text-white dark:border-neutral-500">
                                 <tr>
                                     <th scope="col" class="px-6 py-4">Number</th>
                                     <th scope="col" class="px-6 py-4">Title</th>
                                     <th scope="col" class="px-6 py-4">Created at</th>
-                                    <th scope="col" class="px-6 py-4">Status</th>
+                                    <th scope="col" class="px-6 py-4">Created by</th>
                                     <th scope="col" class="px-6 py-4">Priority</th>
+                                    <th scope="col" class="px-6 py-4">Status</th>
                                     <th scope="col" class="px-6 py-4">View</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for ticket in tickets %}
-                                <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                                <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
                                     <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
                                     <td class="py-2 px-2">{{ ticket.title }}</td>
-                                    <td class="px-2"> {{ ticket.created_at }}</td>
+                                    <td class="px-2"> {{ ticket.created_at|date:"Y-m-d H:i" }}</td>
                                     <td class="px-2"> {{ client.created_by }}</td>
-                                    <td class="py-2 px-2">
-                                        {% if ticket.status == 'active' %}
-                                        <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-                                        {% elif ticket.status == 'completed' %}
-                                        <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-                                        {% elif ticket.status == 'pending' %}
-                                        <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
+                                    <td class="px-2">
+                                        {% if ticket.priority == 'low' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_priority_display }}</span>
+                                        {% elif ticket.priority == 'medium' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ ticket.get_priority_display }}</span>
+                                        {% elif ticket.priority == 'high' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ ticket.get_priority_display }}</span>
                                         {% endif %}
                                     </td>
-                                    <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
+                                    <td class="py-2 px-2">
+                                        {% if ticket.status == 'active' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'completed' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'pending' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block text-center py-1 px-6 bg-black rounded-xl font-semibold text-blue-400">View</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -84,7 +107,7 @@
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div class="overflow-hidden">
                         <table class="table-auto text-left w-full">
-                            <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
+                            <thead class="border-b bg-black font-semibold text-white dark:border-neutral-500">
                                 <tr>
                                     <th scope="col" class="px-6 py-4">Name</th>
                                     <th scope="col" class="px-6 py-4">Email</th>
@@ -92,45 +115,45 @@
                                     <th scope="col" class="px-6 py-4">Created by</th>
                                     <th scope="col" class="px-6 py-4">Priority</th>
                                     <th scope="col" class="px-6 py-4">Status</th>
-                                    <th scope="col" class="px-6 py-4">Is client</th>
+                                    <th scope="col" class="px-6 py-4">Client</th>
                                     <th scope="col" class="px-6 py-4">View</th>
                                     <th scope="col" class="px-6 py-4">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for lead in leads %}
-                                <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                                <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
                                     <td class="py-2 px-2">{{ lead.name }}</td>
                                     <td class="py-2 px-2">{{ lead.email }}</td>
                                     <td class="px-2"> {{ lead.phone }}</td>
                                     <td class="px-2"> {{ lead.created_by }}</td>
                                     <td class="py-2 px-2">
                                         {% if lead.priority == 'low' %}
-                                        <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ lead.get_priority_display }}</span>
                                         {% elif lead.priority == 'medium' %}
-                                        <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ lead.get_priority_display }}</span>
                                         {% elif lead.priority == 'high' %}
-                                        <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ lead.get_priority_display }}</span>
                                         {% endif %}
                                     </td>
                                     <td class="py-2 px-2">
                                         {% if lead.status == 'new' %}
-                                        <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ lead.get_status_display }}</span>
                                         {% elif lead.status == 'contacted' %}
-                                        <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ lead.get_status_display }}</span>
                                         {% elif lead.status == 'won' %}
-                                        <span class="inline-block py-1 px-6 bg-blue-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ lead.get_status_display }}</span>
                                         {% elif lead.status == 'lost' %}
-                                        <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ lead.get_status_display }}</span>
                                         {% endif %}
                                     </td>
                                     <td class="py-2 px-2">
                                         {% if lead.is_client %}
-                                        <span class="inline-block py-1 px-6 bg-indigo-800 rounded-xl text-white">True</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center text-xl">&#10003;</span>
                                         {% endif %}
                                     </td>
-                                    <td class="py-2 px-2"><a href="{% url 'leads:detail' lead.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
-                                    <td class="py-2 px-2"><a href="{% url 'leads:edit' lead.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a> </td>
+                                    <td class="py-2 px-2"><a href="{% url 'leads:detail' lead.id %}" class="inline-block text-center py-1 px-6 bg-black rounded-xl font-semibold text-blue-400">View</a></td>
+                                    <td class="py-2 px-2"><a href="{% url 'leads:edit' lead.id %}" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Edit</a> </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -149,7 +172,7 @@
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div class="overflow-hidden">
                         <table class="table-auto text-left w-full">
-                            <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
+                            <thead class="border-b bg-black font-semibold text-white dark:border-neutral-500">
                                 <tr>
                                     <th scope="col" class="px-6 py-4">Name</th>
                                     <th scope="col" class="px-6 py-4">Email to</th>
@@ -161,13 +184,13 @@
                             </thead>
                             <tbody>
                                 {% for client in clients %}
-                                <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                                <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
                                     <td class="py-2 px-2">{{ client.name }}</td>
                                     <td class="py-2 px-2">{{ client.email }}</td>
                                     <td class="px-2"> {{ client.phone }}</td>
                                     <td class="px-2"> {{ client.created_by }}</td>
-                                    <td class="py-2 px-2"><a href="{% url 'clients:detail' client.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
-                                    <td class="py-2 px-2"><a href="{% url 'clients:edit' client.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a></td>
+                                    <td class="py-2 px-2"><a href="{% url 'clients:detail' client.id %}" class="inline-block text-center py-1 px-6 bg-black rounded-xl font-semibold text-blue-400">View</a></td>
+                                    <td class="py-2 px-2"><a href="{% url 'clients:edit' client.id %}" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Edit</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -178,54 +201,64 @@
         </div>
     </div>
 </div>
-<hr class="my-4">
+    <hr class="my-4">
     {% elif request.user.is_customer %}
-<!--Tickets info-->
-<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-    <h1 class="text-xl font-semibold">Your tickets:</h1>
-    <div class="flex flex-col">
-        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                <div class="overflow-hidden">
-                    <table class="table-auto text-left w-full">
-                        <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
-                            <tr>
-                                <th scope="col" class="px-6 py-4">Number</th>
-                                <th scope="col" class="px-6 py-4">Title</th>
-                                <th scope="col" class="px-6 py-4">Created at</th>
-                                <th scope="col" class="px-6 py-4">Status</th>
-                                <th scope="col" class="px-6 py-4">Priority</th>
-                                <th scope="col" class="px-6 py-4">View</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for ticket in tickets %}
-                            <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
-                                <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
-                                <td class="py-2 px-2">{{ ticket.title }}</td>
-                                <td class="px-2"> {{ ticket.created_at }}</td>
-                                <td class="px-2"> {{ client.created_by }}</td>
-                                <td class="py-2 px-2">
-                                    {% if ticket.status == 'active' %}
-                                    <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-                                    {% elif ticket.status == 'completed' %}
-                                    <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-                                    {% elif ticket.status == 'pending' %}
-                                    <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ ticket.get_status_display }}</span>
-                                    {% endif %}
-                                </td>
-                                <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+    <!--Tickets info-->
+    <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+        <h1 class="text-xl font-semibold">Your tickets:</h1>
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
+                        <table class="table-auto text-left w-full">
+                            <thead class="border-b bg-black font-semibold text-white dark:border-neutral-500">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4">Number</th>
+                                    <th scope="col" class="px-6 py-4">Title</th>
+                                    <th scope="col" class="px-6 py-4">Created at</th>
+                                    <th scope="col" class="px-6 py-4">Created by</th>
+                                    <th scope="col" class="px-6 py-4">Priority</th>
+                                    <th scope="col" class="px-6 py-4">Status</th>
+                                    <th scope="col" class="px-6 py-4">View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in tickets %}
+                                <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
+                                    <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
+                                    <td class="py-2 px-2">{{ ticket.title }}</td>
+                                    <td class="px-2"> {{ ticket.created_at|date:"Y-m-d H:i" }}</td>
+                                    <td class="px-2"> {{ client.created_by }}</td>
+                                    <td class="px-2">
+                                        {% if ticket.priority == 'low' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_priority_display }}</span>
+                                        {% elif ticket.priority == 'medium' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ ticket.get_priority_display }}</span>
+                                        {% elif ticket.priority == 'high' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ ticket.get_priority_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2 px-2">
+                                        {% if ticket.status == 'active' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'completed' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% elif ticket.status == 'pending' %}
+                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ ticket.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block text-center py-1 px-6 bg-black rounded-xl font-semibold text-blue-400">View</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{% endif %}
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}
 
 

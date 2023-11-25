@@ -70,16 +70,6 @@ class LeadUpdateView(ManagementRequiredMixin, UpdateView):
     template_name = "leads/edit_lead.html"
     success_url = reverse_lazy('leads:list')
     
-    """
-    nereikia, nes nurodau template name
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        #team = Team.objects.filter(created_by=self.request.user)[0]
-        #context['team'] = team
-        context['title'] = 'Edit lead'
-        
-        return context
-    """
     def form_valid(self, form):
         form.save()
         messages.success(self.request, 'The lead was edited')

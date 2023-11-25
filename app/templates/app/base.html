@@ -19,9 +19,9 @@
 
             {% if request.user.is_authenticated %}
             {% if request.user.is_manager %}
-            <a href="{% url 'teams:detail' active_team.id %}" class="flex items-center">
+            <!--<a href="{% url 'teams:detail' active_team.id %}" class="flex items-center">
                 <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">{{ active_team.name }}</span>
-            </a>
+            </a>-->
             {% else %}
             {% endif %}
             {% else %}
@@ -114,15 +114,15 @@
                     {% endif %}
                     {% if request.user.is_authenticated %}
                     <li>
-                        <a href="{% url 'logout' %}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-500 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Log Out</a>
+                        <a href="{% url 'logout' %}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-500 md:p-0 md:dark:text-blue-400 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Log Out</a>
                     </li>
 
                     {% else %}
                     <li>
-                        <a href="{% url 'login' %}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-500 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Log In</a>
+                        <a href="{% url 'login' %}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-500 md:p-0 md:dark:text-blue-400 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Log In</a>
                     </li>
                     <li>
-                        <a href="{% url 'userprofile:signup' %}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-500 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Sign Up</a>
+                        <a href="{% url 'userprofile:signup' %}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-500 md:p-0 md:dark:text-blue-400 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Sign Up</a>
                     </li>
                     {% endif %}
                 </ul>

@@ -14,7 +14,7 @@
         {% else %}
         {{ request.user.username|json_script:"chat_name" }}
         {% endif %}
-        <button id="chat_join" class="inline-block py-1 px-6 bg-indigo-500 rounded-xl text-white" title = "Join_chat">Join chat</button>
+        <button id="chat_join" class="inline-block text-center py-1 px-6 bg-black rounded-xl font-semibold text-blue-400" title = "Join_chat">Join chat</button>
     </div>
 
     <div id="chat_room" class="hidden">
@@ -23,7 +23,7 @@
         </div>
 
         <input type="text" name="body" id="chat_message_input" class="w-full mb-4 p-4 bg-gray-100 rounded-xl" placeholder="Type your message...">
-        <button id="chat_message_submit" title = "Submit_message" class="py-2 px-4 rounded-xl bg-green-600 text-white">Send</button>
+        <button id="chat_message_submit" title = "Submit_message" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Send</button>
     </div>
 </div>
 

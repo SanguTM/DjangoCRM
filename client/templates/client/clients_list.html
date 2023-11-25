@@ -5,10 +5,10 @@
 {% block content %}
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
     <div class="py-6 px-6">
-        <h1 class="mb-4 text-xl">Clients</h1>
+        <h1 class="mb-4 font-semibold text-3xl">Clients</h1>
         <div class="flex space-x-2">
-            <a href="{% url 'clients:add' %}" class="inline-block py-4 px-6 bg-indigo-500 rounded-xl text-white">Add client</a>
-            <a href="{% url 'clients:export' %}" class="inline-block py-4 px-6 rounded-xl bg-indigo-800 text-white">Export clients</a>
+            <a href="{% url 'clients:add' %}" class="inline-block py-4 px-6 text-center bg-black rounded-xl font-semibold text-blue-400">Add client</a>
+            <a href="{% url 'clients:export' %}" class="inline-block py-4 px-6 text-center bg-black rounded-xl font-semibold text-blue-400">Export clients</a>
         </div>
         {% if clients %}
         <div class="flex flex-col">
@@ -16,7 +16,7 @@
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div class="overflow-hidden">
                         <table class="table-auto text-left w-full">
-                            <thead class="border-b bg-gray-800 font-semibold text-white dark:border-neutral-500">
+                            <thead class="border-b bg-black font-semibold text-white dark:border-neutral-500">
                                 <tr>
                                     <th scope="col" class="px-6 py-4">Name</th>
                                     <th scope="col" class="px-6 py-4">Email to</th>
@@ -28,13 +28,13 @@
                             </thead>
                             <tbody>
                                 {% for client in clients %}
-                                <tr class="border-b bg-neutral-100 dark:border-neutral-500 {% cycle 'bg-red-100' 'bg-yellow-100' %}">
+                                <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
                                     <td class="py-2 px-2">{{ client.name }}</td>
                                     <td class="py-2 px-2">{{ client.email }}</td>
                                     <td class="px-2"> {{ client.phone }}</td>
                                     <td class="px-2"> {{ client.created_by }}</td>
-                                    <td class="py-2 px-2"><a href="{% url 'clients:detail' client.id %}" class="inline-block text-center w-36 py-1 px-6 bg-indigo-500 rounded-xl text-white">View details</a></td>
-                                    <td class="py-2 px-2"><a href="{% url 'clients:edit' client.id %}" class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white">Edit</a></td>
+                                    <td class="py-2 px-2"><a href="{% url 'clients:detail' client.id %}" class="inline-block text-center py-1 px-6 bg-black rounded-xl font-semibold text-blue-400">View</a></td>
+                                    <td class="py-2 px-2"><a href="{% url 'clients:edit' client.id %}" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Edit</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

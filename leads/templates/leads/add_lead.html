@@ -5,18 +5,15 @@
 {% block content %}
 
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-    <h1 text-xl font-semibold><strong>Add lead:</strong></h1>
-    <div class="py-6 px-6">
-
-
+    <h1 class="mb-4 font-semibold text-3xl">Add new lead</h1>
+    <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
         <form method="post" action=".">
             {% csrf_token %}
 
             {{ form.as_p }}
             <br class="my-4">
-            <button type="submit" class="py-2 px-4 rounded-xl bg-green-600 text-white">Submit</button>
+            <button type="submit" class="inline-block text-center py-2 px-6 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
         </form>
-
     </div>
 </div>
 

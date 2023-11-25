@@ -5,98 +5,104 @@
 {% block content %}
 
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-    <h1 class="text-xl font-semibold">Name:</h1>
-    <h2 class="mb-6 text-l">{{ lead.name }}</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+        <div class="p-4 bg-white">
+            <h3 class="mb-4 text-2xl"><b>Lead: </b>{{ lead.name }}</h3>
+            <hr class="my-4 h-0.5 bg-black">
+            <div class="grid md:grid-cols-2 gap-2">
+                <p class="font-semibold">Description: </p>{{ lead.description }}<br>
+                <p class="font-semibold">Phone: </p>{{ lead.phone }}<br>
+                <p class="font-semibold">E-mail: </p>{{ lead.email }}<br>
+                <p class="font-semibold">Created at: </p>{{ lead.created_at|date:"Y-m-d H:i" }}<br>
+                <p class="font-semibold">Modifed at: </p>{{ lead.modified_at|date:"Y-m-d H:i" }}<br>
+                <p class="font-semibold">Status: </p>
+                {% if lead.status == 'new' %}
+                <span class="font-semibold text-red-500">
+                    {{ lead.get_status_display }}
+                </span>
+                {% elif lead.status == 'contacted' %}
+                <span class="font-semibold text-blue-500">
+                    {{ lead.get_status_display }}
+                </span>
+                {% elif lead.status == 'won' %}
+                <span class="font-semibold text-green-500">
+                    {{ lead.get_status_display }}
+                </span>
+                {% elif lead.status == 'lost' %}
+                <span class="font-semibold text-black">
+                    {{ lead.get_status_display }}
+                </span>
+                {% endif %}
 
-    <p class="font-semibold">Description:</p>
-    <p class="mb-2">{{ lead.description }}</p>
+                <p class="font-semibold">Priority: </p>
+                {% if lead.priority == 'low' %}
+                <span class="font-semibold text-blue-500">
+                    {{ lead.get_priority_display }}
+                </span>
+                {% elif lead.priority == 'medium' %}
+                <span class="font-semibold text-green-500">
+                    {{ lead.get_priority_display }}
+                </span>
+                {% elif lead.priority == 'high' %}
+                <span class="font-semibold text-red-500">
+                    {{ lead.get_priority_display }}
+                </span>
+                {% endif %}
+                {% if lead.is_client %}
+                <p class="font-semibold">Client: </p>
+                <span class="font-semibold text-green-500 text-xl">&#10003;</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="flex space-x-2">
+        {% if not lead.is_client %}
+        <a href="{% url 'leads:convert' lead.id %}" class="inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">To client</a>
+        {% endif %}
+        <a href="{% url 'leads:edit' lead.id %}" class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Edit</a>
+        <a href="{% url 'leads:delete' lead.id %}" class="inline-block text-center w-24 py-2 px-4 bg-red-500 rounded-xl font-semibold text-white">Delete</a>
+    </div>
+    <hr class="my-4">
 
-    <p class="font-semibold">Phone:</p>
-    <p class="mb-2">{{ lead.phone }}</p>
+    <h1 class="text-xl font-semibold">Comments:</h1>
+    <div class="space-y-4">
+        {% for comment in lead.comments.all %}
+        <div class="bg-gray-100 p-6 rounded-xl">
+            <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at }}</p>
+            {{ comment.content }}
+        </div>
+        {% endfor %}
+    </div>
 
-    <p class="font-semibold">E-mail:</p>
-    <p class="mb-2">{{ lead.email }}</p>
+    <form method="post" action="{% url 'leads:add-comment' lead.id %}" class="my-4">
+        {% csrf_token %}
 
-    <p class="font-semibold">Created at:</p>
-    <p class="mb-2">{{ lead.created_at }}</p>
+        {{ form }}
+        <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
+        <br class="my-6">
+    </form>
 
-    <p class="font-semibold">Modifed at:</p>
-    <p class="mb-6">{{ lead.modified_at }}</p>
+    <h1 class="text-xl font-semibold">Files:</h1>
 
-    <p class="font-semibold">Status:</p>
-    {% if lead.status == 'new' %}
-    <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
-    {% elif lead.status == 'contacted' %}
-    <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
-    {% elif lead.status == 'won' %}
-    <span class="inline-block py-1 px-6 bg-blue-500 rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
-    {% elif lead.status == 'lost' %}
-    <span class="inline-block py-1 px-6 bg-black rounded-xl text-white w-32 text-center">{{ lead.get_status_display }}</span>
-    {% endif %}
+    {% for file in lead.files.all %}
+    <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at }}</p>
 
-    <p class="font-semibold">Priority:</p>
-    {% if lead.priority == 'low' %}
-    <span class="inline-block py-1 px-6 bg-yellow-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
-    {% elif lead.priority == 'medium' %}
-    <span class="inline-block py-1 px-6 bg-green-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
-    {% elif lead.priority == 'high' %}
-    <span class="inline-block py-1 px-6 bg-red-500 rounded-xl text-white w-32 text-center">{{ lead.get_priority_display }}</span>
-    {% endif %}
-    {% if lead.is_client %}
-    <p class="font-semibold">Is client:</p>
-    <span class="inline-block py-1 px-6 bg-indigo-800 rounded-xl text-white w-32 text-center">{{ lead.is_client }}</span>
-    {% endif %}
+    <a href="{{ file.file.url }}">{{ file.file.file }}</a>
+    {% endfor %}
+
+    <hr class="my-4">
+    <form method="post" action="{% url 'leads:add-file' lead.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ fileform.as_p }}
+        <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
+        <br class="my-4">
+    </form>
 
     <hr class="my-4">
 
-    <div class="flex space-x-2">
-        {% if not lead.is_client %}
-        <a href="{% url 'leads:convert' lead.id %}" class="py-2 px-4 rounded-xl bg-green-500 text-white">Convert to client</a>
-        {% endif %}
-        <a href="{% url 'leads:edit' lead.id %}" class="py-2 px-4 rounded-xl bg-yellow-500 text-white">Edit</a>
-        <a href="{% url 'leads:delete' lead.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete</a>
-    </div>
-        <hr class="my-4">
-
-        <h2 class="mb-6 text-xl">Comments</h2>
-
-        <div class="space-y-4">
-            {% for comment in lead.comments.all %}
-            <div class="bg-gray-100 p-6 rounded-xl">
-                <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at }}</p>
-                {{ comment.content }}
-            </div>
-            {% endfor %}
-        </div>
-
-        <form method="post" action="{% url 'leads:add-comment' lead.id %}" class="my-4">
-            {% csrf_token %}
-
-            {{ form }}
-            <button class="py-2 px-4 rounded-xl bg-blue-500 text-white">Submit</button>
-            <br class="my-6">
-        </form>
-
-        <h2 class="mb-6 text-xl">Files</h2>
-
-        {% for file in lead.files.all %}
-        <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at }}</p>
-
-        <a href="{{ file.file.url }}">{{ file.file.file }}</a>
-        {% endfor %}
-
-        <hr class="my-4">
-        <form method="post" action="{% url 'leads:add-file' lead.id %}" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            {{ fileform.as_p }}
-            <button class="py-2 px-4 rounded-xl bg-blue-500 text-white">Submit</button>
-            <br class="my-4">
-        </form>
-
-        <hr class="my-4">
-
-        <a href="{% url 'leads:list' %}">Back to leads</a>
-    </div>
+    <a href="{% url 'leads:list' %}">Back to leads</a>
+</div>
 
     {% endblock %}

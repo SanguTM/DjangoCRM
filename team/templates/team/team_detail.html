@@ -5,23 +5,25 @@
 {% block content %}
 
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-    <p class="text-xl font-semibold">Team:</p>
-    <p class="mb-2">{{ team.name }}</p>
-
-    <p class="font-semibold">Team owner:</p>
-    <p class="mb-2">{{ team.created_by }}</p>
-
-    <p class="font-semibold">Team members:</p>
-    {% for member in team.members.all %}
-    <p class="mb-2"> {{ member.username }}</p>
-    {% endfor %}
-    <div class="flex space-x-2">
-        <div class="py-6 px-6">
-            <a href="{% url 'teams:list' %}" class="py-2 px-4 rounded-xl bg-indigo-500 text-white">Switch team</a>
-            {% if team.created_by == request.user %}
-            <a href="{% url 'teams:edit' team.id %}" class="py-2 px-4 rounded-xl bg-yellow-500 text-white">Edit</a>
-            {% endif %}
+    <div class="grid md:grid-cols-2 gap-4">
+        <div class="p-4 bg-white">
+            <h3 class="mb-4 text-2xl"><b>Team: </b>{{ team.name }}</h3>
+            <hr class="my-4 h-0.5 bg-black">
+            <div class="grid md:grid-cols-2 gap-2">
+                <p class="font-semibold">Team owner: </p>{{ team.created_by }}<br>
+            </div>
+            <p class="font-semibold">Team members: </p>
+            {% for member in team.members.all %}
+            <p class="mb-2"> {{ member.username }}</p>
+            {% endfor %}
         </div>
     </div>
+    
+    <div class="flex space-x-2">
+            <a href="{% url 'teams:list' %}" class="inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Switch</a>
+            {% if team.created_by == request.user %}
+            <a href="{% url 'teams:edit' team.id %}" class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Edit</a>
+            {% endif %}
     </div>
+</div>
     {% endblock %}

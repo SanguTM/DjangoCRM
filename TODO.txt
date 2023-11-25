@@ -1,4 +1,15 @@
 Todo:
+	Sutvarkyti dizaina
+			https://dribbble.com/shots/20166754-Support-Ticket-Booking-Platform
+			https://graphicmama.com/blog/website-color-schemes/
+			https://www.coveo.com/blog/support-ticket-ui-best-practices/
+	Baigti aprasineti koda
+	Parasyti anotacija/summary
+	Santrumpu sarasas
+	Paveiksliuku sarasas
+	Lenteliu sarasas
+	Studiju rezultatai
+	
 	Sutvarkyti production enviroment - https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
 			https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
 	Cliento lentoje risys su lead, kad trinant klienta turinti rysi i lead, prie lead nustatyti is_client = false
