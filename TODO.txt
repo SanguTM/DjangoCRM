@@ -1,8 +1,4 @@
 Todo:
-	Sutvarkyti dizaina
-			https://dribbble.com/shots/20166754-Support-Ticket-Booking-Platform
-			https://graphicmama.com/blog/website-color-schemes/
-			https://www.coveo.com/blog/support-ticket-ui-best-practices/
 	Baigti aprasineti koda
 	Parasyti anotacija/summary
 	Santrumpu sarasas
@@ -79,3 +75,7 @@ Done:
 	Prie ticketo ant uzbaigimo, laukas kur privaloma ivesti koks sprendimas buvo atliktas
 	Pranesimu sistema apie naujas uzklausas (Siusti laiskus gavus ticket/parasius komentara) - https://www.youtube.com/watch?v=OlO8IfpuKzs
 	Email siuntimas - https://www.youtube.com/playlist?list=PLmEKHA8iFrmCMwRZn7BgeH_3yDv0bFBoY
+	Sutvarkyti dizaina
+		https://dribbble.com/shots/20166754-Support-Ticket-Booking-Platform
+		https://graphicmama.com/blog/website-color-schemes/
+		https://www.coveo.com/blog/support-ticket-ui-best-practices/
