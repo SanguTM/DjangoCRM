@@ -121,6 +121,7 @@ class LeadConvertView(ManagementRequiredMixin, View):
             description=lead.description,
             created_by =request.user,
             team=lead.team,
+            lead=lead,
         )
         
         lead.is_client = True
@@ -182,6 +183,7 @@ class AddFileView(ManagementRequiredMixin, View):
             file.save()
         
         return redirect('leads:detail', pk=pk)
+    
     
 
         

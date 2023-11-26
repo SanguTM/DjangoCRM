@@ -34,16 +34,16 @@ class AddLeadForm(forms.ModelForm):
         'class': INPUT_CLASS
     }))
     
-    email = forms.EmailField(widget=forms.TextInput(attrs={
-        'class': INPUT_CLASS
+    email = forms.EmailField(required=False, widget=forms.TextInput(attrs={
+        'class': INPUT_CLASS,
     }))
     
-    phone = forms.CharField(widget=forms.TextInput(attrs={
-        'class': INPUT_CLASS
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'class': INPUT_CLASS,
     }))
         
-    description = forms.CharField(widget=forms.Textarea(attrs={
-        'class': INPUT_CLASS
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={
+        'class': INPUT_CLASS,
     }))
     
     priority = forms.ChoiceField(choices=CHOICES_PRIORITY, widget=forms.Select(attrs={

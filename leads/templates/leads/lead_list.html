@@ -70,9 +70,10 @@
                 </div>
             </div>
         </div>
+
+        {% else %}
+        <p class="mt-6 px-2">There are no leads in the database yet...</p>
+        {% endif %}
     </div>
-    {% else %}
-    <p class="mt-6 px-2">There are no leads in the database yet...</p>
-    {% endif %}
     </div>
     {% endblock %}

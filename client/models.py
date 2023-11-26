@@ -3,6 +3,7 @@ from django.conf import settings
 #from django.contrib.auth.models import User
 from user.models import User
 from team.models import Team
+from leads.models import Lead
 
 ##https://docs.djangoproject.com/en/4.2/ref/models/fields/
 ##https://stackoverflow.com/questions/8609192/what-is-the-difference-between-null-true-and-blank-true-in-django
@@ -13,6 +14,7 @@ class Client(models.Model):
     phone = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='clients', on_delete=models.CASCADE)
+    lead = models.ForeignKey(Lead, related_name='clients', on_delete=models.SET_NULL, null=True, blank=True)
     #created_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='clients', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)

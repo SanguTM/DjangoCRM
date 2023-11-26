@@ -23,11 +23,11 @@
                         <span class="font-semibold text-blue-500">
                             {{ ticket.get_priority_display }}
                         </span>
-                        {% elif ticket.status == 'completed' %}
+                        {% elif ticket.priority == 'medium' %}
                         <span class="font-semibold text-green-500">
                             {{ ticket.get_priority_display }}
                         </span>
-                        {% elif ticket.status == 'pending' %}
+                        {% elif ticket.priority == 'high' %}
                         <span class="font-semibold text-red-500">
                             {{ ticket.get_priority_display }}
                         </span>
@@ -157,17 +157,17 @@
                     </div>
                     <!-- Modal body -->
                     <div class="p-4 md:p-5 space-y-4">
-                        <form method="post" action="{% url 'tickets:close' ticket.id %}" class="my-4">
+                        <form method="post" action="{% url 'tickets:close' ticket.id %}">
                             {% csrf_token %}
                             <p class="font-semibold text-black">Please type solution to the ticket:</p>
 
                             {{ closeticket.as_p }}
 
                             <br class="my-2">
-                            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button data-modal-hide="default-modal" type="button" class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
+                            
+                                <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
                                 <button data-modal-hide="default-modal" type="button" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Decline</button>
-                            </div>
+                            
                         </form>
                     </div>
                 </div>

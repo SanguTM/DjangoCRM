@@ -8,9 +8,8 @@ Todo:
 	
 	Sutvarkyti production enviroment - https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
 			https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
-	Cliento lentoje risys su lead, kad trinant klienta turinti rysi i lead, prie lead nustatyti is_client = false
-	Sutvarkyti lenteles, kad butu rodoma tvarkingai visur - https://tw-elements.com/docs/standard/data/tables/
-			https://stackoverflow.com/questions/71969134/for-loop-to-populate-a-django-template-table
+
+
 	Export to pdf, xml - https://www.youtube.com/watch?v=1x_ACMFzGYM
 
 ----------------------------------------------
@@ -75,7 +74,10 @@ Done:
 	Prie ticketo ant uzbaigimo, laukas kur privaloma ivesti koks sprendimas buvo atliktas
 	Pranesimu sistema apie naujas uzklausas (Siusti laiskus gavus ticket/parasius komentara) - https://www.youtube.com/watch?v=OlO8IfpuKzs
 	Email siuntimas - https://www.youtube.com/playlist?list=PLmEKHA8iFrmCMwRZn7BgeH_3yDv0bFBoY
+	Cliento lentoje risys su lead, kad trinant klienta turinti rysi i lead, prie lead nustatyti is_client = false
 	Sutvarkyti dizaina
 		https://dribbble.com/shots/20166754-Support-Ticket-Booking-Platform
 		https://graphicmama.com/blog/website-color-schemes/
 		https://www.coveo.com/blog/support-ticket-ui-best-practices/
+				Sutvarkyti lenteles, kad butu rodoma tvarkingai visur - https://tw-elements.com/docs/standard/data/tables/
+					https://stackoverflow.com/questions/71969134/for-loop-to-populate-a-django-template-table

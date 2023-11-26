@@ -38,15 +38,15 @@ LOGOUT_REDIRECT_URL = 'index'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
 INSTALLED_APPS = [
     'app',
-    'userprofile',
+    'notification',
     'dashboard',
     'leads',
     'client',
-    'team',
+    'userprofile',
+    'team',   
     'ticket',
     'user',
     'chat',
-    'notification',
 
     # Add your apps here to enable them
     'daphne',
@@ -135,11 +135,11 @@ ASGI_APPLICATION = 'DjangoCRM.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-        #'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        #"CONFIG": {
-         # "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        #},
+        #'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        "CONFIG": {
+         "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
     }
 }
 

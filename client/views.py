@@ -1,12 +1,14 @@
+from asyncio.windows_events import NULL
 import csv
 
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
-from .models import Client
 from .forms import AddClientForm, AddCommentForm, AddFileForm
+from .models import Client
+from leads.models import Lead
+
 
 @login_required
 def clients_list(request):
@@ -84,6 +86,12 @@ def add_client(request):
 def clients_delete(request, pk):
     if request.user.is_manager:
         client = get_object_or_404(Client, created_by=request.user, pk=pk)
+        
+        if client.lead:
+            lead = Lead.objects.get(id=client.lead.id)
+            lead.is_client = False
+            lead.save()
+
         client.delete()
     
         messages.success(request, 'The client was deleted')

@@ -12,15 +12,15 @@ class AddClientForm(forms.ModelForm):
         'class': INPUT_CLASS
     }))
     
-    email = forms.EmailField(widget=forms.TextInput(attrs={
+    email = forms.EmailField(required=False, widget=forms.TextInput(attrs={
         'class': INPUT_CLASS
     }))
     
-    phone = forms.CharField(widget=forms.TextInput(attrs={
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'class': INPUT_CLASS
     }))
         
-    description = forms.CharField(widget=forms.Textarea(attrs={
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={
         'class': INPUT_CLASS
     }))
 

@@ -23,19 +23,6 @@ from notification.models import Email, EmailSetting
 
 #https://stackoverflow.com/questions/37219601/how-can-i-get-the-email-configuration-from-the-db
 # Custom email backend
-settings = EmailSetting.objects.first()
-
-if settings:
-    connection = get_connection(
-            host=settings.email_host,
-            port=settings.email_port,
-            use_tls=settings.email_use_tls,
-            from_email = settings.email_from_email,
-            username=settings.email_host_user,
-            password=settings.email_host_password)
-    
-if settings:
-    from_email = settings.email_from_email
 
 @login_required
 def ticket_detail(request, pk):
@@ -58,6 +45,17 @@ def ticket_detail(request, pk):
             subject = "Ticket "+ ticket.ticket_number + " received new comment"  
             comment_user = User.objects.get(username = comment.created_by).email
             
+            settings = EmailSetting.objects.first()
+
+            if settings:
+                connection = get_connection(
+                        host=settings.email_host,
+                        port=settings.email_port,
+                        use_tls=settings.email_use_tls,
+                        from_email = settings.email_from_email,
+                        username=settings.email_host_user,
+                        password=settings.email_host_password)
+                
             if settings:
                 if comment.ticket.assign_to:
                     assign_user = User.objects.get(username = ticket.assign_to).email
@@ -241,6 +239,17 @@ def ticket_close(request, pk):
         ticket.is_resolved = True
         ticket.closed_at = datetime.datetime.now()
         ticket.save()
+        
+        settings = EmailSetting.objects.first()
+
+        if settings:
+            connection = get_connection(
+                    host=settings.email_host,
+                    port=settings.email_port,
+                    use_tls=settings.email_use_tls,
+                    from_email = settings.email_from_email,
+                    username=settings.email_host_user,
+                    password=settings.email_host_password)
                 
         if settings:
             url = request.build_absolute_uri()
