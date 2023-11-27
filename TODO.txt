@@ -1,11 +1,4 @@
 Todo:
-	Pakeisti dizaina. Mygtukus pilkai, niautraliai.
-	Edit ir view pakeisti i ikonas
-	Sarasuose filtravimas pagal busena ir prioriteta.
-			https://www.youtube.com/watch?v=nle3u6Ww6Xk
-			https://dustindavis.me/blog/dynamic-filtered-drop-down-choice-fields-with-django
-			https://www.letscodemore.com/blog/how-to-use-django-filters-library-in-django/
-
 	Parasyti anotacija/summary
 	Santrumpu sarasas
 	Studiju rezultatai
@@ -40,6 +33,7 @@ Helpful:
 	Dropdown search -	https://www.youtube.com/watch?v=Zzd4sL7drKQ
 	Marking message as read - https://stackoverflow.com/questions/62579742/marking-message-as-read-in-django
 	Restricting signal notifications - https://stackoverflow.com/questions/64960704/restricting-signal-notifications-in-a-django-project-to-specific-attribute-in-mo
+	Icons - https://heroicons.com/
 	
 	<table class="table">
   <thead>
@@ -85,6 +79,13 @@ Done:
 		https://www.coveo.com/blog/support-ticket-ui-best-practices/
 				Sutvarkyti lenteles, kad butu rodoma tvarkingai visur - https://tw-elements.com/docs/standard/data/tables/
 					https://stackoverflow.com/questions/71969134/for-loop-to-populate-a-django-template-table
+						Pakeisti dizaina. Mygtukus pilkai, niautraliai.
+						Edit ir view pakeisti i ikonas
+						Sarasuose filtravimas pagal busena ir prioriteta.
+								https://www.youtube.com/watch?v=nle3u6Ww6Xk
+								https://dustindavis.me/blog/dynamic-filtered-drop-down-choice-fields-with-django
+								https://www.letscodemore.com/blog/how-to-use-django-filters-library-in-django/
 	Baigti aprasineti koda
 	Paveiksliuku sarasas
 	Lenteliu sarasas
+	
