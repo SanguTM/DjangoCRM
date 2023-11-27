@@ -6,9 +6,13 @@
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
     <div class="py-6 px-6">
         <h1 class="mb-4 font-semibold text-3xl">Leads</h1>
-
         <a href="{% url 'leads:add' %}" class="inline-block py-4 px-6 text-center bg-black rounded-xl font-semibold text-blue-400">Add lead</a>
-
+        <br />
+        <br />
+        <form method="GET" class="w-34 rounded-xl border font-semibold">
+            {{ filter.form }}
+            <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Filter</button>
+        </form>
         {% if object_list %}
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -29,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for lead in object_list %}
+                                {% for lead in filter.qs %}
                                 <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
                                     <td class="py-2 px-2">{{ lead.name }}</td>
                                     <td class="py-2 px-2">{{ lead.email }}</td>

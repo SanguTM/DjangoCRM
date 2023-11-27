@@ -13,6 +13,7 @@ from team.models import Team
 from .models import Lead
 
 from .forms import AddLeadForm, AddCommentForm, AddFileForm
+from dashboard.filters import LeadFilter
 
 
 class ManagementRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
@@ -26,9 +27,17 @@ class ManagementRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
 class LeadListView(ManagementRequiredMixin, ListView):
     model = Lead
     
-    def get_queryset(self):
-        queryset = super(LeadListView, self).get_queryset()
+    def get_context_data(self, **kwargs):
         team = self.request.user.userprofile.active_team
+        context = super().get_context_data(**kwargs)
+        context['team'] = team
+        context['filter'] = LeadFilter(self.request.GET, Lead.objects.filter(team=team).order_by('-created_at'))
+        
+        return context
+    
+    #def get_queryset(self):
+     #   queryset = super(LeadListView, self).get_queryset()
+     #   team = self.request.user.userprofile.active_team
         
         return queryset.filter(team=team) #is_client=False)
         

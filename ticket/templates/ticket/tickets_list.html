@@ -24,7 +24,10 @@
             </div>
         </form>
         {% endif %}
-
+        <form method="GET" class="w-34 rounded-xl border font-semibold">
+            {{ filter.form }}
+            <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Filter</button>
+        </form>
         {% if tickets %}
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -51,7 +54,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for ticket in tickets %}
+                                {% for ticket in filter.qs %}
                                 <tr class="border-b dark:border-neutral-500 {% cycle 'bg-white' 'bg-gray-100' %}">
                                     <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
                                     <td class="py-2 px-2">{{ ticket.title }}</td>

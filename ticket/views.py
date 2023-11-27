@@ -19,6 +19,7 @@ from .form import *
 from user.models import User
 from userprofile.models import UserProfile
 from notification.models import Email, EmailSetting
+from dashboard.filters import TicketFilter
 # Create your views here.
 
 #https://stackoverflow.com/questions/37219601/how-can-i-get-the-email-configuration-from-the-db
@@ -188,11 +189,14 @@ def ticket_list(request):
     #tickets = get_list_or_404(Ticket, created_by=request.user)
     if request.user.is_manager:
         tickets = Ticket.objects.all()
+        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.all())
     else:
         tickets = Ticket.objects.filter(created_by=request.user)
+        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.filter(created_by=request.user))
     
     return render(request, 'ticket/tickets_list.html', {
-        'tickets': tickets      
+        'tickets': tickets,
+        'filter': ticketFilter,
     })
 
 @login_required
@@ -305,9 +309,11 @@ def ticket_workspace(request):
     if request.user.is_manager:
         #tickets = get_list_or_404(Ticket, assign_to=request.user, is_resolved=False)
         tickets = Ticket.objects.filter(assign_to=request.user, is_resolved=False)
+        ticketFilter = Ticket.objects.filter(assign_to=request.user, is_resolved=False)
     
         return render(request, 'ticket/tickets_workspace.html', {
-            'tickets': tickets
+            'tickets': tickets,
+            'filter': ticketFilter,
         })
     else: 
         messages.error(request, 'You have no access to the page')

@@ -77,6 +77,9 @@
     <Compile Include="client\__init__.py" />
     <Compile Include="dashboard\admin.py" />
     <Compile Include="dashboard\apps.py" />
+    <Compile Include="dashboard\filters.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="dashboard\migrations\__init__.py" />
     <Compile Include="dashboard\models.py" />
     <Compile Include="dashboard\tests.py" />
