@@ -193,7 +193,7 @@
         <div class="space-y-4">
             {% for comment in ticket.comments.all %}
             <div class="bg-gray-100 p-6 rounded-xl">
-                <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at }}</p>
+                <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at|date:"Y-m-d H:i" }}</p>
                 {{ comment.content }}
             </div>
             {% endfor %}
@@ -210,7 +210,7 @@
         <h1 class="text-xl font-semibold">Files:</h1>
 
         {% for file in ticket.files.all %}
-        <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at }}</p>
+        <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at|date:"Y-m-d H:i" }}</p>
 
         <a href="{{ file.file.url }}">{{ file.file.file }}</a>
         {% endfor %}
