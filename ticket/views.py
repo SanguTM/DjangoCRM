@@ -309,7 +309,7 @@ def ticket_workspace(request):
     if request.user.is_manager:
         #tickets = get_list_or_404(Ticket, assign_to=request.user, is_resolved=False)
         tickets = Ticket.objects.filter(assign_to=request.user, is_resolved=False)
-        ticketFilter = Ticket.objects.filter(assign_to=request.user, is_resolved=False)
+        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.filter(assign_to=request.user, is_resolved=False))
     
         return render(request, 'ticket/tickets_workspace.html', {
             'tickets': tickets,
