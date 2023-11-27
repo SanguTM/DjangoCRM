@@ -115,6 +115,7 @@ def ticket_detail(request, pk):
     
     return render(request, 'ticket/ticket_detail.html', {
         'ticket': ticket,
+        'user': user,
         'user_tickets': user_tickets,
         'user_profile': user_profile,
         'form': form,

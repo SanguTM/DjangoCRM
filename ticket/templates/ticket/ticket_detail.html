@@ -14,7 +14,6 @@
                     <hr class="my-4 h-0.5 bg-black">
                     <div class="grid md:grid-cols-2 gap-2">
                         <p class="font-semibold">Title: </p>{{ ticket.title }}<br>
-                        <p class="font-semibold">Phone: </p>{{ ticket.description }}<br>
                         <p class="font-semibold">Created at: </p>{{ ticket.created_at|date:"Y-m-d H:i" }}<br>
                         <p class="font-semibold">Modifed at: </p>{{ ticket.modified_at|date:"Y-m-d H:i" }}<br>
                         <p class="font-semibold">Closed at: </p>{{ ticket.closed_at|date:"Y-m-d H:i" }}<br>
@@ -46,6 +45,7 @@
                             {{ ticket.get_status_display }}
                         </span>
                         {% endif %}
+                        <p class="font-semibold">Description: </p>{{ ticket.description }}<br>
                     </div>
                 </div>
             </div>
