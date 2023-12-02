@@ -20,15 +20,15 @@
                     <p class="font-semibold">Manager: </p>{% firstof room.agent.username 'None' %}<br>
                     <p class="font-semibold">Status: </p>
                     {% if room.status == 'waiting' %}
-                    <span class="font-semibold text-red-500">
+                    <span class="font-semibold text-black">
                         {{ room.get_status_display }}
                     </span><br>
                     {% elif room.status == 'active' %}
-                    <span class="font-semibold text-green-500">
+                    <span class="font-semibold text-black">
                         {{ room.get_status_display }}
                     </span><br>
                     {% elif room.status == 'closed' %}
-                    <span class="font-semibold text-blue-500">
+                    <span class="font-semibold text-black">
                         {{ room.get_status_display }}
                     </span><br>
                     {% endif %}
@@ -49,7 +49,7 @@
         <h1 class="text-xl font-semibold">Your tickets:</h1>
         <form method="GET" class="w-34 rounded-xl border font-semibold">
             {{ filter.form }}
-            <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Filter</button>
+            <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-gray-600 rounded-xl font-semibold text-white">Filter</button>
         </form>
         
         <div class="flex flex-col">
@@ -86,11 +86,11 @@
                                     </td>
                                     <td class="py-2 px-2">
                                         {% if ticket.status == 'active' %}
-                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ ticket.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ ticket.get_status_display }}</span>
                                         {% elif ticket.status == 'completed' %}
-                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ ticket.get_status_display }}</span>
                                         {% elif ticket.status == 'pending' %}
-                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ ticket.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ ticket.get_status_display }}</span>
                                         {% endif %}
                                     </td>
                                     <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
@@ -113,7 +113,7 @@
         <h1 class="text-xl font-semibold">Latest leads:</h1>
         <form method="GET" class="w-34 rounded-xl border font-semibold">
             {{ leadFilter.form }}
-            <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Filter</button>
+            <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-gray-600 rounded-xl font-semibold text-white">Filter</button>
         </form>
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -151,11 +151,11 @@
                                     </td>
                                     <td class="py-2 px-2">
                                         {% if lead.status == 'new' %}
-                                        <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ lead.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ lead.get_status_display }}</span>
                                         {% elif lead.status == 'contacted' %}
-                                        <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ lead.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ lead.get_status_display }}</span>
                                         {% elif lead.status == 'won' %}
-                                        <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ lead.get_status_display }}</span>
+                                        <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ lead.get_status_display }}</span>
                                         {% elif lead.status == 'lost' %}
                                         <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ lead.get_status_display }}</span>
                                         {% endif %}

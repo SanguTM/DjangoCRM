@@ -37,18 +37,21 @@
                             {{ ticket.get_status_display }}
                         </span>
                         {% elif ticket.status == 'completed' %}
-                        <span class="font-semibold text-blue-500">
+                        <span class="font-semibold text-black">
                             {{ ticket.get_status_display }}
                         </span>
                         {% elif ticket.status == 'pending' %}
-                        <span class="font-semibold text-red-500">
+                        <span class="font-semibold text-black">
                             {{ ticket.get_status_display }}
                         </span>
                         {% endif %}
                     </div>
-                    <hr class="my-4" />
-                    <p class="font-semibold">Description: </p>{{ ticket.description }}<br>
                 </div>
+            </div>
+            <hr class="my-4" />
+            <h3 class="font-semibold text-xl">Description: </h3><br />
+            <div class="rounded-lg bg-gray-100 py-1 px-1">
+                <p class="bg-gray-100">{{ ticket.description }}</p><br>
             </div>
         </div>
         <!--User info-->
@@ -68,7 +71,7 @@
                         <p class="font-semibold">Description: </p>{{ user_profile.client.description }}<br>
                         {% if request.user.is_manager %}
                         {% if user_profile.client.id %}
-                        <a href="{% url 'clients:detail' user_profile.client.id %}" class="inline-block py-1 px-6 text-center bg-black rounded-xl font-semibold text-blue-400">Client page</a>
+                        <a href="{% url 'clients:detail' user_profile.client.id %}" class="w-full inline-block py-1 px-6 text-center bg-gray-600 rounded-xl font-semibold text-white">Client page</a>
                         {% endif %}
                         {% elif request.user.is_customer %}
                         <a href="{% url 'userprofile:user_account' %}" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Edit account</a>
@@ -111,11 +114,11 @@
                                 <td class="py-2 px-2">{{ user_ticket.assign_to }}</td>
                                 <td class="px-2">
                                     {% if user_ticket.status == 'active' %}
-                                    <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center">{{ user_ticket.get_status_display }}</span>
+                                    <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ user_ticket.get_status_display }}</span>
                                     {% elif user_ticket.status == 'completed' %}
-                                    <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ user_ticket.get_status_display }}</span>
+                                    <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ user_ticket.get_status_display }}</span>
                                     {% elif user_ticket.status == 'pending' %}
-                                    <span class="inline-block py-1 px-6 font-semibold text-red-500 text-center">{{ user_ticket.get_status_display }}</span>
+                                    <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ user_ticket.get_status_display }}</span>
                                     {% endif %}
                                 </td>
                                 <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
@@ -136,10 +139,10 @@
     {% if request.user.is_manager %}
     <div class="flex space-x-2">
         {% if ticket.assign_to == None %}
-        <a href="{% url 'tickets:accept' ticket.id %}" class="inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Accept</a>
+        <a href="{% url 'tickets:accept' ticket.id %}" class="inline-block text-center w-24 py-2 px-4 bg-gray-600 rounded-xl font-semibold text-white">Accept</a>
         {% else %}
         <!-- Modal toggle -->
-        <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="py-1.5 px-4 rounded-xl font-semibold bg-black text-blue-400" type="button">
+        <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="py-1.5 px-4 rounded-xl font-semibold bg-gray-600 text-white" type="button">
             Close ticket
         </button>
 
@@ -171,7 +174,7 @@
                             <br class="my-2">
                             
                                 <button class="inline-block text-center w-24 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Submit</button>
-                                <button data-modal-hide="default-modal" type="button" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Decline</button>
+                                <button data-modal-hide="default-modal" type="button" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-red-500 rounded-xl font-semibold text-white">Decline</button>
                             
                         </form>
                     </div>
