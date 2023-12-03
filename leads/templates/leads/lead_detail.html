@@ -17,15 +17,15 @@
                 <p class="font-semibold">Modifed at: </p>{{ lead.modified_at|date:"Y-m-d H:i" }}<br>
                 <p class="font-semibold">Status: </p>
                 {% if lead.status == 'new' %}
-                <span class="font-semibold text-red-500">
+                <span class="font-semibold text-black">
                     {{ lead.get_status_display }}
                 </span>
                 {% elif lead.status == 'contacted' %}
-                <span class="font-semibold text-blue-500">
+                <span class="font-semibold text-black">
                     {{ lead.get_status_display }}
                 </span>
                 {% elif lead.status == 'won' %}
-                <span class="font-semibold text-green-500">
+                <span class="font-semibold text-black">
                     {{ lead.get_status_display }}
                 </span>
                 {% elif lead.status == 'lost' %}

@@ -358,5 +358,5 @@ class SearchResultsList(LoginRequiredMixin, ListView):
         tickets = self.request.GET.get("q", None)
         if ticket:
             return Ticket.objects.filter(
-                Q(title__icontains=tickets) | Q(description__icontains=tickets)
+                Q(title__icontains=tickets) | Q(description__icontains=tickets) | Q(solution__icontains=tickets)
             )
