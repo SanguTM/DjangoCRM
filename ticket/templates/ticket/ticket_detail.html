@@ -33,7 +33,7 @@
                         {% endif %}
                         <p class="font-semibold">Status: </p>
                         {% if ticket.status == 'active' %}
-                        <span class="font-semibold text-green-500">
+                        <span class="font-semibold text-black">
                             {{ ticket.get_status_display }}
                         </span>
                         {% elif ticket.status == 'completed' %}
