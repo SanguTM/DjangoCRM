@@ -85,7 +85,9 @@ Done:
 								https://www.youtube.com/watch?v=nle3u6Ww6Xk
 								https://dustindavis.me/blog/dynamic-filtered-drop-down-choice-fields-with-django
 								https://www.letscodemore.com/blog/how-to-use-django-filters-library-in-django/
+								https://github.com/carltongibson/django-filter/issues/341
 	Baigti aprasineti koda
 	Paveiksliuku sarasas
 	Lenteliu sarasas
+	Lenteliu rusiavimas - https://www.kryogenix.org/code/browser/sorttable/
 	

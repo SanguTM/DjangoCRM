@@ -32,6 +32,10 @@ class TicketFilter(django_filters.FilterSet):
     priority = django_filters.ChoiceFilter(choices=CHOICES_PRIORITY, label='', widget=forms.Select(attrs={
         'class': INPUT_CLASS
     }))
+    # https://github.com/carltongibson/django-filter/issues/341 - reikia prefix naudoti, jeigu daugiau nei vienas filtras tam paciam template
+    def __init__(self, data=None, queryset=None, *, request=None, user=None, prefix=None):
+            super().__init__(data=data, queryset=queryset, prefix="ticket")
+            
     class Meta:
         model = Ticket
         fields = ('status', 'priority',)
@@ -60,12 +64,17 @@ class LeadFilter(django_filters.FilterSet):
         (HIGH, 'High'),
     )
         
+    
     status = django_filters.ChoiceFilter(choices=CHOICES_LEAD_STATUS, label='Filter by status or priority', widget=forms.Select(attrs={
         'class': INPUT_CLASS
     }))
     priority = django_filters.ChoiceFilter(choices=CHOICES_PRIORITY, label='', widget=forms.Select(attrs={
         'class': INPUT_CLASS
     }))
+    
+    def __init__(self, data=None, queryset=None, *, request=None, user=None, prefix=None):
+        super().__init__(data=data, queryset=queryset, prefix="lead")    
+
     class Meta:
         model = Lead
         fields = ('status', 'priority',)
