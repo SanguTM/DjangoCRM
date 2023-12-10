@@ -16,11 +16,11 @@ class SignupForm(UserCreationForm):
         'placeholder': 'Your username',
         'class': INPUT_CLASS
     }))
-    email = forms.CharField(widget=forms.EmailInput(attrs={
+    email = forms.CharField(required=False, widget=forms.EmailInput(attrs={
         'placeholder': 'Your email address',
         'class': INPUT_CLASS
     }))
-    phone = forms.CharField(widget=forms.TextInput(attrs={
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Your phone number',
         'class': INPUT_CLASS
     }))

@@ -357,6 +357,11 @@ class SearchResultsList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         tickets = self.request.GET.get("q", None)
         if ticket:
-            return Ticket.objects.filter(
-                Q(title__icontains=tickets) | Q(description__icontains=tickets) | Q(solution__icontains=tickets)
-            )
+            if self.request.user.is_customer:
+                return Ticket.objects.filter(
+                    (Q(title__icontains=tickets) | Q(description__icontains=tickets) | Q(solution__icontains=tickets)) & Q(created_by=self.request.user)
+                )
+            else:
+                return Ticket.objects.filter(
+                    Q(title__icontains=tickets) | Q(description__icontains=tickets) | Q(solution__icontains=tickets)
+                )

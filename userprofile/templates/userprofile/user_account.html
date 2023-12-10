@@ -20,18 +20,18 @@
 
                 <hr class="my-4">
 
-                {% if active_team %}
-                <div class="grid md:grid-cols-2 gap-4">
-                    <h3 class="mb-4 text-2xl"><b>Team: </b>{{ team.name }}</h3>
-                </div>
+                <!--{% if active_team %}
+    <div class="grid md:grid-cols-2 gap-4">
+        <h3 class="mb-4 text-2xl"><b>Team: </b>{{ team.name }}</h3>
+    </div>
 
-                <a href="{% url 'teams:detail' active_team.id %}" class="inline-block text-center w-28 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Team</a>
-                {% if active_team.created_by == request.user %}
-                <a href="{% url 'teams:edit' active_team.id %}" class="ms-3 inline-block text-center w-28 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Edit</a>
-                {% endif %}
-                {% else %}
-                <a href="{% url 'teams:list' active_team.id %}" class="inline-block text-center w-28 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Select</a>
-                {% endif %}
+    <a href="{% url 'teams:detail' active_team.id %}" class="inline-block text-center w-28 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Team</a>
+    {% if active_team.created_by == request.user %}
+    <a href="{% url 'teams:edit' active_team.id %}" class="ms-3 inline-block text-center w-28 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Edit</a>
+    {% endif %}
+    {% else %}
+    <a href="{% url 'teams:list' active_team.id %}" class="inline-block text-center w-28 py-2 px-4 bg-green-500 rounded-xl font-semibold text-white">Select</a>
+    {% endif %}-->
             </form>
 
         </div>
