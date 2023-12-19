@@ -17,8 +17,8 @@ def dashboard(request):
         clients = Client.objects.filter(team=team).order_by('-created_at')[0:5]
         tickets = Ticket.objects.filter(assign_to=request.user, is_resolved=False)[0:5]
         rooms = Room.objects.filter(status=Room.WAITING)
-        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.filter(assign_to=request.user, is_resolved=False)[0:5])
-        leadFilter = LeadFilter(request.GET, Lead.objects.filter(team=team).order_by('-created_at')[0:5])
+        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.filter(assign_to=request.user, is_resolved=False))
+        leadFilter = LeadFilter(request.GET, Lead.objects.filter(team=team).order_by('-created_at'))
       
         return render(request, 'dashboard/dashboard.html', {
             'leads': leads,
@@ -30,7 +30,7 @@ def dashboard(request):
         })
     else:
         tickets = Ticket.objects.filter(created_by=request.user)
-        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.filter(created_by=request.user)[0:5])
+        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.filter(created_by=request.user))
         
         return render(request, 'dashboard/dashboard.html', {
             'tickets': tickets,
