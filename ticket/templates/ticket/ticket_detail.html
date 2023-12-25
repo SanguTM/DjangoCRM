@@ -223,7 +223,7 @@
         {% endfor %}
 
         <hr class="my-4">
-        <form method="post" action="{% url 'tickets:add-file' ticket.id %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'tickets:add-file' ticket.id %}" class="my-4" enctype="multipart/form-data">
             {% csrf_token %}
 
             {{ fileform.as_p }}
