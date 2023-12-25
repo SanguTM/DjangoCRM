@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6bb94e42-4d31-4f93-a180-3267891c0f10'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://pacific-coast-78888.herokuapp.com', 'https://*']
@@ -198,7 +198,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 """
-STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+#STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 #WHITENOISE_USE_FINDERS = True
 #WHITENOISE_MANIFEST_STRICT = False
 #WHITENOISE_ALLOW_ALL_ORIGINS = True
