@@ -29,8 +29,8 @@ def dashboard(request):
             'leadFilter': leadFilter,
         })
     else:
-        tickets = Ticket.objects.filter(created_by=request.user)
-        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.filter(created_by=request.user))
+        tickets = Ticket.objects.filter(created_by=request.user, is_resolved=False)[0:5]
+        ticketFilter = TicketFilter(request.GET, queryset=Ticket.objects.filter(created_by=request.user, is_resolved=False))
         
         return render(request, 'dashboard/dashboard.html', {
             'tickets': tickets,

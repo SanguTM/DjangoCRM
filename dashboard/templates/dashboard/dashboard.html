@@ -3,10 +3,11 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<!--Chat info-->
-{% if request.user.is_manager %}
+
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
     <h1 class="mb-4 font-semibold text-3xl">Dashboard</h1>
+    {% if request.user.is_manager %}
+    <!--Chat info-->
     <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
         <h1 class="text-xl font-semibold">Pending chat rooms:</h1>
         <div class="grid md:grid-cols-4 gap-4">
@@ -51,7 +52,7 @@
             {{ filter.form }}
             <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-gray-600 rounded-xl font-semibold text-white">Filter</button>
         </form>
-        
+
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -74,7 +75,7 @@
                                     <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
                                     <td class="py-2 px-2">{{ ticket.title }}</td>
                                     <td class="px-2"> {{ ticket.created_at|date:"Y-m-d H:i" }}</td>
-                                    <td class="px-2"> {{ client.created_by }}</td>
+                                    <td class="px-2"> {{ ticket.created_by }}</td>
                                     <td class="px-2">
                                         {% if ticket.priority == 'low' %}
                                         <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_priority_display }}</span>
@@ -93,11 +94,13 @@
                                         <span class="inline-block py-1 px-6 font-semibold text-black text-center">{{ ticket.get_status_display }}</span>
                                         {% endif %}
                                     </td>
-                                    <td class="py-2 px-2"><a href="{% url 'tickets:detail' ticket.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
-                                        <svg data-tooltip-target="tooltip-top"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
-                                        </svg>
-                                    </a></td>
+                                    <td class="py-2 px-2">
+                                        <a href="{% url 'tickets:detail' ticket.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
+                                            <svg data-tooltip-target="tooltip-top" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+                                            </svg>
+                                        </a>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -165,16 +168,20 @@
                                         <span class="inline-block py-1 px-6 font-semibold text-green-500 text-center text-xl">&#10003;</span>
                                         {% endif %}
                                     </td>
-                                    <td class="py-2 px-2"><a href="{% url 'leads:detail' lead.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
-                                        </svg>
-                                    </a></td>
-                                    <td class="py-2 px-2"><a href="{% url 'leads:edit' lead.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                                        </svg>
-                                    </a> </td>
+                                    <td class="py-2 px-2">
+                                        <a href="{% url 'leads:detail' lead.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+                                            </svg>
+                                        </a>
+                                    </td>
+                                    <td class="py-2 px-2">
+                                        <a href="{% url 'leads:edit' lead.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                            </svg>
+                                        </a>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -210,16 +217,20 @@
                                     <td class="py-2 px-2">{{ client.email }}</td>
                                     <td class="px-2"> {{ client.phone }}</td>
                                     <td class="px-2"> {{ client.created_by }}</td>
-                                    <td class="py-2 px-2"><a href="{% url 'clients:detail' client.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
-                                        </svg>
-                                    </a></td>
-                                    <td class="py-2 px-2"><a href="{% url 'clients:edit' client.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                                    </svg>
-                                </a></td>
+                                    <td class="py-2 px-2">
+                                        <a href="{% url 'clients:detail' client.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+                                            </svg>
+                                        </a>
+                                    </td>
+                                    <td class="py-2 px-2">
+                                        <a href="{% url 'clients:edit' client.id %}" class="inline-block border-2 border-black text-center py-1 px-6 rounded-xl font-semibold text-black">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                            </svg>
+                                        </a>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -229,15 +240,17 @@
             </div>
         </div>
     </div>
-</div>
+
     <hr class="my-4">
     {% elif request.user.is_customer %}
     <!--Tickets info-->
+    <a href="{% url 'tickets:add' %}" class="inline-block py-4 px-6 text-center bg-gray-600 rounded-xl font-semibold text-white">Create ticket</a>
+
     <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
         <h1 class="text-xl font-semibold">Your tickets:</h1>
         <form method="GET" class="w-34 rounded-xl border font-semibold">
             {{ filter.form }}
-            <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-black rounded-xl font-semibold text-blue-400">Filter</button>
+            <button type="submit" class="ms-3 inline-block text-center w-24 py-2 px-4 bg-gray-600 rounded-xl font-semibold text-white">Filter</button>
         </form>
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -249,7 +262,8 @@
                                     <th scope="col" class="px-6 py-4">Number</th>
                                     <th scope="col" class="px-6 py-4">Title</th>
                                     <th scope="col" class="px-6 py-4">Created at</th>
-                                    <th scope="col" class="px-6 py-4">Created by</th>
+                                    <th scope="col" class="px-6 py-4">Assigned to</th>
+                                    <th scope="col" class="px-6 py-4">Accepted at</th>
                                     <th scope="col" class="px-6 py-4">Priority</th>
                                     <th scope="col" class="px-6 py-4">Status</th>
                                     <th scope="col" class="px-6 py-4">View</th>
@@ -261,7 +275,8 @@
                                     <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
                                     <td class="py-2 px-2">{{ ticket.title }}</td>
                                     <td class="px-2"> {{ ticket.created_at|date:"Y-m-d H:i" }}</td>
-                                    <td class="px-2"> {{ client.created_by }}</td>
+                                    <td class="px-2"> {{ ticket.assign_to }}</td>
+                                    <td class="px-2"> {{ ticket.accepted_at|date:"Y-m-d H:i" }}</td>
                                     <td class="px-2">
                                         {% if ticket.priority == 'low' %}
                                         <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_priority_display }}</span>
@@ -293,11 +308,11 @@
                         </table>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
-    {% endif %}
-
+</div>
     {% endblock %}
 
 

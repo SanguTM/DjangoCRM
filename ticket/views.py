@@ -258,7 +258,6 @@ def ticket_close(request, pk):
                 
         if settings:
             url = request.build_absolute_uri()
-            url = url[:-6]
             subject = "Ticket: " + ticket.ticket_number + " was closed"
             message = "Ticket received new comment. Check it here: " + url
             user = User.objects.get(username = ticket.created_by)

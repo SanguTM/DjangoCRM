@@ -47,7 +47,8 @@
                                     <th scope="col" class="px-6 py-4">Created by</th>
                                     {% endif %}
                                     <th scope="col" class="px-6 py-4">Created at</th>
-                                    <th scope="col" class="px-6 py-4">Asigned to</th>
+                                    <th scope="col" class="px-6 py-4">Assigned to</th>
+                                    <th scope="col" class="px-6 py-4">Accepted at</th>
                                     <th scope="col" class="px-6 py-4">Priority</th>
                                     <th scope="col" class="px-6 py-4">Status</th>
                                     {% if request.user.is_customer %}
@@ -67,6 +68,7 @@
                                     {% endif %}
                                     <td class="py-2 px-2">{{ ticket.created_at|date:"Y-m-d H:i" }}</td>
                                     <td class="py-2 px-2">{{ ticket.assign_to }}</td>
+                                    <td class="px-2"> {{ ticket.accepted_at|date:"Y-m-d H:i" }}</td>
                                     <td class="px-2">
                                         {% if ticket.priority == 'low' %}
                                         <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_priority_display }}</span>

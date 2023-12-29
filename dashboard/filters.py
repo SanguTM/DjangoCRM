@@ -26,7 +26,7 @@ class TicketFilter(django_filters.FilterSet):
         (HIGH, 'High'),
     )    
 
-    status = django_filters.ChoiceFilter(choices=CHOICES_STATUS, label='Filter by status or priority', widget=forms.Select(attrs={
+    status = django_filters.ChoiceFilter(choices=CHOICES_STATUS, label='Filter by status or by priority', widget=forms.Select(attrs={
         'class': INPUT_CLASS
     }))
     priority = django_filters.ChoiceFilter(choices=CHOICES_PRIORITY, label='', widget=forms.Select(attrs={
@@ -65,7 +65,7 @@ class LeadFilter(django_filters.FilterSet):
     )
         
     
-    status = django_filters.ChoiceFilter(choices=CHOICES_LEAD_STATUS, label='Filter by status or priority', widget=forms.Select(attrs={
+    status = django_filters.ChoiceFilter(choices=CHOICES_LEAD_STATUS, label='Filter by status or by priority', widget=forms.Select(attrs={
         'class': INPUT_CLASS
     }))
     priority = django_filters.ChoiceFilter(choices=CHOICES_PRIORITY, label='', widget=forms.Select(attrs={

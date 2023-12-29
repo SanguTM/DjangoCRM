@@ -1,13 +1,10 @@
 Todo:
-	Parasyti anotacija/summary
-	Santrumpu sarasas
-	Studiju rezultatai
-	
 	Sutvarkyti production enviroment - https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
 			https://blog.learncodeonline.in/deploy-your-django-postgresql-web-application-on-heroku-with-environment-variables
 
 
 	Export to pdf, xml - https://www.youtube.com/watch?v=1x_ACMFzGYM
+	Sutvarkyti Media ir Static failu rodyma prod aplinkoje
 
 ----------------------------------------------
 Todo sometime:
@@ -90,4 +87,7 @@ Done:
 	Paveiksliuku sarasas
 	Lenteliu sarasas
 	Lenteliu rusiavimas - https://www.kryogenix.org/code/browser/sorttable/
+		Parasyti anotacija/summary
+	Santrumpu sarasas
+	Studiju rezultatai
 	
