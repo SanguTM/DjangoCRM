@@ -38,7 +38,17 @@
                                     <td class="py-2 px-2">{{ lead.name }}</td>
                                     <td class="py-2 px-2">{{ lead.email }}</td>
                                     <td class="px-2"> {{ lead.phone }}</td>
-                                    <td class="px-2"> {{ lead.created_by }}</td>
+                                    <td class="px-2">
+                                        {% if lead.created_by.first_name %}
+                                        {% if lead.created_by.last_name %}
+                                        {{ lead.created_by.first_name }} {{ lead.created_by.last_name }}
+                                        {% else %}
+                                        {{ lead.created_by }}
+                                        {% endif %}
+                                        {% else %}
+                                        {{ lead.created_by }}
+                                        {% endif %}
+                                    </td>
                                     <td class="py-2 px-2">
                                         {% if lead.priority == 'low' %}
                                         <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ lead.get_priority_display }}</span>

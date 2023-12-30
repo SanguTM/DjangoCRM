@@ -57,11 +57,31 @@
                                     <td class="py-2 px-2">{{ ticket.ticket_number }}</td>
                                     <td class="py-2 px-2">{{ ticket.title }}</td>
                                     {% if request.user.is_manager %}
-                                    <td class="py-2 px-2">{{ ticket.created_by }}</td>
+                                    <td class="py-2 px-2">
+                                        {% if ticket.created_by.first_name %}
+                                        {% if ticket.created_by.last_name %}
+                                        {{ ticket.created_by.first_name }} {{ ticket.created_by.last_name }}
+                                        {% else %}
+                                        {{ ticket.created_by }}
+                                        {% endif %}
+                                        {% else %}
+                                        {{ ticket.created_by }}
+                                        {% endif %}
+                                    </td>
                                     {% endif %}
                                     <td class="py-2 px-2">{{ ticket.created_at|date:"Y-m-d H:i"  }}</td>
                                     <td class="py-2 px-2">{{ ticket.modified_at|date:"Y-m-d H:i"  }}</td>
-                                    <td class="py-2 px-2">{{ ticket.assign_to }}</td>
+                                    <td class="py-2 px-2">
+                                        {% if ticket.assign_to.first_name %}
+                                        {% if ticket.assign_to.last_name %}
+                                        {{ ticket.assign_to.first_name }} {{ ticket.assign_to.last_name }}
+                                        {% else %}
+                                        {{ ticket.assign_to }}
+                                        {% endif %}
+                                        {% else %}
+                                        {{ ticket.assign_to }}
+                                        {% endif %}
+                                    </td>
                                     <td class="px-2">
                                         {% if ticket.priority == 'low' %}
                                         <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ ticket.get_priority_display }}</span>

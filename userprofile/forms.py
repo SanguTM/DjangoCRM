@@ -59,7 +59,7 @@ class UpdateProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('client',)
         
-    client = forms.ModelChoiceField(queryset=Client.objects.all(), widget=forms.Select(attrs={
+    client = forms.ModelChoiceField(required=False, queryset=Client.objects.all(), widget=forms.Select(attrs={
         'class': INPUT_CLASS
     }))
 
@@ -77,15 +77,15 @@ class UpdateUserForm(forms.ModelForm):
         'placeholder': 'Your last name',
         'class': INPUT_CLASS
     }))
-    email = forms.CharField(widget=forms.EmailInput(attrs={
+    email = forms.CharField(required=False, widget=forms.EmailInput(attrs={
         'placeholder': 'Your email address',
         'class': INPUT_CLASS
     }))
-    phone = forms.CharField(widget=forms.TextInput(attrs={
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Your phone number',
         'class': INPUT_CLASS
     }))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={
         'placeholder': 'Your password',
         'class': INPUT_CLASS
     }))

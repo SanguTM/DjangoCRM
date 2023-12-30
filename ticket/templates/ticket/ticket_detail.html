@@ -5,48 +5,45 @@
 {% block content %}
 
 <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
+<div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
     <div class="grid md:grid-cols-2 gap-4">
-        <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-            <!--Main info-->
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="p-4 bg-white">
-                    <h3 class="mb-4 text-2xl"><b>Ticket: </b>{{ ticket.ticket_number }}</h3>
-                    <hr class="my-4 h-0.5 bg-black">
-                    <div class="grid md:grid-cols-2 gap-2">
-                        <p class="font-semibold">Title: </p>{{ ticket.title }}<br>
-                        <p class="font-semibold">Created at: </p>{{ ticket.created_at|date:"Y-m-d H:i" }}<br>
-                        <p class="font-semibold">Modifed at: </p>{{ ticket.modified_at|date:"Y-m-d H:i" }}<br>
-                        <p class="font-semibold">Closed at: </p>{{ ticket.closed_at|date:"Y-m-d H:i" }}<br>
-                        <p class="font-semibold">Priority: </p>
-                        {% if ticket.priority == 'low' %}
-                        <span class="font-semibold text-blue-500">
-                            {{ ticket.get_priority_display }}
-                        </span>
-                        {% elif ticket.priority == 'medium' %}
-                        <span class="font-semibold text-green-500">
-                            {{ ticket.get_priority_display }}
-                        </span>
-                        {% elif ticket.priority == 'high' %}
-                        <span class="font-semibold text-red-500">
-                            {{ ticket.get_priority_display }}
-                        </span>
-                        {% endif %}
-                        <p class="font-semibold">Status: </p>
-                        {% if ticket.status == 'active' %}
-                        <span class="font-semibold text-black">
-                            {{ ticket.get_status_display }}
-                        </span>
-                        {% elif ticket.status == 'completed' %}
-                        <span class="font-semibold text-black">
-                            {{ ticket.get_status_display }}
-                        </span>
-                        {% elif ticket.status == 'pending' %}
-                        <span class="font-semibold text-black">
-                            {{ ticket.get_status_display }}
-                        </span>
-                        {% endif %}
-                    </div>
-                </div>
+ <!--Main info-->
+        <div class="p-4 bg-white">
+            <h3 class="mb-4 text-2xl"><b>Ticket: </b>{{ ticket.ticket_number }}</h3>
+            <hr class="my-4 h-0.5 bg-black">
+            <div class="grid md:grid-cols-[100px_auto] gap-2">
+                <p class="font-semibold">Title: </p>{{ ticket.title }}<br>
+                <p class="font-semibold">Created at: </p>{{ ticket.created_at|date:"Y-m-d H:i" }}<br>
+                <p class="font-semibold">Modifed at: </p>{{ ticket.modified_at|date:"Y-m-d H:i" }}<br>
+                <p class="font-semibold">Closed at: </p>{{ ticket.closed_at|date:"Y-m-d H:i" }}<br>
+                <p class="font-semibold">Priority: </p>
+                {% if ticket.priority == 'low' %}
+                <span class="font-semibold text-blue-500">
+                    {{ ticket.get_priority_display }}
+                </span>
+                {% elif ticket.priority == 'medium' %}
+                <span class="font-semibold text-green-500">
+                    {{ ticket.get_priority_display }}
+                </span>
+                {% elif ticket.priority == 'high' %}
+                <span class="font-semibold text-red-500">
+                    {{ ticket.get_priority_display }}
+                </span>
+                {% endif %}
+                <p class="font-semibold">Status: </p>
+                {% if ticket.status == 'active' %}
+                <span class="font-semibold text-black">
+                    {{ ticket.get_status_display }}
+                </span>
+                {% elif ticket.status == 'completed' %}
+                <span class="font-semibold text-black">
+                    {{ ticket.get_status_display }}
+                </span>
+                {% elif ticket.status == 'pending' %}
+                <span class="font-semibold text-black">
+                    {{ ticket.get_status_display }}
+                </span>
+                {% endif %}
             </div>
             <hr class="my-4" />
             <h3 class="font-semibold text-xl">Description: </h3><br />
@@ -55,40 +52,38 @@
             </div>
         </div>
         <!--User info-->
-        <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="p-4 bg-white">
-                    <h3 class="mb-4 text-2xl"><b>Client: </b>{{ user.first_name }} {{ user.last_name }}</h3>
-                    <hr class="my-4 h-0.5 bg-black">
-                    <div class="grid md:grid-cols-2 gap-2">
-                        <p class="font-semibold">User name: </p>{{ user.username }}<br>
-                        <p class="font-semibold">E-mail: </p>{{ user.email }}<br>
-                        <p class="font-semibold">Phone: </p>{{ user.phone }}<br>
-                    </div>
-                    <hr class="my-4" />
-                    <div class="grid md:grid-cols-2 gap-2">
-                        <p class="font-semibold">Company: </p>{{ user_profile.client }}<br>
-                        <p class="font-semibold">Description: </p>{{ user_profile.client.description }}<br>
-                        {% if request.user.is_manager %}
-                        {% if user_profile.client.id %}
-                        <a href="{% url 'clients:detail' user_profile.client.id %}" class="w-full inline-block py-1 px-6 text-center bg-gray-600 rounded-xl font-semibold text-white">Client page</a>
-                        {% endif %}
-                        {% elif request.user.is_customer %}
-                        <a href="{% url 'userprofile:user_account' %}" class="inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Edit account</a>
-                        {% endif %}
-                    </div>
-                </div>
+        <div class="p-4 bg-white">
+            <h3 class="mb-4 text-2xl"><b>Client: </b>{{ user.first_name }} {{ user.last_name }}</h3>
+            <hr class="my-4 h-0.5 bg-black">
+            <div class="grid md:grid-cols-[100px_auto] gap-2">
+                <p class="font-semibold">User name: </p>{{ user.username }}<br>
+                <p class="font-semibold">E-mail: </p>{{ user.email }}<br>
+                <p class="font-semibold">Phone: </p>{{ user.phone }}<br>
             </div>
+            <hr class="my-4" />
+            <div class="grid md:grid-cols-[100px_auto] gap-2">
+                <p class="font-semibold">Company: </p>{{ user_profile.client }}<br>
+                <p class="font-semibold">Description: </p>{{ user_profile.client.description }}<br>
+            </div>
+            <br class="my-1"/>
+            {% if request.user.is_manager %}
+            {% if user_profile.client.id %}
+            <a href="{% url 'clients:detail' user_profile.client.id %}" class="w-full inline-block py-1 px-6 text-center bg-gray-600 rounded-xl font-semibold text-white">Client page</a>
+            {% else %}
+            <a href="{% url 'userprofile:edit-profile' user_profile.id %}" class="w-full inline-block py-1 px-6 text-center bg-gray-600 rounded-xl font-semibold text-white">Assign client</a>
+            {% endif %}
+            {% elif request.user.is_customer %}
+            <a href="{% url 'userprofile:user_account' %}" class="w-full inline-block text-center py-1 px-6 bg-green-500 rounded-xl font-semibold text-white">Edit account</a>
+            {% endif %}
         </div>
+    </div>
     </div>
     <!--Ticket solution-->
     {% if ticket.is_resolved %}
     <hr class="my-4">
     <h1 class="text-xl font-semibold">Ticket solution:</h1>
-
     <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
         <p>{{ ticket.solution }}</></p>
-
     </div>
     {% endif %}
     <hr class="my-4">
@@ -103,12 +98,12 @@
                             <tr>
                                 <th scope="col" class="px-6 py-4">Number</th>
                                 <th scope="col" class="px-6 py-4">Title</th>
-                                <th scope="col" class="px-6 py-4">Created by</th>
                                 <th scope="col" class="px-6 py-4">Created at</th>
-                                <th scope="col" class="px-6 py-4">Assigned to</th>
                                 <th scope="col" class="px-6 py-4">Accepted at</th>
+                                <th scope="col" class="px-6 py-4">Assigned to</th>
                                 <th scope="col" class="px-6 py-4">Priority</th>
                                 <th scope="col" class="px-6 py-4">Status</th>
+                                <th scope="col" class="px-6 py-4">View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,8 +112,18 @@
                                 <td class="py-2 px-2">{{ user_ticket.ticket_number }}</td>
                                 <td class="py-2 px-2">{{ user_ticket.title }}</td>
                                 <td class="px-2"> {{ user_ticket.created_at|date:"Y-m-d H:i" }}</td>
-                                <td class="px-2"> {{ user_ticket.assign_to }}</td>
                                 <td class="px-2"> {{ ticket.accepted_at|date:"Y-m-d H:i" }}</td>
+                                <td class="px-2">
+                                    {% if user_ticket.assign_to.first_name %}
+                                    {% if user_ticket.assign_to.last_name %}
+                                    {{ user_ticket.assign_to.first_name }} {{ user_ticket.assign_to.last_name }}
+                                    {% else %}
+                                    {{ user_ticket.assign_to }}
+                                    {% endif %}
+                                    {% else %}
+                                    {{ user_ticket.assign_to }}
+                                    {% endif %}
+                                </td>
                                 <td class="px-2">
                                     {% if user_ticket.priority == 'low' %}
                                     <span class="inline-block py-1 px-6 font-semibold text-blue-500 text-center">{{ user_ticket.get_priority_display }}</span>
@@ -218,7 +223,17 @@
         <div class="space-y-4">
             {% for comment in ticket.comments.all %}
             <div class="bg-gray-100 p-6 rounded-xl">
-                <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at|date:"Y-m-d H:i" }}</p>
+                <p class="mb-2"><strong>
+    {% if comment.created_by.first_name %}
+    {% if comment.created_by.last_name %}
+    {{ comment.created_by.first_name }} {{ comment.created_by.last_name }}
+    {% else %}
+    {{ comment.created_by }}
+    {% endif %}
+    {% else %}
+    {{ comment.created_by }}
+    {% endif %}
+</strong> @ {{ comment.created_at|date:"Y-m-d H:i" }}</p>
                 {{ comment.content }}
             </div>
             {% endfor %}
@@ -235,7 +250,17 @@
         <h1 class="text-xl font-semibold">Files:</h1>
 
         {% for file in ticket.files.all %}
-        <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at|date:"Y-m-d H:i" }}</p>
+        <p class="mb-2"><strong>
+    {% if file.created_by.first_name %}
+    {% if file.created_by.last_name %}
+    {{ file.created_by.first_name }} {{ file.created_by.last_name }}
+    {% else %}
+    {{ file.created_by }}
+    {% endif %}
+    {% else %}
+    {{ file.created_by }}
+    {% endif %}
+</strong> @ {{ file.created_at|date:"Y-m-d H:i" }}</p>
 
         <a href="{{ file.file.url }}">{{ file.file.file }}</a>
         {% endfor %}

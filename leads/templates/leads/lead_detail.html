@@ -9,10 +9,20 @@
         <div class="p-4 bg-white">
             <h3 class="mb-4 text-2xl"><b>Lead: </b>{{ lead.name }}</h3>
             <hr class="my-4 h-0.5 bg-black">
-            <div class="grid md:grid-cols-2 gap-2">
+            <div class="grid md:grid-cols-[100px_auto] gap-2">
                 <p class="font-semibold">Description: </p>{{ lead.description }}<br>
                 <p class="font-semibold">Phone: </p>{{ lead.phone }}<br>
                 <p class="font-semibold">E-mail: </p>{{ lead.email }}<br>
+                <p class="font-semibold">Created by: </p>
+                {% if lead.created_by.first_name %}
+                {% if lead.created_by.last_name %}
+                {{ lead.created_by.first_name }} {{ lead.created_by.last_name }}
+                {% else %}
+                {{ lead.created_by }}
+                {% endif %}
+                {% else %}
+                {{ lead.created_by }}
+                {% endif %}<br>
                 <p class="font-semibold">Created at: </p>{{ lead.created_at|date:"Y-m-d H:i" }}<br>
                 <p class="font-semibold">Modifed at: </p>{{ lead.modified_at|date:"Y-m-d H:i" }}<br>
                 <p class="font-semibold">Status: </p>
@@ -69,7 +79,17 @@
     <div class="space-y-4">
         {% for comment in lead.comments.all %}
         <div class="bg-gray-100 p-6 rounded-xl">
-            <p class="mb-2"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at|date:"Y-m-d H:i" }}</p>
+            <p class="mb-2"><strong>
+    {% if comment.created_by.first_name %}
+    {% if comment.created_by.last_name %}
+    {{ comment.created_by.first_name }} {{ comment.created_by.last_name }}
+    {% else %}
+    {{ comment.created_by }}
+    {% endif %}
+    {% else %}
+    {{ comment.created_by }}
+    {% endif %}
+</strong> @ {{ comment.created_at|date:"Y-m-d H:i" }}</p>
             {{ comment.content }}
         </div>
         {% endfor %}
@@ -86,7 +106,17 @@
     <h1 class="text-xl font-semibold">Files:</h1>
 
     {% for file in lead.files.all %}
-    <p class="mb-2"><strong>{{ file.created_by }}</strong> @ {{ file.created_at|date:"Y-m-d H:i" }}</p>
+    <p class="mb-2"><strong>
+    {% if file.created_by.first_name %}
+    {% if file.created_by.last_name %}
+    {{ file.created_by.first_name }} {{ file.created_by.last_name }}
+    {% else %}
+    {{ file.created_by }}
+    {% endif %}
+    {% else %}
+    {{ file.created_by }}
+    {% endif %}
+</strong> @ {{ file.created_at|date:"Y-m-d H:i" }}</p>
 
     <a href="{{ file.file.url }}">{{ file.file.file }}</a>
     {% endfor %}
