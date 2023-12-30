@@ -31,7 +31,7 @@ class CreateTicketForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={
         'class': INPUT_CLASS
     }))
-    description = forms.CharField(widget=forms.Textarea(attrs={
+    description = forms.CharField(strip=False,widget=forms.Textarea(attrs={
         'class': INPUT_CLASS
     }))
     priority = forms.ChoiceField(choices=CHOICES_PRIORITY, widget=forms.Select(attrs={
@@ -46,7 +46,7 @@ class UpdateTicketForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={
         'class': INPUT_CLASS
     }))
-    description = forms.CharField(widget=forms.Textarea(attrs={
+    description = forms.CharField(strip=False, widget=forms.Textarea(attrs={
         'class': INPUT_CLASS
     }))
     priority = forms.ChoiceField(choices=CHOICES_PRIORITY, widget=forms.Select(attrs={

@@ -48,7 +48,7 @@
             <hr class="my-4" />
             <h3 class="font-semibold text-xl">Description: </h3><br />
             <div class="rounded-lg bg-gray-100 py-1 px-1">
-                <p class="bg-gray-100">{{ ticket.description }}</p><br>
+                <p class="bg-gray-100"><pre style="white-space: pre-wrap;">{{ ticket.description }}</pre></p><br>
             </div>
         </div>
         <!--User info-->
@@ -63,7 +63,7 @@
             <hr class="my-4" />
             <div class="grid md:grid-cols-[100px_auto] gap-2">
                 <p class="font-semibold">Company: </p>{{ user_profile.client }}<br>
-                <p class="font-semibold">Description: </p>{{ user_profile.client.description }}<br>
+                <p class="font-semibold">Description: </p><pre style="white-space: pre-wrap;">{{ user_profile.client.description }}<br></pre>
             </div>
             <br class="my-1"/>
             {% if request.user.is_manager %}
@@ -83,7 +83,7 @@
     <hr class="my-4">
     <h1 class="text-xl font-semibold">Ticket solution:</h1>
     <div class="container mx-auto shadow-lg rounded-lg py-6 px-6">
-        <p>{{ ticket.solution }}</></p>
+        <pre style="white-space: pre-wrap;"><p>{{ ticket.solution }}</></p></pre>
     </div>
     {% endif %}
     <hr class="my-4">
@@ -234,7 +234,7 @@
     {{ comment.created_by }}
     {% endif %}
 </strong> @ {{ comment.created_at|date:"Y-m-d H:i" }}</p>
-                {{ comment.content }}
+                <pre style="white-space: pre-wrap;">{{ comment.content }}</pre>
             </div>
             {% endfor %}
         </div>

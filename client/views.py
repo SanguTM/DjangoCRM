@@ -12,7 +12,7 @@ from leads.models import Lead
 @login_required
 def clients_list(request):
     team = request.user.userprofile.active_team
-    clients = team.clients.all()
+    clients = Client.objects.all()
     #clients = Client.objects.filter(created_by=request.user)
 
     if request.user.is_manager:

@@ -10,10 +10,10 @@
             <h3 class="mb-4 text-2xl"><b>Lead: </b>{{ lead.name }}</h3>
             <hr class="my-4 h-0.5 bg-black">
             <div class="grid md:grid-cols-[100px_auto] gap-2">
-                <p class="font-semibold">Description: </p>{{ lead.description }}<br>
-                <p class="font-semibold">Phone: </p>{{ lead.phone }}<br>
-                <p class="font-semibold">E-mail: </p>{{ lead.email }}<br>
-                <p class="font-semibold">Created by: </p>
+                <p class="font-semibold">Description: </p><pre style="white-space: pre-wrap;">{{ lead.description }}<br></pre>
+<p class="font-semibold">Phone: </p>{{ lead.phone }}<br>
+<p class="font-semibold">E-mail: </p>{{ lead.email }}<br>
+<p class="font-semibold">Created by: </p>
                 {% if lead.created_by.first_name %}
                 {% if lead.created_by.last_name %}
                 {{ lead.created_by.first_name }} {{ lead.created_by.last_name }}
@@ -23,44 +23,44 @@
                 {% else %}
                 {{ lead.created_by }}
                 {% endif %}<br>
-                <p class="font-semibold">Created at: </p>{{ lead.created_at|date:"Y-m-d H:i" }}<br>
-                <p class="font-semibold">Modifed at: </p>{{ lead.modified_at|date:"Y-m-d H:i" }}<br>
-                <p class="font-semibold">Status: </p>
+<p class="font-semibold">Created at: </p>{{ lead.created_at|date:"Y-m-d H:i" }}<br>
+<p class="font-semibold">Modifed at: </p>{{ lead.modified_at|date:"Y-m-d H:i" }}<br>
+<p class="font-semibold">Status: </p>
                 {% if lead.status == 'new' %}
-                <span class="font-semibold text-black">
+<span class="font-semibold text-black">
                     {{ lead.get_status_display }}
                 </span>
                 {% elif lead.status == 'contacted' %}
-                <span class="font-semibold text-black">
+<span class="font-semibold text-black">
                     {{ lead.get_status_display }}
                 </span>
                 {% elif lead.status == 'won' %}
-                <span class="font-semibold text-black">
+<span class="font-semibold text-black">
                     {{ lead.get_status_display }}
                 </span>
                 {% elif lead.status == 'lost' %}
-                <span class="font-semibold text-black">
+<span class="font-semibold text-black">
                     {{ lead.get_status_display }}
                 </span>
                 {% endif %}
 
-                <p class="font-semibold">Priority: </p>
+<p class="font-semibold">Priority: </p>
                 {% if lead.priority == 'low' %}
-                <span class="font-semibold text-blue-500">
+<span class="font-semibold text-blue-500">
                     {{ lead.get_priority_display }}
                 </span>
                 {% elif lead.priority == 'medium' %}
-                <span class="font-semibold text-green-500">
+<span class="font-semibold text-green-500">
                     {{ lead.get_priority_display }}
                 </span>
                 {% elif lead.priority == 'high' %}
-                <span class="font-semibold text-red-500">
+<span class="font-semibold text-red-500">
                     {{ lead.get_priority_display }}
                 </span>
                 {% endif %}
                 {% if lead.is_client %}
-                <p class="font-semibold">Client: </p>
-                <span class="font-semibold text-green-500 text-xl">&#10003;</span>
+<p class="font-semibold">Client: </p>
+<span class="font-semibold text-green-500 text-xl">&#10003;</span>
                 {% endif %}
             </div>
         </div>
@@ -90,7 +90,7 @@
     {{ comment.created_by }}
     {% endif %}
 </strong> @ {{ comment.created_at|date:"Y-m-d H:i" }}</p>
-            {{ comment.content }}
+            <pre style="white-space: pre-wrap;">{{ comment.content }}</pre>
         </div>
         {% endfor %}
     </div>

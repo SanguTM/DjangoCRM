@@ -31,7 +31,7 @@ class LeadListView(ManagementRequiredMixin, ListView):
         team = self.request.user.userprofile.active_team
         context = super().get_context_data(**kwargs)
         context['team'] = team
-        context['filter'] = LeadFilter(self.request.GET, Lead.objects.filter(team=team).order_by('-created_at'))
+        context['filter'] = LeadFilter(self.request.GET, Lead.objects.all().order_by('-created_at'))
         
         return context
     
