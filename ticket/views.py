@@ -230,6 +230,50 @@ def ticket_accept(request, pk):
         ticket.status = 'active'
         ticket.accepted_at = datetime.datetime.now()
         ticket.save()
+        
+        settings = EmailSetting.objects.first()
+
+        if settings:
+            connection = get_connection(
+                    host=settings.email_host,
+                    port=settings.email_port,
+                    use_tls=settings.email_use_tls,
+                    from_email = settings.email_from_email,
+                    username=settings.email_host_user,
+                    password=settings.email_host_password)
+                
+        if settings:
+            url = request.build_absolute_uri()
+            subject = "Ticket: " + ticket.ticket_number + " was accepted"
+            message = "Ticket was accepted. Check it here: " + url
+            user = User.objects.get(username = ticket.created_by)
+            recipent_list = [
+                user.email
+            ]
+
+            context = {
+                "ticket": ticket, 
+                "url": url
+            }
+            
+            html = render_to_string('notification/ticked_accepted_mail.html', context=context)
+            plain_message = strip_tags(html)            
+
+            message = EmailMultiAlternatives(
+                    subject = subject,
+                    body = plain_message,
+                    #message = message,
+                    to = recipent_list,
+                    #from_email = 'Django CRM support',
+                    connection=connection
+                )
+                
+            message.attach_alternative(html, 'text/html')
+            message.send()
+                
+            message = "Ticket received new comment. Check it here: " + url
+
+            Email.objects.create(subject=subject, message=message, email = recipent_list)
     
         return redirect('tickets:queue')
     else: 
@@ -259,7 +303,7 @@ def ticket_close(request, pk):
         if settings:
             url = request.build_absolute_uri()
             subject = "Ticket: " + ticket.ticket_number + " was closed"
-            message = "Ticket received new comment. Check it here: " + url
+            message = "Ticket was closed. Check it here: " + url
             user = User.objects.get(username = ticket.created_by)
             recipent_list = [
                 user.email
